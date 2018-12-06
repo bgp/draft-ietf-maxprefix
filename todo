@@ -1,0 +1,50 @@
+Document structuur:
+
+introduction:
+    probleem stelling
+    oplossing
+
+control theory:
+    valves
+    fail closed
+    prioritise security over convinience
+
+inbound maximum prefix limits
+    type A: pre-policy
+        - protect against full table leaks
+        - RIB exhaustion
+    type B: post-policy
+        - protect against FIB exhaution
+
+outbound maximum prefix limits
+    type C: (implicitly) post-policy
+        - dead man's switch
+        - protects others against your own misconfigurations
+
+considerations when using Multi Protocol BGP-4:
+    - best current practise is to do ipv4 over ipv4, ipv6 over ipv6
+    - isolation between AFIs / fate sharing between AFIs on single session
+    - implementors should be able to specify per AFI limits
+
+how to decide on how high or low to set limits
+
+known implementations
+
+references:
+
+    RFC 4271, 8.2.2.  Finite State Machine:
+        "One reason for an AutomaticStop event is: A BGP receives an UPDATE
+        messages with a number of prefixes for a given peer such that the
+        total prefixes received exceeds the maximum number of prefixes
+        configured.  The local system automatically disconnects the peer."
+
+    RFC 4486 "Subcodes for BGP Cease Notification Message"
+        "If a BGP speaker decides to terminate its peering with a neighbor
+        because the number of address prefixes received from the neighbor
+        exceeds a locally configured upper bound (as described in [BGP-4]),
+        then the speaker MUST send to the neighbor a NOTIFICATION message
+        with the Error Code Cease and the Error Subcode "Maximum Number of
+        Prefixes Reached".  The message MAY optionally include the Address
+        Family information [BGP-MP] and the upper bound in the "Data" field,
+        as shown in Figure 1, where the meaning and use of the <AFI, SAFI>
+        tuple is the same as defined in [BGP-MP], Section 7."
