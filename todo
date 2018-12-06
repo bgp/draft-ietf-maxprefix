@@ -11,13 +11,18 @@ control theory:
 
 inbound maximum prefix limits
     type A: pre-policy
+        - describe placement in conceptual model: Adj-RIB-In
         - protect against full table leaks
         - RIB exhaustion
+        - 'soft reconfiguration inbound' needed to do pre-policy
+
     type B: post-policy
+        - describe placement in conceptual model: after PIB in Adj-RIB-In -> Loc-RIB
         - protect against FIB exhaution
 
 outbound maximum prefix limits
     type C: (implicitly) post-policy
+        - describe placement in conceptual model: Adj-RIB-Out
         - dead man's switch
         - protects others against your own misconfigurations
 
