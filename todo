@@ -35,6 +35,10 @@ how to decide on how high or low to set limits
 
 known implementations
 
+IANA:
+    - update https://www.iana.org/assignments/bgp-parameters/bgp-parameters.xhtml#bgp-parameters-8 that '1 is used for inbound'
+    - request new cease notification for outbound limit reached
+
 references:
 
     RFC 4271, 8.2.2.  Finite State Machine:
@@ -53,3 +57,5 @@ references:
         Family information [BGP-MP] and the upper bound in the "Data" field,
         as shown in Figure 1, where the meaning and use of the <AFI, SAFI>
         tuple is the same as defined in [BGP-MP], Section 7."
+
+   RFC 7908 - route leak definitions
