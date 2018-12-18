@@ -71,8 +71,8 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Application of Control Theory to BGP-4 Operations . . . . . .   2
    3.  Inbound Maximum Prefix Limits . . . . . . . . . . . . . . . .   2
-     3.1.  Type A: pre-policy limit  . . . . . . . . . . . . . . . .   3
-     3.2.  Type B: post-policy limit . . . . . . . . . . . . . . . .   3
+     3.1.  Type A: Pre-Policy Inbound Maximum Prefix Limits  . . . .   3
+     3.2.  Type B: Post-Policy Inbound Maximum Prefix Limits . . . .   3
    4.  Outbound Maximum Prefix Limits  . . . . . . . . . . . . . . .   3
    5.  Considerations for Operations with Multi-Protocol BGP-4 . . .   4
    6.  Considerations for soft thresholds  . . . . . . . . . . . . .   4
@@ -120,7 +120,7 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
    applied in two distinct places in the conceptual model: before or
    after the application of routing policy.
 
-3.1.  Type A: pre-policy limit
+3.1.  Type A: Pre-Policy Inbound Maximum Prefix Limits
 
    Adj-RIB-In stores routing information learned from inbound UPDATE
    messages that were received from another BGP speaker Section 3.2
@@ -135,7 +135,7 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
    Type A pre-policy limits are particularly useful to help dampen the
    effects of full table route leaks and memory exhaustion.
 
-3.2.  Type B: post-policy limit
+3.2.  Type B: Post-Policy Inbound Maximum Prefix Limits
 
    RFC4271 describes a Policy Information Base (PIB) that contains local
    policies that can be applied to the information in the Routing
