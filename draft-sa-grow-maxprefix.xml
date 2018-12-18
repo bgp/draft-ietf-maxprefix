@@ -105,7 +105,7 @@
                     As example, when an operator configures the Type A pre-policy limit for IPv4 Unicast to be 50 on a given EBGP session, and the other BGP speaker announces its 51th IPv4 Unicast NLRI, the session MUST be torn down.
                 </t>
                 <t>
-                    Type A pre-policy limits are particularly useful to help dampen the effects of full table route leaks and memory exhaustion.
+                    Type A pre-policy limits are particularly useful to help dampen the effects of full table route leaks and memory exhaustion when the implementation stores rejected routes.
                 </t>
             </section>
             <section title="Type B: Post-Policy Inbound Maximum Prefix Limits">
@@ -164,7 +164,7 @@
         </section>
         <section title="Acknowledgments">
             <t>
-                The authors would like to thank ...
+                The authors would like to thank Saku Ytti for feedback.
             </t>
         </section>
         <section title="Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION">
