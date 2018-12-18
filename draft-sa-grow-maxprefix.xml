@@ -20,7 +20,7 @@
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="info"
+<rfc category="std"
     ipr="trust200902"
     docName="draft-sa-grow-maxprefix-00"
     submissionType="IETF">
@@ -127,6 +127,9 @@
                 The Outbound Maximum Prefix Limit uses the number NLRIs per Address Family Identifier (AFI) per Subsequent Address Family Identifier (SAFI), after application of the Export Policy as input into its threshold comparisons.
             </t>
             <t>
+                When an operator configures the Outbound Maximum Prefix Limit to be 50 on a given EBGP session, and for one reason or another advertises more than 50 routes, the BGP session MUST be torn down 
+            </t>
+            <t>
                 Outbound Maximum Prefix Limits are useful to help dampen the negative effects of a misconfiguration in local policy.
                 In some cases it may be more desirable to tear down a BGP session rather than participate in a route leak.
                 Outbound Maximum Prefix Limits can be thought of as Dead Man's Switches.
@@ -138,9 +141,16 @@
             </t>
         </section>
 
-        <section title="Security Considerations">
+        <section title="Considerations for soft thresholds">
             <t>
-                TBW
+                describe soft and hard limits (warning vs teardown)
+            </t>
+        </section>
+
+       <section title="Security Considerations">
+           <t>
+               TBD.
+               Maximum Prefix Limits are an essential tool for routing operations.
             </t>
         </section>
         <section title="IANA Considerations">
