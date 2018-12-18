@@ -81,7 +81,7 @@ Table of Contents
    9.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   4
    10. Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION   4
    11. Appendix: Implementation Guidance . . . . . . . . . . . . . .   5
-   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .   5
+   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .   6
      12.1.  Normative References . . . . . . . . . . . . . . . . . .   6
      12.2.  Informative References . . . . . . . . . . . . . . . . .   6
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   6
@@ -161,7 +161,7 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
    Outbound Maximum Prefix Limit uses the number NLRIs per Address
    Family Identifier (AFI) per Subsequent Address Family Identifier
    (SAFI), after application of the Export Policy as input into its
-   threshold comparisons.
+
 
 
 
@@ -169,6 +169,9 @@ Snijders & Aelmans        Expires June 21, 2019                 [Page 3]
 
 Internet-Draft          BGP Maximum Prefix Limits          December 2018
 
+
+   threshold comparisons.  By definition, Outbound Maximum Prefix Limits
+   are Post-Policy.
 
    When an operator configures the Outbound Maximum Prefix Limit to be
    50 on a given EBGP session, and for one reason or another the BGP
@@ -215,9 +218,6 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
    This section records the status of known implementations of the
    protocol defined by this specification at the time of posting of this
    Internet-Draft, and is based on a proposal described in RFC7942.  The
-   description of implementations in this section is intended to assist
-   the IETF in its decision processes in progressing drafts to RFCs.
-   Please note that the listing of any individual implementation here
 
 
 
@@ -226,6 +226,9 @@ Snijders & Aelmans        Expires June 21, 2019                 [Page 4]
 Internet-Draft          BGP Maximum Prefix Limits          December 2018
 
 
+   description of implementations in this section is intended to assist
+   the IETF in its decision processes in progressing drafts to RFCs.
+   Please note that the listing of any individual implementation here
    does not imply endorsement by the IETF.  Furthermore, no effort has
    been spent to verify the information presented here that was supplied
    by IETF contributors.  This is not intended as, and must not be
@@ -268,9 +271,6 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
    which of the two parties does what 2) recommended by default
    automatictly restart after between 15 and 30 minutes
 
-12.  References
-
-
 
 
 
@@ -281,6 +281,8 @@ Snijders & Aelmans        Expires June 21, 2019                 [Page 5]
 
 Internet-Draft          BGP Maximum Prefix Limits          December 2018
 
+
+12.  References
 
 12.1.  Normative References
 
@@ -326,8 +328,6 @@ Authors' Addresses
    The Netherlands
 
    Email: job@ntt.net
-
-
 
 
 

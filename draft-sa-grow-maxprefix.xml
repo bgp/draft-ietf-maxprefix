@@ -125,6 +125,7 @@
                 The Adj-RIBs-Out stores information the local BGP speaker selected for advertisement to its neighbors.
                 The routing information stored in the Adj-RIBs-Out will be carried in the local BGP speaker's UPDATE messages and advertised to its neighbors <xref target="RFC4271">Section 3.2</xref>.
                 The Outbound Maximum Prefix Limit uses the number NLRIs per Address Family Identifier (AFI) per Subsequent Address Family Identifier (SAFI), after application of the Export Policy as input into its threshold comparisons.
+                By definition, Outbound Maximum Prefix Limits are Post-Policy.
             </t>
             <t>
                 When an operator configures the Outbound Maximum Prefix Limit to be 50 on a given EBGP session, and for one reason or another the BGP speaker would advertise more than 50 routes, the BGP session MUST be torn down and send the neighbor a NOTIFICATION message with the Error Code Cease and the Error Subcode "Threshold reached: Maximum Number of Prefixes Sent".
