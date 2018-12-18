@@ -127,7 +127,7 @@
                 The Outbound Maximum Prefix Limit uses the number NLRIs per Address Family Identifier (AFI) per Subsequent Address Family Identifier (SAFI), after application of the Export Policy as input into its threshold comparisons.
             </t>
             <t>
-                When an operator configures the Outbound Maximum Prefix Limit to be 50 on a given EBGP session, and for one reason or another advertises more than 50 routes, the BGP session MUST be torn down 
+                When an operator configures the Outbound Maximum Prefix Limit to be 50 on a given EBGP session, and for one reason or another the BGP speaker would advertise more than 50 routes, the BGP session MUST be torn down and send the neighbor a NOTIFICATION message with the Error Code Cease and the Error Subcode "Threshold reached: Maximum Number of Prefixes Sent".
             </t>
             <t>
                 Outbound Maximum Prefix Limits are useful to help dampen the negative effects of a misconfiguration in local policy.
