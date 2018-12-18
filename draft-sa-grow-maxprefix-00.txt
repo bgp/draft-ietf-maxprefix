@@ -80,11 +80,11 @@ Table of Contents
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   4
    9.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   4
    10. Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION   4
-   11. Appendix: Implementation Guidance . . . . . . . . . . . . . .   5
+   11. Appendix: Implementation Guidance . . . . . . . . . . . . . .   6
    12. References  . . . . . . . . . . . . . . . . . . . . . . . . .   6
      12.1.  Normative References . . . . . . . . . . . . . . . . . .   6
      12.2.  Informative References . . . . . . . . . . . . . . . . .   6
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   6
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   7
 
 1.  Introduction
 
@@ -241,37 +241,37 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
    maximum prefix limits.  Each table cell shows the applicable
    configuration keywords if the vendor implemented the feature.
 
-   +--------------+----------------------+-----------------------------+
-   |    Vendor    |      Pre-Policy      |         Post-Policy         |
-   +--------------+----------------------+-----------------------------+
-   | Cisco IOS XR |                      |        maximum-prefix       |
-   +--------------+----------------------+-----------------------------+
-   | Cisco IOS XE |                      |        maximum-prefix       |
-   +--------------+----------------------+-----------------------------+
-   |   Juniper    |     prefix-limit     |  accepted-prefix-limit, or  |
-   |   Junos OS   |                      |  prefix-limit combined with |
-   |              |                      |         'keep none'         |
-   +--------------+----------------------+-----------------------------+
-   | Nokia SR OS  |     prefix-limit     |                             |
-   +--------------+----------------------+-----------------------------+
-   | NIC.CZ BIRD  |     'import keep     |  'import limit' or 'import  |
-   |              |  filtered' combined  |            limit'           |
-   |              | with 'receive limit' |                             |
-   +--------------+----------------------+-----------------------------+
-   |   OpenBSD    |      max-prefix      |                             |
-   |   OpenBGPD   |                      |                             |
-   +--------------+----------------------+-----------------------------+
+   +--------------+----------------+------------------------+----------+
+   |    Vendor    |  Type A Pre-   |   Type B Post-Policy   | Outbound |
+   |              |     Policy     |                        |          |
+   +--------------+----------------+------------------------+----------+
+   | Cisco IOS XR |                |     maximum-prefix     |          |
+   +--------------+----------------+------------------------+----------+
+   | Cisco IOS XE |                |     maximum-prefix     |          |
+   +--------------+----------------+------------------------+----------+
+   |   Juniper    |  prefix-limit  | accepted-prefix-limit, |          |
+   |   Junos OS   |                |    or prefix-limit     |          |
+   |              |                |  combined with 'keep   |          |
+   |              |                |         none'          |          |
+   +--------------+----------------+------------------------+----------+
+   | Nokia SR OS  |  prefix-limit  |                        |          |
+   +--------------+----------------+------------------------+----------+
+   | NIC.CZ BIRD  |  'import keep  |   'import limit' or    |  export  |
+   |              |   filtered'    |     'import limit'     |  limit   |
+   |              | combined with  |                        |          |
+   |              |    'receive    |                        |          |
+   |              |     limit'     |                        |          |
+   +--------------+----------------+------------------------+----------+
+   |   OpenBSD    |   max-prefix   |                        |          |
+   |   OpenBGPD   |                |                        |          |
+   +--------------+----------------+------------------------+----------+
 
                             Snijders, [RIPE77]
 
       Table 1: Maximum prefix limits capabilities per implementation
 
-11.  Appendix: Implementation Guidance
 
-   1) make it clear who does what: if A sends too many prefixes to B A
-   should see "ABC" in log B should see "DEF" in log to make it clear
-   which of the two parties does what 2) recommended by default
-   automatictly restart after between 15 and 30 minutes
+
 
 
 
@@ -281,6 +281,13 @@ Snijders & Aelmans        Expires June 21, 2019                 [Page 5]
 
 Internet-Draft          BGP Maximum Prefix Limits          December 2018
 
+
+11.  Appendix: Implementation Guidance
+
+   1) make it clear who does what: if A sends too many prefixes to B A
+   should see "ABC" in log B should see "DEF" in log to make it clear
+   which of the two parties does what 2) recommended by default
+   automatictly restart after between 15 and 30 minutes
 
 12.  References
 
@@ -319,6 +326,18 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
               2018, <https://ripe77.ripe.net/wp-content/uploads/presenta
               tions/59-RIPE77_Snijders_Routing_Policy_Architecture.pdf>.
 
+
+
+
+
+
+
+
+Snijders & Aelmans        Expires June 21, 2019                 [Page 6]
+
+Internet-Draft          BGP Maximum Prefix Limits          December 2018
+
+
 Authors' Addresses
 
    Job Snijders
@@ -330,14 +349,6 @@ Authors' Addresses
    Email: job@ntt.net
 
 
-
-
-
-Snijders & Aelmans        Expires June 21, 2019                 [Page 6]
-
-Internet-Draft          BGP Maximum Prefix Limits          December 2018
-
-
    Melchior Aelmans
    Juniper Networks
    Boeing Avenue 240
@@ -345,17 +356,6 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
    The Netherlands
 
    Email: maelmans@juniper.net
-
-
-
-
-
-
-
-
-
-
-
 
 
 

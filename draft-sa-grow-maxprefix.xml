@@ -189,14 +189,15 @@
             </t>
                 <texttable anchor="table_ex" title="Maximum prefix limits capabilities per implementation" style="all">
                     <ttcol align="center" width="20%">Vendor</ttcol>
-                    <ttcol align="center">Pre-Policy</ttcol>
-                    <ttcol align="center">Post-Policy</ttcol>
-                    <c>Cisco IOS XR</c><c></c><c>maximum-prefix</c>
-                    <c>Cisco IOS XE</c><c></c><c>maximum-prefix</c>
-                    <c>Juniper Junos OS</c><c>prefix-limit</c><c>accepted-prefix-limit, or prefix-limit combined with 'keep none'</c>
-                    <c>Nokia SR OS</c><c>prefix-limit</c><c></c>
-                    <c>NIC.CZ BIRD</c><c>'import keep filtered' combined with 'receive limit'</c><c>'import limit' or 'import limit'</c>
-                    <c>OpenBSD OpenBGPD</c><c>max-prefix</c><c></c>
+                    <ttcol align="center">Type A Pre-Policy</ttcol>
+                    <ttcol align="center">Type B Post-Policy</ttcol>
+                    <ttcol align="center">Outbound</ttcol>
+                    <c>Cisco IOS XR</c><c></c><c>maximum-prefix</c><c></c>
+                    <c>Cisco IOS XE</c><c></c><c>maximum-prefix</c><c></c>
+                    <c>Juniper Junos OS</c><c>prefix-limit</c><c>accepted-prefix-limit, or prefix-limit combined with 'keep none'</c><c></c>
+                    <c>Nokia SR OS</c><c>prefix-limit</c><c></c><c></c>
+                    <c>NIC.CZ BIRD</c><c>'import keep filtered' combined with 'receive limit'</c><c>'import limit' or 'import limit'</c><c>export limit</c>
+                    <c>OpenBSD OpenBGPD</c><c>max-prefix</c><c></c><c></c>
                     <postamble>Snijders, <xref target="RIPE77"/></postamble>
                 </texttable>
             </section>
