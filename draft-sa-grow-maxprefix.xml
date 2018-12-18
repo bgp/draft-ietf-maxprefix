@@ -110,7 +110,7 @@
             </section>
             <section title="Type B: post-policy limit">
                 <t>
-                    RFC4271 describes a Policy Information Base (PIB) that contains local policies that can be applied to the information in the Routing Information Base (RIB). 
+                    RFC4271 describes a Policy Information Base (PIB) that contains local policies that can be applied to the information in the Routing Information Base (RIB).
                     The Type B post-policy limit uses the number of NLRIs per Address Family Identifer (AFI) per Subsequent Address Family Identifier (SAFI), after application of the Import Policy as input into its threshold comparisons.
                     As example, when an operator configures the Type B post-policy limit for IPv4 Unicast to be 50 on a given EBGP session, and the other BGP speaker announces its 51th IPv4 Unicast NLRI, the session MUST be torn down.
                     However, if the other BGP speaker announces a hundred IPv4 Unicast routes of which none are accepted and considered for the Loc-RIB by the local BGP speaker, the session is not torn down.
@@ -127,7 +127,7 @@
                 The routing information stored in the Adj-RIBs-Out will be carried in the local BGP speaker's UPDATE messages and advertised to its peers <xref target="RFC4271">Section 3.2</xref>.
 
             Type C
-            <!-- 
+            <!--
             - describe placement in conceptual model: Adj-RIB-Out
             - dead man's switch
             - protects others against your own misconfigurations
@@ -191,10 +191,10 @@
                     <postamble>Snijders, <xref target="RIPE77"/></postamble>
                 </texttable>
             </section>
-            
+
             <section title="Appendix: Implementation Guidance">
             <t>
-                1) 
+                1)
                 make it clear who does what:
                 if A sends too many prefixes to B
                 A should see "ABC" in log
