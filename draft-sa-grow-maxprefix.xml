@@ -176,14 +176,19 @@
             </t>
             <t>
                 As of today these vendors have produced an implementation of inbound or outbound maximum prefix limits:
-                <list style="symbols">
-                    <t>BIRD, inbound pre-policy, inbound post-policy, outbound</t>
-                    <t>OpenBSD OpenBGPD, inbound pre-policy, inbound post-policy, outbound</t>
-                    <t>Juniper Junos, inbound pre-policy, inbound post-policy</t>
-                    <t>Cisco IOS XR, inbound post-policy</t>
-                    <t>Nokia SR OS, inbound pre-policy or inbound post-policy, but not both at the same time</t>
-                </list>
             </t>
+                <texttable anchor="table_ex" title="Maximum prefix limits in context of ebgp-in">
+                    <ttcol align="center">Vendor</ttcol>
+                    <ttcol align="center">Pre-Policy</ttcol>
+                    <ttcol align="center">Post-Policy</ttcol>
+                    <c>Cisco IOS XR</c><c></c><c>maximum-prefix</c>
+                    <c>Cisco IOS XE</c><c></c><c>maximum-prefix</c>
+                    <c>Juniper Junos OS</c><c>prefix-limit</c><c>accepted-prefix-limit, or prefix-limit combined with 'keep none'</c>
+                    <c>Nokia SR OS</c><c>prefix-limit</c><c></c>
+                    <c>NIC.CZs BIRD</c><c>'import keep filtered' combined with 'receive limit'</c><c>'import limit' or 'import limit'</c>
+                    <c>OpenBSD OpenBGPD</c><c>max-prefix</c><c></c>
+                    <postamble>Snijders, <xref target="RIPE77"/></postamble>
+                </texttable>
             </section>
             
             <section title="Appendix: Implementation Guidance">
@@ -212,6 +217,15 @@
         <references title="Informative References">
             <?rfc include="reference.RFC.5424"?>
             <?rfc include="reference.RFC.7908"?>
+            <reference anchor="RIPE77" target="https://ripe77.ripe.net/wp-content/uploads/presentations/59-RIPE77_Snijders_Routing_Policy_Architecture.pdf">
+                <front>
+                    <title>Robust Routing Policy Architecture</title>
+                    <author surname="Snijders" fullname="Job Snijders">
+                        <organization>NTT Communications</organization>
+                    </author>
+                    <date month="May" year="2018"/>
+                </front>
+            </reference>
         </references>
     </back>
 </rfc>
