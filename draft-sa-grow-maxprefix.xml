@@ -98,7 +98,7 @@
                 Reporting when thresholds have been exceeded is implementation specific but SHOULD include methods such as Syslog <xref target="RFC5424"/>.
                 Inbound Maximum Prefix Limits can be applied in two distinct places in the conceptual model: before or after the application of routing policy.
             </t>
-            <section title="Type A: pre-policy limit">
+            <section title="Type A: Pre-Policy Inbound Maximum Prefix Limits">
                 <t>
                     Adj-RIB-In stores routing information learned from inbound UPDATE messages that were received from another BGP speaker <xref target="RFC4271">Section 3.2</xref>.
                     The Type A pre-policy limit uses the number of NLRIs per Address Family Identifier (AFI) per Subsequent Address Family Identifier (SAFI) as input into its threshold comparisons.
@@ -108,7 +108,7 @@
                     Type A pre-policy limits are particularly useful to help dampen the effects of full table route leaks and memory exhaustion.
                 </t>
             </section>
-            <section title="Type B: post-policy limit">
+            <section title="Type B: Post-Policy Inbound Maximum Prefix Limits">
                 <t>
                     RFC4271 describes a Policy Information Base (PIB) that contains local policies that can be applied to the information in the Routing Information Base (RIB).
                     The Type B post-policy limit uses the number of NLRIs per Address Family Identifier (AFI) per Subsequent Address Family Identifier (SAFI), after application of the Import Policy as input into its threshold comparisons.
