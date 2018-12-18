@@ -112,8 +112,7 @@
                 <t>
                     RFC4271 describes a Policy Information Base (PIB) that contains local policies that can be applied to the information in the Routing Information Base (RIB).
                     The Type B post-policy limit uses the number of NLRIs per Address Family Identifer (AFI) per Subsequent Address Family Identifier (SAFI), after application of the Import Policy as input into its threshold comparisons.
-                    As example, when an operator configures the Type B post-policy limit for IPv4 Unicast to be 50 on a given EBGP session, and the other BGP speaker announces its 51th IPv4 Unicast NLRI, the session MUST be torn down.
-                    However, if the other BGP speaker announces a hundred IPv4 Unicast routes of which none are accepted and considered for the Loc-RIB by the local BGP speaker, the session is not torn down.
+                    As an example, when an operator configures the Type B post-policy limit for IPv4 Unicast to be 50 on a given EBGP session, and the other BGP speaker announces a hundred IPv4 Unicast routes of which none are accepted due to local policy (and thus not considered for the Loc-RIB by the local BGP speaker), the session is not torn down.
                 </t>
                 <t>
                     Type B post-policy limits are useful to help prevent FIB exhaustion.
