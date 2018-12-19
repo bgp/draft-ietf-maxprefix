@@ -123,7 +123,7 @@
         <section title="Outbound Maximum Prefix Limits">
             <t>
                 An operator MAY configure a BGP speaker to terminate its BGP session with a neighbor when the number of address prefixes to be advertised to that neighbor exceeds a locally configured upper limit.
-                The BGP speaker then MUST send the neighbor a NOTIFICATION message with the Error Code Cease and the Error Subcode "Threshold reached: Maximum Number of Prefixes Sent", and MAY support other actions.
+                The BGP speaker then MUST send the neighbor a NOTIFICATION message with the Error Code Cease and the Error Subcode "Threshold reached: Maximum Number of Prefixes Selected for Export by Policy", and MAY support other actions.
                 Reporting when thresholds have been exceeded is an implementation specific consideration, but SHOULD include methods such as Syslog <xref target="RFC5424"/>.
                 By definition, Outbound Maximum Prefix Limits are Post-Policy.
             </t>
@@ -162,7 +162,7 @@
                 This memo requests that IANA updates the name of subcode "Maximum Number of Prefixes Reached" to "Threshold exceeded: Maximum Number of Prefixes Received" in the "Cease NOTIFICATION message subcodes" registry under the "Border Gateway Protocol (BGP) Parameters" group.
             </t>
             <t>
-                This memo requests that IANA assigns a new subcode named "Threshold exceeded: Maximum Number of Prefixes Sent" in the "Cease NOTIFICATION message subcodes" registry under the "Border Gateway Protocol (BGP) Parameters" group.
+                This memo requests that IANA assigns a new subcode named "Threshold exceeded: Maximum Number of Prefixes Selected for Export by Policy" in the "Cease NOTIFICATION message subcodes" registry under the "Border Gateway Protocol (BGP) Parameters" group.
             </t>
         </section>
         <section title="Acknowledgments">
