@@ -94,8 +94,8 @@
         <section title="Inbound Maximum Prefix Limits">
             <t>
                 An operator can configure a BGP speaker to terminate its BGP session with a neighbor when the number of address prefixes received from that neighbor exceeds a locally configured upper limit.
-                The BGP-4 speaker then MUST send to the neighbor a NOTIFICATION message with the Error Code Cease and the Error Subcode "Threshold reached: Maximum Number of Prefixes Received".
-                Reporting when thresholds have been exceeded is implementation specific but SHOULD include methods such as Syslog <xref target="RFC5424"/>.
+                The BGP-4 speaker then MUST be able to send to the neighbor a NOTIFICATION message with the Error Code Cease and the Error Subcode "Threshold reached: Maximum Number of Prefixes Received", and optionally MAY support other actions such as appending to Syslog <xref target="RFC5424"/>.
+                Reporting when thresholds have been exceeded is implementation specific but SHOULD include methods such as Syslog.
                 Inbound Maximum Prefix Limits can be applied in two distinct places in the conceptual model: before or after the application of routing policy.
             </t>
             <section title="Type A: Pre-Policy Inbound Maximum Prefix Limits">
@@ -128,7 +128,7 @@
                 By definition, Outbound Maximum Prefix Limits are Post-Policy.
             </t>
             <t>
-                When an operator configures the Outbound Maximum Prefix Limit to be 50 on a given EBGP session, and for one reason or another the BGP speaker would advertise more than 50 routes, the BGP session MUST be terminated and send the neighbor a NOTIFICATION message with the Error Code Cease and the Error Subcode "Threshold reached: Maximum Number of Prefixes Sent".
+                When an operator configures the Outbound Maximum Prefix Limit to be 50 on a given EBGP session, and for one reason or another the BGP speaker would advertise more than 50 routes, the BGP session MUST be terminated and send the neighbor a NOTIFICATION message with the Error Code Cease and the Error Subcode "Threshold reached: Maximum Number of Prefixes Sent", or MAY be logged to Syslog.
             </t>
             <t>
                 Outbound Maximum Prefix Limits are useful to help dampen the negative effects of a misconfiguration in local policy.
