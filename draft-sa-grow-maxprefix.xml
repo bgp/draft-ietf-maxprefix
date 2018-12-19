@@ -102,8 +102,7 @@
                 <t>
                     Adj-RIB-In stores routing information learned from inbound UPDATE messages that were received from another BGP speaker <xref target="RFC4271">Section 3.2</xref>.
                     The Type A pre-policy limit uses the number of NLRIs per Address Family Identifier (AFI) per Subsequent Address Family Identifier (SAFI) as input into its threshold comparisons.
-                    As example, when an operator configures the Type A pre-policy limit for IPv4 Unicast to be 50 on a given EBGP session, and the other BGP speaker announces its 51th IPv4 Unicast NLRI, the 
-session MUST be terminated.
+                    As example, when an operator configures the Type A pre-policy limit for IPv4 Unicast to be 50 on a given EBGP session, and the other BGP speaker announces its 51th IPv4 Unicast NLRI, the session MUST be terminated.
                 </t>
                 <t>
                     Type A pre-policy limits are particularly useful to help dampen the effects of full table route leaks and memory exhaustion when the implementation stores rejected routes.
@@ -113,8 +112,7 @@ session MUST be terminated.
                 <t>
                     RFC4271 describes a Policy Information Base (PIB) that contains local policies that can be applied to the information in the Routing Information Base (RIB).
                     The Type B post-policy limit uses the number of NLRIs per Address Family Identifier (AFI) per Subsequent Address Family Identifier (SAFI), after application of the Import Policy as input into its threshold comparisons.
-                    As an example, when an operator configures the Type B post-policy limit for IPv4 Unicast to be 50 on a given EBGP session, and the other BGP speaker announces a hundred IPv4 Unicast routes 
-of which none are accepted due to local policy (and thus not considered for the Loc-RIB by the local BGP speaker), the session is not terminated.
+                    As an example, when an operator configures the Type B post-policy limit for IPv4 Unicast to be 50 on a given EBGP session, and the other BGP speaker announces a hundred IPv4 Unicast routes of which none are accepted due to local policy (and thus not considered for the Loc-RIB by the local BGP speaker), the session is not terminated.
                 </t>
                 <t>
                     Type B post-policy limits are useful to help prevent FIB exhaustion.
@@ -130,8 +128,7 @@ of which none are accepted due to local policy (and thus not considered for the 
                 By definition, Outbound Maximum Prefix Limits are Post-Policy.
             </t>
             <t>
-                When an operator configures the Outbound Maximum Prefix Limit to be 50 on a given EBGP session, and for one reason or another the BGP speaker would advertise more than 50 routes, the BGP 
-session MUST be terminated and send the neighbor a NOTIFICATION message with the Error Code Cease and the Error Subcode "Threshold reached: Maximum Number of Prefixes Sent".
+                When an operator configures the Outbound Maximum Prefix Limit to be 50 on a given EBGP session, and for one reason or another the BGP speaker would advertise more than 50 routes, the BGP session MUST be terminated and send the neighbor a NOTIFICATION message with the Error Code Cease and the Error Subcode "Threshold reached: Maximum Number of Prefixes Sent".
             </t>
             <t>
                 Outbound Maximum Prefix Limits are useful to help dampen the negative effects of a misconfiguration in local policy.
