@@ -5,8 +5,8 @@
 Global Routing Operations                                    J. Snijders
 Internet-Draft                                                       NTT
 Intended status: Standards Track                              M. Aelmans
-Expires: June 21, 2019                                           Juniper
-                                                       December 18, 2018
+Expires: June 22, 2019                                           Juniper
+                                                       December 19, 2018
 
 
                        BGP Maximum Prefix Limits
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 21, 2019.
+   This Internet-Draft will expire on June 22, 2019.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Snijders & Aelmans        Expires June 21, 2019                 [Page 1]
+Snijders & Aelmans        Expires June 22, 2019                 [Page 1]
 
 Internet-Draft          BGP Maximum Prefix Limits          December 2018
 
@@ -79,7 +79,7 @@ Table of Contents
    7.  Security Considerations . . . . . . . . . . . . . . . . . . .   4
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   4
    9.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   4
-   10. Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION   4
+   10. Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION   5
    11. Appendix: Implementation Guidance . . . . . . . . . . . . . .   6
    12. References  . . . . . . . . . . . . . . . . . . . . . . . . .   6
      12.1.  Normative References . . . . . . . . . . . . . . . . . .   6
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Snijders & Aelmans        Expires June 21, 2019                 [Page 2]
+Snijders & Aelmans        Expires June 22, 2019                 [Page 2]
 
 Internet-Draft          BGP Maximum Prefix Limits          December 2018
 
@@ -130,7 +130,7 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
    example, when an operator configures the Type A pre-policy limit for
    IPv4 Unicast to be 50 on a given EBGP session, and the other BGP
    speaker announces its 51th IPv4 Unicast NLRI, the session MUST be
-   torn down.
+   terminated.
 
    Type A pre-policy limits are particularly useful to help dampen the
    effects of full table route leaks and memory exhaustion when the
@@ -148,7 +148,7 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
    be 50 on a given EBGP session, and the other BGP speaker announces a
    hundred IPv4 Unicast routes of which none are accepted due to local
    policy (and thus not considered for the Loc-RIB by the local BGP
-   speaker), the session is not torn down.
+   speaker), the session is not terminated.
 
    Type B post-policy limits are useful to help prevent FIB exhaustion.
 
@@ -165,7 +165,7 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
 
 
 
-Snijders & Aelmans        Expires June 21, 2019                 [Page 3]
+Snijders & Aelmans        Expires June 22, 2019                 [Page 3]
 
 Internet-Draft          BGP Maximum Prefix Limits          December 2018
 
@@ -176,15 +176,14 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
    When an operator configures the Outbound Maximum Prefix Limit to be
    50 on a given EBGP session, and for one reason or another the BGP
    speaker would advertise more than 50 routes, the BGP session MUST be
-   torn down and send the neighbor a NOTIFICATION message with the Error
-   Code Cease and the Error Subcode "Threshold reached: Maximum Number
-   of Prefixes Sent".
+   terminated and send the neighbor a NOTIFICATION message with the
+   Error Code Cease and the Error Subcode "Threshold reached: Maximum
+   Number of Prefixes Sent".
 
    Outbound Maximum Prefix Limits are useful to help dampen the negative
    effects of a misconfiguration in local policy.  In some cases it may
    be more desirable to tear down a BGP session rather than participate
-   in a route leak.  Outbound Maximum Prefix Limits can be thought of as
-   Dead Man's Switches.
+   in a route leak.
 
 5.  Considerations for Operations with Multi-Protocol BGP-4
 
@@ -211,21 +210,27 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
 
 9.  Acknowledgments
 
-   The authors would like to thank Saku Ytti for feedback.
+   The authors would like to thank Saku Ytti (NTT Communications), Jeff
+   Haas (Juniper Networks), and John Heasley (NTT Communications) for
+   their support, insightful review, and comments.
+
+
+
+
+
+
+
+
+Snijders & Aelmans        Expires June 22, 2019                 [Page 4]
+
+Internet-Draft          BGP Maximum Prefix Limits          December 2018
+
 
 10.  Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION
 
    This section records the status of known implementations of the
    protocol defined by this specification at the time of posting of this
    Internet-Draft, and is based on a proposal described in RFC7942.  The
-
-
-
-Snijders & Aelmans        Expires June 21, 2019                 [Page 4]
-
-Internet-Draft          BGP Maximum Prefix Limits          December 2018
-
-
    description of implementations in this section is intended to assist
    the IETF in its decision processes in progressing drafts to RFCs.
    Please note that the listing of any individual implementation here
@@ -257,7 +262,7 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
    | Nokia SR OS  |  prefix-limit  |                        |          |
    +--------------+----------------+------------------------+----------+
    | NIC.CZ BIRD  |  'import keep  |   'import limit' or    |  export  |
-   |              |   filtered'    |     'import limit'     |  limit   |
+   |              |   filtered'    |    'receive limit'     |  limit   |
    |              | combined with  |                        |          |
    |              |    'receive    |                        |          |
    |              |     limit'     |                        |          |
@@ -272,12 +277,7 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
 
 
 
-
-
-
-
-
-Snijders & Aelmans        Expires June 21, 2019                 [Page 5]
+Snijders & Aelmans        Expires June 22, 2019                 [Page 5]
 
 Internet-Draft          BGP Maximum Prefix Limits          December 2018
 
@@ -333,7 +333,7 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
 
 
 
-Snijders & Aelmans        Expires June 21, 2019                 [Page 6]
+Snijders & Aelmans        Expires June 22, 2019                 [Page 6]
 
 Internet-Draft          BGP Maximum Prefix Limits          December 2018
 
@@ -389,4 +389,4 @@ Authors' Addresses
 
 
 
-Snijders & Aelmans        Expires June 21, 2019                 [Page 7]
+Snijders & Aelmans        Expires June 22, 2019                 [Page 7]
