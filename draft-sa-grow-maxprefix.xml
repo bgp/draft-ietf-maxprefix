@@ -32,7 +32,7 @@
         </title>
 
         <author fullname="Job Snijders" initials="J." surname="Snijders">
-            <organization abbrev="NTT">NTT Communications</organization>
+            <organization>NTT Communications</organization>
 
             <address>
                 <postal>
@@ -46,7 +46,7 @@
         </author>
 
         <author fullname="Melchior Aelmans" initials="M." surname="Aelmans">
-            <organization abbrev="Juniper">Juniper Networks</organization>
+            <organization>Juniper Networks</organization>
 
             <address>
                 <postal>
