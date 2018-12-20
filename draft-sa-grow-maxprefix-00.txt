@@ -5,8 +5,8 @@
 Global Routing Operations                                    J. Snijders
 Internet-Draft                                                       NTT
 Intended status: Standards Track                              M. Aelmans
-Expires: June 22, 2019                                           Juniper
-                                                       December 19, 2018
+Expires: June 23, 2019                                           Juniper
+                                                       December 20, 2018
 
 
                        BGP Maximum Prefix Limits
@@ -15,7 +15,7 @@ Expires: June 22, 2019                                           Juniper
 Abstract
 
    This document describes mechanisms to limit the negative impact of
-   route leaks [RFC7908] or resource exhaustion in BGP-4 [RFC4271]
+   route leaks [RFC7908] and/or resource exhaustion in BGP-4 [RFC4271]
    implementations.
 
 Requirements Language
@@ -34,14 +34,14 @@ Status of This Memo
    Internet-Drafts are working documents of the Internet Engineering
    Task Force (IETF).  Note that other groups may also distribute
    working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at http://datatracker.ietf.org/drafts/current/.
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 22, 2019.
+   This Internet-Draft will expire on June 23, 2019.
 
 Copyright Notice
 
@@ -53,12 +53,12 @@ Copyright Notice
 
 
 
-Snijders & Aelmans        Expires June 22, 2019                 [Page 1]
+Snijders & Aelmans        Expires June 23, 2019                 [Page 1]
 
 Internet-Draft          BGP Maximum Prefix Limits          December 2018
 
 
-   (http://trustee.ietf.org/license-info) in effect on the date of
+   (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
@@ -78,22 +78,22 @@ Table of Contents
    6.  Considerations for soft thresholds  . . . . . . . . . . . . .   4
    7.  Security Considerations . . . . . . . . . . . . . . . . . . .   4
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   4
-   9.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   4
+   9.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   5
    10. Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION   5
    11. Appendix: Implementation Guidance . . . . . . . . . . . . . .   6
    12. References  . . . . . . . . . . . . . . . . . . . . . . . . .   6
      12.1.  Normative References . . . . . . . . . . . . . . . . . .   6
-     12.2.  Informative References . . . . . . . . . . . . . . . . .   6
+     12.2.  Informative References . . . . . . . . . . . . . . . . .   7
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   7
 
 1.  Introduction
 
    This document describes mechanisms to reduce the negative impact of
-   certain types of misconfigurations or resource exhaustions in BGP-4
-   [RFC4271] operations.  While [RFC4271] already described a method to
-   tear down BGP-4 sessions when certain thresholds are exceeded, some
-   nuances in this specification were missing resulting in
-   inconsistencies between BGP-4 implementations.  In addition to
+   certain types of misconfigurations and/or resource exhaustions in
+   BGP-4 [RFC4271] operations.  While [RFC4271] already described a
+   method to tear down BGP-4 sessions when certain thresholds are
+   exceeded, some nuances in this specification were missing resulting
+   in inconsistencies between BGP-4 implementations.  In addition to
    clarifying "inbound maximum prefix limits", this document also
    introduces a specification for "outbound maximum prefix limits".
 
@@ -101,36 +101,36 @@ Table of Contents
 
 3.  Inbound Maximum Prefix Limits
 
-   An operator can configure a BGP speaker to terminate its BGP session
+   An operator MAY configure a BGP speaker to terminate its BGP session
    with a neighbor when the number of address prefixes received from
-   that neighbor exceeds a locally configured upper limit.  The BGP-4
-   speaker then MUST at a minimum be able to send to the neighbor a
-   NOTIFICATION message with the Error Code Cease and the Error Subcode
+   that neighbor exceeds a locally configured upper limit.  The BGP
+   speaker then MUST send the neighbor a NOTIFICATION message with the
+   Error Code Cease and the Error Subcode "Threshold reached: Maximum
 
 
 
-Snijders & Aelmans        Expires June 22, 2019                 [Page 2]
+Snijders & Aelmans        Expires June 23, 2019                 [Page 2]
 
 Internet-Draft          BGP Maximum Prefix Limits          December 2018
 
 
-   "Threshold reached: Maximum Number of Prefixes Received", and
-   optionally MAY support other actions.  Reporting when thresholds have
-   been exceeded is implementation specific but SHOULD include methods
-   such as Syslog [RFC5424].  Inbound Maximum Prefix Limits can be
-   applied in two distinct places in the conceptual model: before or
-   after the application of routing policy.
+   Number of Prefixes Received", and MAY support other actions.
+   Reporting when thresholds have been exceeded is an implementation
+   specific consideration, but SHOULD include methods such as Syslog
+   [RFC5424].  Inbound Maximum Prefix Limits can be applied in two
+   distinct places in the conceptual model: before or after the
+   application of routing policy.
 
 3.1.  Type A: Pre-Policy Inbound Maximum Prefix Limits
 
-   Adj-RIB-In stores routing information learned from inbound UPDATE
-   messages that were received from another BGP speaker Section 3.2
-   [RFC4271].  The Type A pre-policy limit uses the number of NLRIs per
-   Address Family Identifier (AFI) per Subsequent Address Family
-   Identifier (SAFI) as input into its threshold comparisons.  As
-   example, when an operator configures the Type A pre-policy limit for
-   IPv4 Unicast to be 50 on a given EBGP session, and the other BGP
-   speaker announces its 51th IPv4 Unicast NLRI, the session MUST be
+   The Adj-RIBs-In stores routing information learned from inbound
+   UPDATE messages that were received from another BGP speaker
+   Section 3.2 [RFC4271].  The Type A pre-policy limit uses the number
+   of NLRIs per Address Family Identifier (AFI) per Subsequent Address
+   Family Identifier (SAFI) as input into its threshold comparisons.
+   For example, when an operator configures the Type A pre-policy limit
+   for IPv4 Unicast to be 50 on a given EBGP session, and the other BGP
+   speaker announces its 51st IPv4 Unicast NLRI, the session MUST be
    terminated.
 
    Type A pre-policy limits are particularly useful to help dampen the
@@ -144,47 +144,52 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
    Information Base (RIB).  The Type B post-policy limit uses the number
    of NLRIs per Address Family Identifier (AFI) per Subsequent Address
    Family Identifier (SAFI), after application of the Import Policy as
-   input into its threshold comparisons.  As an example, when an
-   operator configures the Type B post-policy limit for IPv4 Unicast to
-   be 50 on a given EBGP session, and the other BGP speaker announces a
-   hundred IPv4 Unicast routes of which none are accepted due to local
-   policy (and thus not considered for the Loc-RIB by the local BGP
-   speaker), the session is not terminated.
+   input into its threshold comparisons.  For example, when an operator
+   configures the Type B post-policy limit for IPv4 Unicast to be 50 on
+   a given EBGP session, and the other BGP speaker announces a hundred
+   IPv4 Unicast routes of which none are accepted as a result of the
+   local import policy (and thus not considered for the Loc-RIB by the
+   local BGP speaker), the session is not terminated.
 
    Type B post-policy limits are useful to help prevent FIB exhaustion.
 
 4.  Outbound Maximum Prefix Limits
 
-   The Adj-RIBs-Out stores information the local BGP speaker selected
-   for advertisement to its neighbors.  The routing information stored
-   in the Adj-RIBs-Out will be carried in the local BGP speaker's UPDATE
-   messages and advertised to its neighbors Section 3.2 [RFC4271].  The
-   Outbound Maximum Prefix Limit uses the number NLRIs per Address
-   Family Identifier (AFI) per Subsequent Address Family Identifier
-   (SAFI), after application of the Export Policy as input into its
+   An operator MAY configure a BGP speaker to terminate its BGP session
+   with a neighbor when the number of address prefixes to be advertised
+   to that neighbor exceeds a locally configured upper limit.  The BGP
+   speaker then MUST send the neighbor a NOTIFICATION message with the
+   Error Code Cease and the Error Subcode "Threshold reached: Maximum
+   Number of Prefixes Send", and MAY support other actions.  Reporting
+   when thresholds have been exceeded is an implementation specific
 
 
 
-Snijders & Aelmans        Expires June 22, 2019                 [Page 3]
+Snijders & Aelmans        Expires June 23, 2019                 [Page 3]
 
 Internet-Draft          BGP Maximum Prefix Limits          December 2018
 
 
-   threshold comparisons.  By definition, Outbound Maximum Prefix Limits
-   are Post-Policy.
+   consideration, but SHOULD include methods such as Syslog [RFC5424].
+   By definition, Outbound Maximum Prefix Limits are Post-Policy.
 
-   When an operator configures the Outbound Maximum Prefix Limit to be
-   50 on a given EBGP session, and for one reason or another the BGP
-   speaker would advertise more than 50 routes, the BGP speaker MUST at
-   a minimum be able to terminate the session and send its neighbor a
-   NOTIFICATION message with the Error Code Cease and the Error Subcode
-   "Threshold reached: Maximum Number of Prefixes Sent", and MAY offer
-   other actions such as appending to Syslog.
+   The Adj-RIBs-Out stores information selected by the local BGP speaker
+   for advertisement to its neighbors.  The routing information stored
+   in the Adj-RIBs-Out will be carried in the local BGP speaker's UPDATE
+   messages and advertised to its neighbors Section 3.2 [RFC4271].  The
+   Outbound Maximum Prefix Limit uses the number of NLRIs per Address
+   Family Identifier (AFI) per Subsequent Address Family Identifier
+   (SAFI), after application of the Export Policy, as input into its
+   threshold comparisons.  For example, when an operator configures the
+   Outbound Maximum Prefix Limit for IPv4 Unicast to be 50 on a given
+   EBGP session, and were about to announce its 51st IPv4 Unicast NLRI
+   to the other BGP speaker as a result of the local export policy, the
+   session MUST be terminated.
 
    Outbound Maximum Prefix Limits are useful to help dampen the negative
-   effects of a misconfiguration in local policy.  In some cases it may
-   be more desirable to tear down a BGP session rather than participate
-   in a route leak.
+   effects of a misconfiguration in local policy.  In many cases, it
+   would be more desirable to tear down a BGP session rather than
+   causing or propagating a route leak.
 
 5.  Considerations for Operations with Multi-Protocol BGP-4
 
@@ -205,15 +210,10 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
    registry under the "Border Gateway Protocol (BGP) Parameters" group.
 
    This memo requests that IANA assigns a new subcode named "Threshold
-   exceeded: Maximum Number of Prefixes Sent" in the "Cease NOTIFICATION
+   exceeded: Maximum Number of Prefixes Send" in the "Cease NOTIFICATION
    message subcodes" registry under the "Border Gateway Protocol (BGP)
    Parameters" group.
 
-9.  Acknowledgments
-
-   The authors would like to thank Saku Ytti (NTT Communications), Jeff
-   Haas (Juniper Networks), and John Heasley (NTT Communications) for
-   their support, insightful review, and comments.
 
 
 
@@ -221,10 +221,18 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
 
 
 
-Snijders & Aelmans        Expires June 22, 2019                 [Page 4]
+Snijders & Aelmans        Expires June 23, 2019                 [Page 4]
 
 Internet-Draft          BGP Maximum Prefix Limits          December 2018
 
+
+9.  Acknowledgments
+
+   The authors would like to thank Saku Ytti and John Heasley (NTT
+   Communications), Jeff Haas, Colby Barth and John Scudder (Juniper
+   Networks), Martijn Schmidt (i3D.net), Teun Vink (BIT), Sabri Berisha
+   (eBay), Martin Pels (Quanza) and Steven Bakker (AMS-IX) for their
+   support, insightful review, and comments.
 
 10.  Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION
 
@@ -245,6 +253,34 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
    which vendors have produced implementation of inbound or outbound
    maximum prefix limits.  Each table cell shows the applicable
    configuration keywords if the vendor implemented the feature.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Snijders & Aelmans        Expires June 23, 2019                 [Page 5]
+
+Internet-Draft          BGP Maximum Prefix Limits          December 2018
+
 
    +--------------+----------------+------------------------+----------+
    |    Vendor    |  Type A Pre-   |   Type B Post-Policy   | Outbound |
@@ -275,13 +311,6 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
 
       Table 1: Maximum prefix limits capabilities per implementation
 
-
-
-Snijders & Aelmans        Expires June 22, 2019                 [Page 5]
-
-Internet-Draft          BGP Maximum Prefix Limits          December 2018
-
-
 11.  Appendix: Implementation Guidance
 
    1) make it clear who does what: if A sends too many prefixes to B A
@@ -295,17 +324,24 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997, <https://www.rfc-
-              editor.org/info/rfc2119>.
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
+
+
+
+
+
+
+
+Snijders & Aelmans        Expires June 23, 2019                 [Page 6]
+
+Internet-Draft          BGP Maximum Prefix Limits          December 2018
+
 
    [RFC4271]  Rekhter, Y., Ed., Li, T., Ed., and S. Hares, Ed., "A
               Border Gateway Protocol 4 (BGP-4)", RFC 4271,
-              DOI 10.17487/RFC4271, January 2006, <https://www.rfc-
-              editor.org/info/rfc4271>.
-
-   [RFC4486]  Chen, E. and V. Gillet, "Subcodes for BGP Cease
-              Notification Message", RFC 4486, DOI 10.17487/RFC4486,
-              April 2006, <https://www.rfc-editor.org/info/rfc4486>.
+              DOI 10.17487/RFC4271, January 2006,
+              <https://www.rfc-editor.org/info/rfc4271>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -314,29 +350,17 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
 12.2.  Informative References
 
    [RFC5424]  Gerhards, R., "The Syslog Protocol", RFC 5424,
-              DOI 10.17487/RFC5424, March 2009, <https://www.rfc-
-              editor.org/info/rfc5424>.
+              DOI 10.17487/RFC5424, March 2009,
+              <https://www.rfc-editor.org/info/rfc5424>.
 
    [RFC7908]  Sriram, K., Montgomery, D., McPherson, D., Osterweil, E.,
               and B. Dickson, "Problem Definition and Classification of
               BGP Route Leaks", RFC 7908, DOI 10.17487/RFC7908, June
               2016, <https://www.rfc-editor.org/info/rfc7908>.
 
-   [RIPE77]   Snijders, , "Robust Routing Policy Architecture", May
-              2018, <https://ripe77.ripe.net/wp-content/uploads/presenta
-              tions/59-RIPE77_Snijders_Routing_Policy_Architecture.pdf>.
-
-
-
-
-
-
-
-
-Snijders & Aelmans        Expires June 22, 2019                 [Page 6]
-
-Internet-Draft          BGP Maximum Prefix Limits          December 2018
-
+   [RIPE77]   Snijders, "Robust Routing Policy Architecture", May 2018,
+              <https://ripe77.ripe.net/wp-content/uploads/presentations/
+              59-RIPE77_Snijders_Routing_Policy_Architecture.pdf>.
 
 Authors' Addresses
 
@@ -365,28 +389,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Snijders & Aelmans        Expires June 22, 2019                 [Page 7]
+Snijders & Aelmans        Expires June 23, 2019                 [Page 7]

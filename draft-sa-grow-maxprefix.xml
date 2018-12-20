@@ -123,7 +123,7 @@
         <section title="Outbound Maximum Prefix Limits">
             <t>
                 An operator MAY configure a BGP speaker to terminate its BGP session with a neighbor when the number of address prefixes to be advertised to that neighbor exceeds a locally configured upper limit.
-                The BGP speaker then MUST send the neighbor a NOTIFICATION message with the Error Code Cease and the Error Subcode "Threshold reached: Maximum Number of Prefixes Selected for Export by Policy", and MAY support other actions.
+                The BGP speaker then MUST send the neighbor a NOTIFICATION message with the Error Code Cease and the Error Subcode "Threshold reached: Maximum Number of Prefixes Send", and MAY support other actions.
                 Reporting when thresholds have been exceeded is an implementation specific consideration, but SHOULD include methods such as Syslog <xref target="RFC5424"/>.
                 By definition, Outbound Maximum Prefix Limits are Post-Policy.
             </t>
@@ -162,12 +162,12 @@
                 This memo requests that IANA updates the name of subcode "Maximum Number of Prefixes Reached" to "Threshold exceeded: Maximum Number of Prefixes Received" in the "Cease NOTIFICATION message subcodes" registry under the "Border Gateway Protocol (BGP) Parameters" group.
             </t>
             <t>
-                This memo requests that IANA assigns a new subcode named "Threshold exceeded: Maximum Number of Prefixes Selected for Export by Policy" in the "Cease NOTIFICATION message subcodes" registry under the "Border Gateway Protocol (BGP) Parameters" group.
+                This memo requests that IANA assigns a new subcode named "Threshold exceeded: Maximum Number of Prefixes Send" in the "Cease NOTIFICATION message subcodes" registry under the "Border Gateway Protocol (BGP) Parameters" group.
             </t>
         </section>
         <section title="Acknowledgments">
             <t>
-                The authors would like to thank Saku Ytti (NTT Communications), Jeff Haas, Colby Barth and John Scudder (Juniper Networks), John Heasley (NTT Communications), Martijn Schmidt (i3D.net), Teun Vink (BIT), Sabri Berisha (eBay), Martin Pels (Quanza) and Steven Bakker (AMS-IX) for their support, insightful review, and comments.
+                The authors would like to thank Saku Ytti and John Heasley (NTT Communications), Jeff Haas, Colby Barth and John Scudder (Juniper Networks), Martijn Schmidt (i3D.net), Teun Vink (BIT), Sabri Berisha (eBay), Martin Pels (Quanza) and Steven Bakker (AMS-IX) for their support, insightful review, and comments.
             </t>
         </section>
         <section title="Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION">
@@ -225,7 +225,6 @@
             <?rfc include="reference.RFC.2119"?>
             <?rfc include="reference.RFC.8174"?>
             <?rfc include="reference.RFC.4271"?>
-            <?rfc include="reference.RFC.4486"?>
         </references>
         <references title="Informative References">
             <?rfc include="reference.RFC.5424"?>
