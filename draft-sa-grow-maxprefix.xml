@@ -167,7 +167,7 @@
         </section>
         <section title="Acknowledgments">
             <t>
-                The authors would like to thank Saku Ytti (NTT Communications), Jeff Haas (Juniper Networks), and John Heasley (NTT Communications) for their support, insightful review, and comments.
+                The authors would like to thank Saku Ytti (NTT Communications), Jeff Haas, Colby Barth and John Scudder (Juniper Networks), John Heasley (NTT Communications), Martijn Schmidt (i3D.net), Teun Vink (BIT), Sabri Berisha (eBay), Martin Pels (Quanza) and Steven Bakker (AMS-IX) for their support, insightful review, and comments.
             </t>
         </section>
         <section title="Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION">
