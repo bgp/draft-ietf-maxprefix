@@ -200,6 +200,7 @@
                     <c>Nokia SR OS</c><c>prefix-limit</c><c></c><c></c>
                     <c>NIC.CZ BIRD</c><c>'import keep filtered' combined with 'receive limit'</c><c>'import limit' or 'receive limit'</c><c>export limit</c>
                     <c>OpenBSD OpenBGPD</c><c>max-prefix</c><c></c><c></c>
+                    <c>Arista EOS</c><c>maximum-routes</c><c>maximum-accepted-routes</c>
                     <postamble>Snijders, <xref target="RIPE77"/></postamble>
                 </texttable>
             </section>
