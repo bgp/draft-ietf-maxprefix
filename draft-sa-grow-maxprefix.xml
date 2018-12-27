@@ -167,7 +167,7 @@
         </section>
         <section title="Acknowledgments">
             <t>
-                The authors would like to thank Saku Ytti and John Heasley (NTT Communications), Jeff Haas, Colby Barth and John Scudder (Juniper Networks), Martijn Schmidt (i3D.net), Teun Vink (BIT), Sabri Berisha (eBay), Martin Pels (Quanza) and Steven Bakker (AMS-IX) for their support, insightful review, and comments.
+                The authors would like to thank Saku Ytti and John Heasley (NTT Communications), Jeff Haas, Colby Barth and John Scudder (Juniper Networks), Martijn Schmidt (i3D.net), Teun Vink (BIT), Sabri Berisha (eBay), Martin Pels (Quanza), Steven Bakker (AMS-IX) and Aftab Siddiqui (ISOC) for their support, insightful review, and comments.
             </t>
         </section>
         <section title="Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION">
@@ -201,7 +201,7 @@
                     <c>NIC.CZ BIRD</c><c>'import keep filtered' combined with 'receive limit'</c><c>'import limit' or 'receive limit'</c><c>export limit</c>
                     <c>OpenBSD OpenBGPD</c><c>max-prefix</c><c></c><c></c>
                     <c>Arista EOS</c><c>maximum-routes</c><c>maximum-accepted-routes</c>
-                    <postamble>Snijders, <xref target="RIPE77"/></postamble>
+                    <postamble>First presented by Snijders at <xref target="RIPE77"/></postamble>
                 </texttable>
             </section>
 

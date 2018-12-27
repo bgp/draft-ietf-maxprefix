@@ -231,8 +231,8 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
    The authors would like to thank Saku Ytti and John Heasley (NTT
    Communications), Jeff Haas, Colby Barth and John Scudder (Juniper
    Networks), Martijn Schmidt (i3D.net), Teun Vink (BIT), Sabri Berisha
-   (eBay), Martin Pels (Quanza) and Steven Bakker (AMS-IX) for their
-   support, insightful review, and comments.
+   (eBay), Martin Pels (Quanza), Steven Bakker (AMS-IX) and Aftab
+   Siddiqui (ISOC) for their support, insightful review, and comments.
 
 10.  Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION
 
@@ -311,7 +311,7 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
    |  Arista EOS | maximum-routes | maximum-accepted-routes |
    +-------------+----------------+-------------------------+----------+
 
-                            Snijders, [RIPE77]
+                  First presented by Snijders at [RIPE77]
 
       Table 1: Maximum prefix limits capabilities per implementation
 
