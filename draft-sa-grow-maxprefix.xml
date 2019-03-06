@@ -22,7 +22,7 @@
 
 <rfc category="std"
     ipr="trust200902"
-    docName="draft-sa-grow-maxprefix-00"
+    docName="draft-sa-grow-maxprefix-01"
     submissionType="IETF">
 
     <front>
@@ -115,7 +115,7 @@
                     For example, when an operator configures the Type B post-policy limit for IPv4 Unicast to be 50 on a given EBGP session, and the other BGP speaker announces a hundred IPv4 Unicast routes of which none are accepted as a result of the local import policy (and thus not considered for the Loc-RIB by the local BGP speaker), the session is not terminated.
                 </t>
                 <t>
-                    Type B post-policy limits are useful to help prevent FIB exhaustion.
+                    Type B post-policy limits are useful to help prevent FIB exhaustion and prevent accidental BGP session teardown due to prefixes not accepted by policy anyway.
                 </t>
             </section>
         </section>
@@ -167,7 +167,7 @@
         </section>
         <section title="Acknowledgments">
             <t>
-                The authors would like to thank Saku Ytti and John Heasley (NTT Communications), Jeff Haas, Colby Barth and John Scudder (Juniper Networks), Martijn Schmidt (i3D.net), Teun Vink (BIT), Sabri Berisha (eBay), Martin Pels (Quanza), Steven Bakker (AMS-IX) and Aftab Siddiqui (ISOC) for their support, insightful review, and comments.
+                The authors would like to thank Saku Ytti and John Heasley (NTT Communications), Jeff Haas, Colby Barth and John Scudder (Juniper Networks), Martijn Schmidt (i3D.net), Teun Vink (BIT), Sabri Berisha (eBay), Martin Pels (Quanza), Steven Bakker (AMS-IX), Aftab Siddiqui (ISOC) and Yu Tianpeng for their support, insightful review, and comments.
             </t>
         </section>
         <section title="Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION">
@@ -200,7 +200,9 @@
                     <c>Nokia SR OS</c><c>prefix-limit</c><c></c><c></c>
                     <c>NIC.CZ BIRD</c><c>'import keep filtered' combined with 'receive limit'</c><c>'import limit' or 'receive limit'</c><c>export limit</c>
                     <c>OpenBSD OpenBGPD</c><c>max-prefix</c><c></c><c></c>
-                    <c>Arista EOS</c><c>maximum-routes</c><c>maximum-accepted-routes</c>
+                    <c>Arista EOS</c><c>maximum-routes</c><c>maximum-accepted-routes</c><c></c>
+                    <c>Huawei VRPv5</c><c>peer route-limit</c><c></c><c></c>
+                    <c>Huawei VRPv8</c><c>peer route-limit</c><c>peer route-limit accept-prefix</c><c></c>
                     <postamble>First presented by Snijders at <xref target="RIPE77"/></postamble>
                 </texttable>
             </section>
