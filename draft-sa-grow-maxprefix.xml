@@ -22,7 +22,7 @@
 
 <rfc category="std"
     ipr="trust200902"
-    docName="draft-sa-grow-maxprefix-01"
+    docName="draft-sa-grow-maxprefix-02"
     submissionType="IETF">
 
     <front>
@@ -69,7 +69,7 @@
 
         <abstract>
             <t>
-                This document describes mechanisms to limit the negative impact of <xref target="RFC7908">route leaks</xref> and/or resource exhaustion in BGP-4 <xref target="RFC4271" /> implementations.
+                This document describes mechanisms to limit the negative impact of <xref target="RFC7908">route leaks</xref> and/or resource exhaustion in BGP <xref target="RFC4271" /> implementations.
             </t>
         </abstract>
         <note title="Requirements Language">
@@ -81,16 +81,17 @@
     <middle>
         <section title="Introduction">
             <t>
-                This document describes mechanisms to reduce the negative impact of certain types of misconfigurations and/or resource exhaustions in BGP-4 <xref target="RFC4271" /> operations.
-                While <xref target="RFC4271" /> already described a method to tear down BGP-4 sessions when certain thresholds are exceeded, some nuances in this specification were missing resulting in inconsistencies between BGP-4 implementations.
+                This document describes mechanisms to reduce the negative impact of certain types of misconfigurations and/or resource exhaustions in BGP <xref target="RFC4271" /> operations.
+                While <xref target="RFC4271" /> already described a method to tear down BGP sessions when certain thresholds are exceeded, some nuances in this specification were missing resulting in inconsistencies between BGP implementations.
                 In addition to clarifying "inbound maximum prefix limits", this document also introduces a specification for "outbound maximum prefix limits".
             </t>
         </section>
-        <section title="Application of Control Theory to BGP-4 Operations">
+<!--
+        <section title="Application of Control Theory to BGP Operations">
             <t>
             </t>
         </section>
-
+-->
         <section title="Inbound Maximum Prefix Limits">
             <t>
                 An operator MAY configure a BGP speaker to terminate its BGP session with a neighbor when the number of address prefixes received from that neighbor exceeds a locally configured upper limit.
@@ -139,7 +140,7 @@
             </t>
         </section>
 
-        <section title="Considerations for Operations with Multi-Protocol BGP-4">
+        <section title="Considerations for Operations with Multi-Protocol BGP">
             <t>
             </t>
         </section>
@@ -152,8 +153,7 @@
 
        <section title="Security Considerations">
            <t>
-               TBD.
-               Maximum Prefix Limits are an essential tool for routing operations.
+               Maximum Prefix Limits are an essential tool for routing operations and SHOULD be used to increase stability.
             </t>
         </section>
         <section title="IANA Considerations">
@@ -217,7 +217,7 @@
                 to make it clear which of the two parties does what
 
                 2)
-                recommended by default automatictly restart after between 15 and 30 minutes
+                recommended by default automatically restart after between 15 and 30 minutes
             </t>
         </section>
 
