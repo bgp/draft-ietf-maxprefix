@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!ENTITY RFC2234 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2234.xml">
+<!ENTITY RFC2629 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2629.xml">
+<!ENTITY RFC4234 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4234.xml">
+<!ENTITY nbsp    "&#160;">
+]>
+
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+
+<?rfc strict="yes" ?>
+<?rfc comments="no" ?>
+<?rfc inline="no" ?>
+<?rfc editing="no" ?>
+<?rfc toc="yes" ?>
+<?rfc tocompact="yes" ?>
+<?rfc tocdepth="3" ?>
+<?rfc symrefs="yes" ?>
+<?rfc sortrefs="yes" ?>
+<?rfc compact="yes" ?>
+<?rfc subcompact="no" ?>
+
+<rfc category="info"
+    ipr="trust200902"
+    docName="draft-adkp-grow-ixpcommunities-00"
+    updates="7947,7948"
+    submissionType="IETF">
+
+    <front>
+
+        <title abbrev="BPG Large Communities at IXP Route Servers">
+		BPG Large Communities applications for IXP Route Servers
+        </title>
+
+        <author fullname="Melchior Aelmans" initials="M.D.F." surname="Aelmans">
+            <organization>Juniper Networks</organization>
+
+            <address>
+                <postal>
+                    <street>Boeing Avenue 240</street>
+                    <code>1119 PZ</code>
+                    <city>Schiphol-Rijk</city>
+                    <country>The Netherlands</country>
+                </postal>
+
+                <email>maelmans@juniper.net</email>
+            </address>
+        </author>
+
+        <author fullname="Stavros Konstantaras" initials="S." surname="Konstantaras">
+            <organization>AMS-IX</organization>
+
+            <address>
+                <postal>
+                    <street>Frederiksplein 42</street>
+                    <code>1017 XN</code>
+                    <city>Amsterdam</city>
+                    <country>The Netherlands</country>
+                </postal>
+
+                <email>stavros.konstantaras@ams-ix.net</email>
+            </address>
+        </author>
+
+        <author fullname="Stefan Plug" initials="S." surname="Plug">
+            <organization>ECIX - Megaport</organization>
+
+            <address>
+                <postal>
+                    <street>Tauentzienstr. 11</street>
+                    <code>10789</code>
+                    <city>Berlin</city>
+                    <country>Germany</country>
+                </postal>
+
+                <email>spl@ecix.net</email>
+            </address>
+        </author>
+
+       <author fullname="Christoph Dietzel" initials="C." surname="Dietzel">
+            <organization>DE-CIX</organization>
+
+            <address>
+                <postal>
+                    <street>Lindleystr. 12</street>
+                    <code>60314</code>
+                    <city>Frankfurt am Main</city>
+                    <country>Germany</country>
+                </postal>
+
+                <email>christoph.dietzel@de-cix.net</email>
+            </address>
+        </author>
+
+        <date />
+        <area>Routing</area>
+        <workgroup>Global Routing Operations</workgroup>
+
+        <keyword>BGP</keyword>
+	<keyword>Community</keyword>
+	<keyword>Internet Exchange Point</keyword>
+
+        <abstract>
+            <t>
+                This document presents suggestions for the use of BPG Large Communities <xref target="RFC8092" /> at Internet Exchange Points (IXPs) based on operational experiences from IXP members this document suggests catergories of communities.
+		Any IXP operator or IXP member can consider using these communities. The document specifically focusses on Route Server <xref target="RFC7947" /> deployments in IXP context <xref target="RFC7948" />.
+            </t>
+        </abstract>
+        <note title="Requirements Language">
+            <t>
+                The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/> when, and only when, they appear in all capitals, as shown here.
+            </t>
+        </note>
+    </front>
+    <middle>
+        <section title="Introduction">
+            <t>
+                This document presents suggestions for the use of BPG Large Communities <xref target="RFC8092" /> for IXP operators and mbmers using the BGP-4 <xref target="RFC4271" /> protocol.
+		It adds specific suggestions for the operators and members of IXPs deploying BGP Large Communities as suggested in <xref target="RFC8195" />.
+            </t>
+        </section>
+
+        <section title="Suggested Large BGP Community Standard List">
+            <t>
+		This list proposes a standard to use in IXP operations for the use of BGP Large Communities.
+            </t>
+            <t>
+                The tables below provide a per 'section' divided overview of Large Community usage.
+	    </t>
+                <texttable anchor="table_direct" title="Direct filtering RS:0-99:*" style="all">
+                    <ttcol align="center" width="20%">Range</ttcol>
+                    <ttcol align="center">Description</ttcol>
+                    <ttcol align="center">Notes</ttcol>
+                    <ttcol align="center">Strip on export</ttcol>
+		    <ttcol align="center">Priority</ttcol>
+                    <c>RS:0:PEERAS</c><c>Do not advertise to PEERAS</c><c></c><c>recommended</c><c>0</c>
+		    <c>RS:1:PEERAS</c><c>Advertise to PEERAS</c><c>Only useful in combination with RS:0:0</c><c>recommended</c><c>1</c>
+		    <c>RS:2:ms</c><c>Do not announce to peers higher than ms</c><c>ms = Latency of peer in ms</c><c>recommended</c><c>2</c>
+                    <postamble>First published EURO-IX website <xref target="EURO-IX"/></postamble>
+                </texttable>
+                <texttable anchor="table_prepend" title="AS Path prepending RS:100-199:*" style="all">
+                    <ttcol align="center" width="20%">Range</ttcol>
+                    <ttcol align="center">Description</ttcol>
+                    <ttcol align="center">Notes</ttcol>
+                    <ttcol align="center">Strip on export</ttcol>
+                    <ttcol align="center">Priority</ttcol>
+                    <c>RS:101:PEERAS</c><c>Prepend to PEERAS once</c><c></c><c>yes</c><c>3</c>
+                    <postamble>First published EURO-IX website <xref target="EURO-IX"/></postamble>
+                </texttable>
+
+            </section>
+
+       <section title="Security Considerations">
+           <t>
+		No Security considerations at this point.
+            </t>
+        </section>
+
+        <section title="IANA Considerations">
+            <t>
+            </t>
+        </section>
+
+        <section title="Acknowledgments">
+            <t>
+		The authors would like to thank Colby Barth (Juniper Networks) and Bijal Sanghani (EURO-IX for their support, insightful review, and comments.
+            </t>
+        </section>
+
+            <section title="Appendix: Implementation Guidance">
+            <t>
+		How should IXPs implement.
+            </t>
+        </section>
+
+    </middle>
+    <back>
+        <references title="Normative References">
+            <?rfc include="reference.RFC.2119"?>
+            <?rfc include="reference.RFC.8174"?>
+            <?rfc include="reference.RFC.4271"?>
+            <?rfc include="reference.RFC.8092"?>
+            <?rfc include="reference.RFC.7948"?>
+            <?rfc include="reference.RFC.7947"?>
+        </references>
+        <references title="Informative References">
+            <?rfc include="reference.RFC.8195"?>
+            <reference anchor="EURO-IX" target="https://www.euro-ix.net/en/forixps/large-bgp-communities/">
+                <front>
+                    <title>Large BGP Communities</title>
+			<author fullname="EURO-IX">
+                        	<organization>EURO-IX</organization>
+                    </author>
+                    <date month="April" year="2018"/>
+                </front>
+            </reference>
+        </references>
+    </back>
+</rfc>
