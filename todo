@@ -1,3 +1,12 @@
+Todo:
+
+feedback from IETF 104:
+
+    - talk with John & Susan from IDR whether the document belongs there or in GROW
+    - discuss what things can be done when outbound threshold is met (igor/john)
+    - make it very clear that the outbound limit is post-policy (reudiger)
+    - jared mauch wants to help
+
 Document structuur:
 
 introduction:
