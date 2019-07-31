@@ -7,6 +7,10 @@ feedback from IETF 104:
     - make it very clear that the outbound limit is post-policy (reudiger)
     - jared mauch wants to help
 
+feedback from IETF 105:
+
+    - make it clear that this is a *hard* cease, reference rfc8538, thank jacob + robert
+
 Document structuur:
 
 introduction:
