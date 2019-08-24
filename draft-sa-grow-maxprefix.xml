@@ -123,8 +123,10 @@
 
         <section title="Outbound Maximum Prefix Limits">
             <t>
-                An operator MAY configure a BGP speaker to terminate its BGP session with a neighbor when the number of address prefixes to be advertised to that neighbor exceeds a locally configured upper limit.
-                The BGP speaker then MUST send the neighbor a NOTIFICATION message with the Error Code Cease and the Error Subcode "Threshold reached: Maximum Number of Prefixes Send", and MAY support other actions.
+                An operator MAY configure a BGP speaker to terminate its BGP session with a neighbor when the number of address prefixes to be advertised to that neighbor exceeds a locally configured post-policy upper limit.
+                The BGP speaker then MUST send the neighbor a NOTIFICATION message with the Error Code Cease and the Error Subcode "Threshold reached: Maximum Number of Prefixes Send". Implementations MAY support additional actions.
+                The Hard Cease action is defined in <xref target="RFC8538" />.
+                
                 Reporting when thresholds have been exceeded is an implementation specific consideration, but SHOULD include methods such as Syslog <xref target="RFC5424"/>.
                 By definition, Outbound Maximum Prefix Limits are Post-Policy.
             </t>
@@ -167,7 +169,7 @@
         </section>
         <section title="Acknowledgments">
             <t>
-                The authors would like to thank Saku Ytti and John Heasley (NTT Communications), Jeff Haas, Colby Barth and John Scudder (Juniper Networks), Martijn Schmidt (i3D.net), Teun Vink (BIT), Sabri Berisha (eBay), Martin Pels (Quanza), Steven Bakker (AMS-IX), Aftab Siddiqui (ISOC) and Yu Tianpeng for their support, insightful review, and comments.
+                The authors would like to thank Saku Ytti and John Heasley (NTT Communications), Jeff Haas, Colby Barth and John Scudder (Juniper Networks), Martijn Schmidt (i3D.net), Teun Vink (BIT), Sabri Berisha (eBay), Martin Pels (Quanza), Steven Bakker (AMS-IX), Aftab Siddiqui (ISOC), Yu Tianpeng, Ruediger Volk (Deutsche Telekom), Robert Raszuk (Bloomberg) and Jakob Heitz (Cisco) for their support, insightful review, and comments.
             </t>
         </section>
         <section title="Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION">
@@ -228,6 +230,7 @@
             <?rfc include="reference.RFC.2119"?>
             <?rfc include="reference.RFC.8174"?>
             <?rfc include="reference.RFC.4271"?>
+            <?rfc include="reference.RFC.8538"?>
         </references>
         <references title="Informative References">
             <?rfc include="reference.RFC.5424"?>
