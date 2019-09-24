@@ -203,7 +203,8 @@ update section 6 to reference the newly created section 9.5
         </section>
         <section title="IANA Considerations">
             <t>
-                This memo requests that IANA assigns a new subcode named "Threshold exceeded: Maximum Number of Prefixes Send" in the "Cease NOTIFICATION message subcodes" registry under the "Border Gateway Protocol (BGP) Parameters" group.
+                <!-- TDB, find better names? -->
+                This memo requests that IANA assigns a new subcode named "Threshold exceeded: Self-Destructing, Maximum Number of Prefixes Send" in the "Cease NOTIFICATION message subcodes" registry under the "Border Gateway Protocol (BGP) Parameters" group.
             </t>
         </section>
         <section title="Acknowledgments">
