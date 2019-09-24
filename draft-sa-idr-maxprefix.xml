@@ -208,7 +208,7 @@ update section 6 to reference the newly created section 9.5
         </section>
         <section title="Acknowledgments">
             <t>
-                The authors would like to thank Saku Ytti and John Heasley (NTT Communications), Jeff Haas, Colby Barth and John Scudder (Juniper Networks), Martijn Schmidt (i3D.net), Teun Vink (BIT), Sabri Berisha (eBay), Martin Pels (Quanza), Steven Bakker (AMS-IX), Aftab Siddiqui (ISOC), Yu Tianpeng, Ruediger Volk (Deutsche Telekom), Robert Raszuk (Bloomberg) and Jakob Heitz (Cisco) for their support, insightful review, and comments.
+                The authors would like to thank Saku Ytti and John Heasley (NTT), Jeff Haas, Colby Barth and John Scudder (Juniper Networks), Martijn Schmidt (i3D.net), Teun Vink (BIT), Sabri Berisha (eBay), Martin Pels (Quanza), Steven Bakker (AMS-IX), Aftab Siddiqui (ISOC), Yu Tianpeng, Ruediger Volk (Deutsche Telekom), Robert Raszuk (Bloomberg), Jakob Heitz (Cisco), and Susan Hares (Hickory Hill Consulting) for their support, insightful review, and comments. 
             </t>
         </section>
         <section title="Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION">
