@@ -22,17 +22,18 @@
 
 <rfc category="std"
     ipr="trust200902"
-    docName="draft-sa-grow-maxprefix-02"
+    docName="draft-sa-idr-maxprefix-00"
+    updates="4271"
     submissionType="IETF">
 
     <front>
 
-        <title abbrev="BGP Maximum Prefix Limits">
-            BGP Maximum Prefix Limits
+        <title abbrev="Revised BGP Maximum Prefix Limits">
+            Revised BGP Maximum Prefix Limits
         </title>
 
         <author fullname="Job Snijders" initials="J." surname="Snijders">
-            <organization>NTT Communications</organization>
+            <organization>NTT</organization>
 
             <address>
                 <postal>
@@ -62,7 +63,7 @@
 
         <date />
         <area>Routing</area>
-        <workgroup>Global Routing Operations</workgroup>
+        <workgroup>Inter-Domain Routing</workgroup>
 
         <keyword>BGP</keyword>
         <keyword>Prefix</keyword>
@@ -92,6 +93,44 @@
             </t>
         </section>
 -->
+
+
+OLD replace all of 6.7 second paragraph:
+
+NEW:
+            A BGP speaker MAY support the ability to impose a locally-configured, upper bound on the number of address prefixes the speaker is willing to accept from a neighbor (inbound maximum prefix limit) or send to a neighbor (outbound prefix limit). 
+            The limit on the prefixes accepted from a neighbor can be before policy processing (Pre-Policy) or after policy processing (Post-Policy).
+            Outbound prefix limits MUST be measured after policy since the Policy (even a policy of "send all") is run before determining what can be sent.
+            When the upper bound is reached, the speaker, under control of local configuration, either (a) discards new address prefixes from the neighbor (while maintaining the BGP connection with the neighbor), or (b) terminates the BGP connection with the neighbor.
+        <!-- OLD : If the BGP speaker decides to terminate its BGP connection with a neighbor because the number of address prefixes received from the neighbor exceeds the locally-configured, upper bound, then the speaker MUST send the neighbor a NOTIFICATION message with the Error Code Cease. -->
+            If the BGP peer uses option (b) where the limit causes a CEASE Notification, then the CEASE error codes should use the CEASE subcodes for 1 Maximum Number of Prefixes Reached, or TBD1 Maximum Number of Prefixes Reached (outbound).
+            The speaker MAY also log this locally.
+
+
+
+update 8.2.2, established state, paragraph starts with 'One reason for an AutomaticStop event', 
+OLD:
+            One reason for an AutomaticStop event is: A BGP receives an UPDATE messages with a number of prefixes for a given peer such that the total prefixes received exceeds the maximum number of prefixes configured. The local system automatically disconnects the peer.
+
+NEW:
+            One reason for an AutomaticStop event is: A BGP speaker receives an UPDATE
+            messages with a number of prefixes for a given peer such that the
+            total prefixes received exceeds the maximum number of prefixes
+            configured, or announces too many prefixes.
+            The local system automatically disconnects the peer.
+
+PROBLEM 5:
+    - introduce names that can be used in the BGP Yang Model (draft-ietf-idr-bgp-model-06 page 45)
+    - max-prefixes-inbound-pre-policy
+    - max-prefixes-inbound-post-policy
+    - max-prefixes-outbound
+
+
+PROBLEM 6
+make the below section 9.5 (9.5.1 / 9.5.2) in rfc 4271 (via update)
+update section 6 to reference the newly created section 9.5
+
+
         <section title="Inbound Maximum Prefix Limits">
             <t>
                 An operator MAY configure a BGP speaker to terminate its BGP session with a neighbor when the number of address prefixes received from that neighbor exceeds a locally configured upper limit.
@@ -156,13 +195,13 @@
        <section title="Security Considerations">
            <t>
                Maximum Prefix Limits are an essential tool for routing operations and SHOULD be used to increase stability.
+               <!-- comment from sue: This section does not provide the appropriate depth of security to indicate
+                   why maximum prefix provides a tool for limiting attacks or errors to
+                   bring down networks.
+                -->
             </t>
         </section>
         <section title="IANA Considerations">
-            <t>
-                <!-- improve the names to make it clear which side does what -->
-                This memo requests that IANA updates the name of subcode "Maximum Number of Prefixes Reached" to "Threshold exceeded: Maximum Number of Prefixes Received" in the "Cease NOTIFICATION message subcodes" registry under the "Border Gateway Protocol (BGP) Parameters" group.
-            </t>
             <t>
                 This memo requests that IANA assigns a new subcode named "Threshold exceeded: Maximum Number of Prefixes Send" in the "Cease NOTIFICATION message subcodes" registry under the "Border Gateway Protocol (BGP) Parameters" group.
             </t>

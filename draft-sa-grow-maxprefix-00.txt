@@ -3,19 +3,19 @@
 
 
 Global Routing Operations                                    J. Snijders
-Internet-Draft                                                       NTT
+Internet-Draft                                        NTT Communications
 Intended status: Standards Track                              M. Aelmans
-Expires: June 23, 2019                                           Juniper
-                                                       December 20, 2018
+Expires: February 28, 2020                              Juniper Networks
+                                                         August 27, 2019
 
 
                        BGP Maximum Prefix Limits
-                       draft-sa-grow-maxprefix-00
+                       draft-sa-grow-maxprefix-02
 
 Abstract
 
    This document describes mechanisms to limit the negative impact of
-   route leaks [RFC7908] and/or resource exhaustion in BGP-4 [RFC4271]
+   route leaks [RFC7908] and/or resource exhaustion in BGP [RFC4271]
    implementations.
 
 Requirements Language
@@ -34,18 +34,18 @@ Status of This Memo
    Internet-Drafts are working documents of the Internet Engineering
    Task Force (IETF).  Note that other groups may also distribute
    working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at https://datatracker.ietf.org/drafts/current/.
+   Drafts is at http://datatracker.ietf.org/drafts/current/.
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 23, 2019.
+   This Internet-Draft will expire on February 28, 2020.
 
 Copyright Notice
 
-   Copyright (c) 2018 IETF Trust and the persons identified as the
+   Copyright (c) 2019 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -53,12 +53,12 @@ Copyright Notice
 
 
 
-Snijders & Aelmans        Expires June 23, 2019                 [Page 1]
+Snijders & Aelmans      Expires February 28, 2020               [Page 1]
 
-Internet-Draft          BGP Maximum Prefix Limits          December 2018
+Internet-Draft          BGP Maximum Prefix Limits            August 2019
 
 
-   (https://trustee.ietf.org/license-info) in effect on the date of
+   (http://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
@@ -69,59 +69,56 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-   2.  Application of Control Theory to BGP-4 Operations . . . . . .   2
-   3.  Inbound Maximum Prefix Limits . . . . . . . . . . . . . . . .   2
-     3.1.  Type A: Pre-Policy Inbound Maximum Prefix Limits  . . . .   3
-     3.2.  Type B: Post-Policy Inbound Maximum Prefix Limits . . . .   3
-   4.  Outbound Maximum Prefix Limits  . . . . . . . . . . . . . . .   3
-   5.  Considerations for Operations with Multi-Protocol BGP-4 . . .   4
-   6.  Considerations for soft thresholds  . . . . . . . . . . . . .   4
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . .   4
-   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   4
-   9.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   5
-   10. Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION   5
-   11. Appendix: Implementation Guidance . . . . . . . . . . . . . .   6
-   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .   6
-     12.1.  Normative References . . . . . . . . . . . . . . . . . .   6
-     12.2.  Informative References . . . . . . . . . . . . . . . . .   7
+   2.  Inbound Maximum Prefix Limits . . . . . . . . . . . . . . . .   2
+     2.1.  Type A: Pre-Policy Inbound Maximum Prefix Limits  . . . .   3
+     2.2.  Type B: Post-Policy Inbound Maximum Prefix Limits . . . .   3
+   3.  Outbound Maximum Prefix Limits  . . . . . . . . . . . . . . .   3
+   4.  Considerations for Operations with Multi-Protocol BGP . . . .   4
+   5.  Considerations for soft thresholds  . . . . . . . . . . . . .   4
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   4
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   4
+   8.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   5
+   9.  Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION   5
+   10. Appendix: Implementation Guidance . . . . . . . . . . . . . .   6
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .   7
+     11.2.  Informative References . . . . . . . . . . . . . . . . .   7
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   7
 
 1.  Introduction
 
    This document describes mechanisms to reduce the negative impact of
-   certain types of misconfigurations and/or resource exhaustions in
-   BGP-4 [RFC4271] operations.  While [RFC4271] already described a
-   method to tear down BGP-4 sessions when certain thresholds are
-   exceeded, some nuances in this specification were missing resulting
-   in inconsistencies between BGP-4 implementations.  In addition to
+   certain types of misconfigurations and/or resource exhaustions in BGP
+   [RFC4271] operations.  While [RFC4271] already described a method to
+   tear down BGP sessions when certain thresholds are exceeded, some
+   nuances in this specification were missing resulting in
+   inconsistencies between BGP implementations.  In addition to
    clarifying "inbound maximum prefix limits", this document also
    introduces a specification for "outbound maximum prefix limits".
 
-2.  Application of Control Theory to BGP-4 Operations
-
-3.  Inbound Maximum Prefix Limits
+2.  Inbound Maximum Prefix Limits
 
    An operator MAY configure a BGP speaker to terminate its BGP session
    with a neighbor when the number of address prefixes received from
    that neighbor exceeds a locally configured upper limit.  The BGP
    speaker then MUST send the neighbor a NOTIFICATION message with the
    Error Code Cease and the Error Subcode "Threshold reached: Maximum
-
-
-
-Snijders & Aelmans        Expires June 23, 2019                 [Page 2]
-
-Internet-Draft          BGP Maximum Prefix Limits          December 2018
-
-
    Number of Prefixes Received", and MAY support other actions.
    Reporting when thresholds have been exceeded is an implementation
    specific consideration, but SHOULD include methods such as Syslog
+
+
+
+Snijders & Aelmans      Expires February 28, 2020               [Page 2]
+
+Internet-Draft          BGP Maximum Prefix Limits            August 2019
+
+
    [RFC5424].  Inbound Maximum Prefix Limits can be applied in two
    distinct places in the conceptual model: before or after the
    application of routing policy.
 
-3.1.  Type A: Pre-Policy Inbound Maximum Prefix Limits
+2.1.  Type A: Pre-Policy Inbound Maximum Prefix Limits
 
    The Adj-RIBs-In stores routing information learned from inbound
    UPDATE messages that were received from another BGP speaker
@@ -137,7 +134,7 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
    effects of full table route leaks and memory exhaustion when the
    implementation stores rejected routes.
 
-3.2.  Type B: Post-Policy Inbound Maximum Prefix Limits
+2.2.  Type B: Post-Policy Inbound Maximum Prefix Limits
 
    RFC4271 describes a Policy Information Base (PIB) that contains local
    policies that can be applied to the information in the Routing
@@ -151,27 +148,31 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
    local import policy (and thus not considered for the Loc-RIB by the
    local BGP speaker), the session is not terminated.
 
-   Type B post-policy limits are useful to help prevent FIB exhaustion.
+   Type B post-policy limits are useful to help prevent FIB exhaustion
+   and prevent accidental BGP session teardown due to prefixes not
+   accepted by policy anyway.
 
-4.  Outbound Maximum Prefix Limits
+3.  Outbound Maximum Prefix Limits
 
    An operator MAY configure a BGP speaker to terminate its BGP session
    with a neighbor when the number of address prefixes to be advertised
-   to that neighbor exceeds a locally configured upper limit.  The BGP
-   speaker then MUST send the neighbor a NOTIFICATION message with the
-   Error Code Cease and the Error Subcode "Threshold reached: Maximum
-   Number of Prefixes Send", and MAY support other actions.  Reporting
-   when thresholds have been exceeded is an implementation specific
+   to that neighbor exceeds a locally configured post-policy upper
+   limit.  The BGP speaker then MUST send the neighbor a NOTIFICATION
+   message with the Error Code Cease and the Error Subcode "Threshold
+   reached: Maximum Number of Prefixes Send".  Implementations MAY
+   support additional actions.  The Hard Cease action is defined in
+   [RFC8538].  Reporting when thresholds have been exceeded is an
 
 
 
-Snijders & Aelmans        Expires June 23, 2019                 [Page 3]
+Snijders & Aelmans      Expires February 28, 2020               [Page 3]
 
-Internet-Draft          BGP Maximum Prefix Limits          December 2018
+Internet-Draft          BGP Maximum Prefix Limits            August 2019
 
 
-   consideration, but SHOULD include methods such as Syslog [RFC5424].
-   By definition, Outbound Maximum Prefix Limits are Post-Policy.
+   implementation specific consideration, but SHOULD include methods
+   such as Syslog [RFC5424].  By definition, Outbound Maximum Prefix
+   Limits are Post-Policy.
 
    The Adj-RIBs-Out stores information selected by the local BGP speaker
    for advertisement to its neighbors.  The routing information stored
@@ -191,18 +192,18 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
    would be more desirable to tear down a BGP session rather than
    causing or propagating a route leak.
 
-5.  Considerations for Operations with Multi-Protocol BGP-4
+4.  Considerations for Operations with Multi-Protocol BGP
 
-6.  Considerations for soft thresholds
+5.  Considerations for soft thresholds
 
    describe soft and hard limits (warning vs teardown)
 
-7.  Security Considerations
+6.  Security Considerations
 
-   TBD.  Maximum Prefix Limits are an essential tool for routing
-   operations.
+   Maximum Prefix Limits are an essential tool for routing operations
+   and SHOULD be used to increase stability.
 
-8.  IANA Considerations
+7.  IANA Considerations
 
    This memo requests that IANA updates the name of subcode "Maximum
    Number of Prefixes Reached" to "Threshold exceeded: Maximum Number of
@@ -220,21 +221,22 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
 
 
 
-
-Snijders & Aelmans        Expires June 23, 2019                 [Page 4]
+Snijders & Aelmans      Expires February 28, 2020               [Page 4]
 
-Internet-Draft          BGP Maximum Prefix Limits          December 2018
+Internet-Draft          BGP Maximum Prefix Limits            August 2019
 
 
-9.  Acknowledgments
+8.  Acknowledgments
 
    The authors would like to thank Saku Ytti and John Heasley (NTT
    Communications), Jeff Haas, Colby Barth and John Scudder (Juniper
    Networks), Martijn Schmidt (i3D.net), Teun Vink (BIT), Sabri Berisha
-   (eBay), Martin Pels (Quanza) and Steven Bakker (AMS-IX) for their
-   support, insightful review, and comments.
+   (eBay), Martin Pels (Quanza), Steven Bakker (AMS-IX), Aftab Siddiqui
+   (ISOC), Yu Tianpeng, Ruediger Volk (Deutsche Telekom), Robert Raszuk
+   (Bloomberg) and Jakob Heitz (Cisco) for their support, insightful
+   review, and comments.
 
-10.  Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION
+9.  Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION
 
    This section records the status of known implementations of the
    protocol defined by this specification at the time of posting of this
@@ -275,92 +277,104 @@ Internet-Draft          BGP Maximum Prefix Limits          December 2018
 
 
 
-
-
-Snijders & Aelmans        Expires June 23, 2019                 [Page 5]
+Snijders & Aelmans      Expires February 28, 2020               [Page 5]
 
-Internet-Draft          BGP Maximum Prefix Limits          December 2018
+Internet-Draft          BGP Maximum Prefix Limits            August 2019
 
 
-   +--------------+----------------+------------------------+----------+
-   |    Vendor    |  Type A Pre-   |   Type B Post-Policy   | Outbound |
-   |              |     Policy     |                        |          |
-   +--------------+----------------+------------------------+----------+
-   | Cisco IOS XR |                |     maximum-prefix     |          |
-   +--------------+----------------+------------------------+----------+
-   | Cisco IOS XE |                |     maximum-prefix     |          |
-   +--------------+----------------+------------------------+----------+
-   |   Juniper    |  prefix-limit  | accepted-prefix-limit, |          |
-   |   Junos OS   |                |    or prefix-limit     |          |
-   |              |                |  combined with 'keep   |          |
-   |              |                |         none'          |          |
-   +--------------+----------------+------------------------+----------+
-   | Nokia SR OS  |  prefix-limit  |                        |          |
-   +--------------+----------------+------------------------+----------+
-   | NIC.CZ BIRD  |  'import keep  |   'import limit' or    |  export  |
-   |              |   filtered'    |    'receive limit'     |  limit   |
-   |              | combined with  |                        |          |
-   |              |    'receive    |                        |          |
-   |              |     limit'     |                        |          |
-   +--------------+----------------+------------------------+----------+
-   |   OpenBSD    |   max-prefix   |                        |          |
-   |   OpenBGPD   |                |                        |          |
-   +--------------+----------------+------------------------+----------+
+   +-------------+----------------+-------------------------+----------+
+   |    Vendor   |  Type A Pre-   |    Type B Post-Policy   | Outbound |
+   |             |     Policy     |                         |          |
+   +-------------+----------------+-------------------------+----------+
+   |  Cisco IOS  |                |      maximum-prefix     |          |
+   |      XR     |                |                         |          |
+   +-------------+----------------+-------------------------+----------+
+   |  Cisco IOS  |                |      maximum-prefix     |          |
+   |      XE     |                |                         |          |
+   +-------------+----------------+-------------------------+----------+
+   |   Juniper   |  prefix-limit  |  accepted-prefix-limit, |          |
+   |   Junos OS  |                |     or prefix-limit     |          |
+   |             |                |   combined with 'keep   |          |
+   |             |                |          none'          |          |
+   +-------------+----------------+-------------------------+----------+
+   | Nokia SR OS |  prefix-limit  |                         |          |
+   +-------------+----------------+-------------------------+----------+
+   | NIC.CZ BIRD |  'import keep  |    'import limit' or    |  export  |
+   |             |   filtered'    |     'receive limit'     |  limit   |
+   |             | combined with  |                         |          |
+   |             |    'receive    |                         |          |
+   |             |     limit'     |                         |          |
+   +-------------+----------------+-------------------------+----------+
+   |   OpenBSD   |   max-prefix   |                         |          |
+   |   OpenBGPD  |                |                         |          |
+   +-------------+----------------+-------------------------+----------+
+   |  Arista EOS | maximum-routes | maximum-accepted-routes |          |
+   +-------------+----------------+-------------------------+----------+
+   |    Huawei   |  peer route-   |                         |          |
+   |    VRPv5    |     limit      |                         |          |
+   +-------------+----------------+-------------------------+----------+
+   |    Huawei   |  peer route-   |     peer route-limit    |          |
+   |    VRPv8    |     limit      |      accept-prefix      |          |
+   +-------------+----------------+-------------------------+----------+
 
-                            Snijders, [RIPE77]
+                  First presented by Snijders at [RIPE77]
 
       Table 1: Maximum prefix limits capabilities per implementation
 
-11.  Appendix: Implementation Guidance
+10.  Appendix: Implementation Guidance
 
    1) make it clear who does what: if A sends too many prefixes to B A
    should see "ABC" in log B should see "DEF" in log to make it clear
    which of the two parties does what 2) recommended by default
-   automatictly restart after between 15 and 30 minutes
+   automatically restart after between 15 and 30 minutes
 
-12.  References
 
-12.1.  Normative References
+
+
+
+
+Snijders & Aelmans      Expires February 28, 2020               [Page 6]
+
+Internet-Draft          BGP Maximum Prefix Limits            August 2019
+
+
+11.  References
+
+11.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/info/rfc2119>.
-
-
-
-
-
-
-
-Snijders & Aelmans        Expires June 23, 2019                 [Page 6]
-
-Internet-Draft          BGP Maximum Prefix Limits          December 2018
-
+              DOI 10.17487/RFC2119, March 1997, <https://www.rfc-
+              editor.org/info/rfc2119>.
 
    [RFC4271]  Rekhter, Y., Ed., Li, T., Ed., and S. Hares, Ed., "A
               Border Gateway Protocol 4 (BGP-4)", RFC 4271,
-              DOI 10.17487/RFC4271, January 2006,
-              <https://www.rfc-editor.org/info/rfc4271>.
+              DOI 10.17487/RFC4271, January 2006, <https://www.rfc-
+              editor.org/info/rfc4271>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
-12.2.  Informative References
+   [RFC8538]  Patel, K., Fernando, R., Scudder, J., and J. Haas,
+              "Notification Message Support for BGP Graceful Restart",
+              RFC 8538, DOI 10.17487/RFC8538, March 2019,
+              <https://www.rfc-editor.org/info/rfc8538>.
+
+11.2.  Informative References
 
    [RFC5424]  Gerhards, R., "The Syslog Protocol", RFC 5424,
-              DOI 10.17487/RFC5424, March 2009,
-              <https://www.rfc-editor.org/info/rfc5424>.
+              DOI 10.17487/RFC5424, March 2009, <https://www.rfc-
+              editor.org/info/rfc5424>.
 
    [RFC7908]  Sriram, K., Montgomery, D., McPherson, D., Osterweil, E.,
               and B. Dickson, "Problem Definition and Classification of
               BGP Route Leaks", RFC 7908, DOI 10.17487/RFC7908, June
               2016, <https://www.rfc-editor.org/info/rfc7908>.
 
-   [RIPE77]   Snijders, "Robust Routing Policy Architecture", May 2018,
-              <https://ripe77.ripe.net/wp-content/uploads/presentations/
-              59-RIPE77_Snijders_Routing_Policy_Architecture.pdf>.
+   [RIPE77]   Snijders, , "Robust Routing Policy Architecture", May
+              2018, <https://ripe77.ripe.net/wp-content/uploads/presenta
+              tions/59-RIPE77_Snijders_Routing_Policy_Architecture.pdf>.
 
 Authors' Addresses
 
@@ -371,6 +385,13 @@ Authors' Addresses
    The Netherlands
 
    Email: job@ntt.net
+
+
+
+
+Snijders & Aelmans      Expires February 28, 2020               [Page 7]
+
+Internet-Draft          BGP Maximum Prefix Limits            August 2019
 
 
    Melchior Aelmans
@@ -389,4 +410,39 @@ Authors' Addresses
 
 
 
-Snijders & Aelmans        Expires June 23, 2019                 [Page 7]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Snijders & Aelmans      Expires February 28, 2020               [Page 8]
