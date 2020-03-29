@@ -23,6 +23,7 @@
 <rfc category="std"
     ipr="trust200902"
     docName="draft-sas-idr-maxprefix-inbound-00"
+    updates="4271"
     submissionType="IETF">
 
     <front>
@@ -61,7 +62,6 @@
         </author>
 
         <author fullname="Massimiliano Stucchi" initials="M." surname="Stucchi">
-            <organization></organization>
 
             <address>
                 <email>max@stucchi.ch</email>
@@ -149,9 +149,6 @@
                 <!-- improve the names to make it clear which side does what -->
                 This memo requests that IANA updates the name of subcode "Maximum Number of Prefixes Reached" to "Threshold exceeded: Maximum Number of Prefixes Received" in the "Cease NOTIFICATION message subcodes" registry under the "Border Gateway Protocol (BGP) Parameters" group.
             </t>
-            <t>
-                This memo requests that IANA assigns a new subcode named "Threshold exceeded: Maximum Number of Prefixes Send" in the "Cease NOTIFICATION message subcodes" registry under the "Border Gateway Protocol (BGP) Parameters" group.
-            </t>
         </section>
         <section title="Acknowledgments">
             <t>
@@ -181,16 +178,15 @@
                     <ttcol align="center" width="20%">Vendor</ttcol>
                     <ttcol align="center">Type A Pre-Policy</ttcol>
                     <ttcol align="center">Type B Post-Policy</ttcol>
-                    <ttcol align="center">Outbound</ttcol>
-                    <c>Cisco IOS XR</c><c></c><c>maximum-prefix</c><c></c>
-                    <c>Cisco IOS XE</c><c></c><c>maximum-prefix</c><c></c>
-                    <c>Juniper Junos OS</c><c>prefix-limit</c><c>accepted-prefix-limit, or prefix-limit combined with 'keep none'</c><c></c>
-                    <c>Nokia SR OS</c><c>prefix-limit</c><c></c><c></c>
-                    <c>NIC.CZ BIRD</c><c>'import keep filtered' combined with 'receive limit'</c><c>'import limit' or 'receive limit'</c><c>export limit</c>
-                    <c>OpenBSD OpenBGPD</c><c>max-prefix</c><c></c><c></c>
-                    <c>Arista EOS</c><c>maximum-routes</c><c>maximum-accepted-routes</c><c></c>
-                    <c>Huawei VRPv5</c><c>peer route-limit</c><c></c><c></c>
-                    <c>Huawei VRPv8</c><c>peer route-limit</c><c>peer route-limit accept-prefix</c><c></c>
+                    <c>Cisco IOS XR</c><c></c><c>maximum-prefix</c>
+                    <c>Cisco IOS XE</c><c></c><c>maximum-prefix</c>
+                    <c>Juniper Junos OS</c><c>prefix-limit</c><c>accepted-prefix-limit, or prefix-limit combined with 'keep none'</c>
+                    <c>Nokia SR OS</c><c>prefix-limit</c><c></c>
+                    <c>NIC.CZ BIRD</c><c>'import keep filtered' combined with 'receive limit'</c><c>'import limit' or 'receive limit'</c>
+                    <c>OpenBSD OpenBGPD</c><c>max-prefix</c><c></c>
+                    <c>Arista EOS</c><c>maximum-routes</c><c>maximum-accepted-routes</c>
+                    <c>Huawei VRPv5</c><c>peer route-limit</c><c></c>
+                    <c>Huawei VRPv8</c><c>peer route-limit</c><c>peer route-limit accept-prefix</c>
                     <postamble>First presented by Snijders at <xref target="RIPE77"/></postamble>
                 </texttable>
             </section>

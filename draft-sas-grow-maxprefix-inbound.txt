@@ -4,9 +4,9 @@
 
 Inter-Domain Routing                                         J. Snijders
 Internet-Draft                                        NTT Communications
-Intended status: Standards Track                              M. Aelmans
-Expires: September 30, 2020                             Juniper Networks
-                                                              M. Stucchi
+Updates: 4271 (if approved)                                   M. Aelmans
+Intended status: Standards Track                        Juniper Networks
+Expires: September 30, 2020                                   M. Stucchi
                                                           March 29, 2020
 
 
@@ -81,8 +81,8 @@ Table of Contents
    7.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   4
    8.  Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION   4
    9.  Appendix: Implementation Guidance . . . . . . . . . . . . . .   5
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .   6
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .   6
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .   5
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .   5
      10.2.  Informative References . . . . . . . . . . . . . . . . .   6
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   6
 
@@ -177,11 +177,6 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
    Prefixes Received" in the "Cease NOTIFICATION message subcodes"
    registry under the "Border Gateway Protocol (BGP) Parameters" group.
 
-   This memo requests that IANA assigns a new subcode named "Threshold
-   exceeded: Maximum Number of Prefixes Send" in the "Cease NOTIFICATION
-   message subcodes" registry under the "Border Gateway Protocol (BGP)
-   Parameters" group.
-
 7.  Acknowledgments
 
    The authors would like to thank Saku Ytti and John Heasley (NTT
@@ -221,45 +216,43 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
 
 
 
+
+
+
+
+
 Snijders, et al.       Expires September 30, 2020               [Page 4]
 
 Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
 
 
-   +-------------+----------------+-------------------------+----------+
-   |    Vendor   |  Type A Pre-   |    Type B Post-Policy   | Outbound |
-   |             |     Policy     |                         |          |
-   +-------------+----------------+-------------------------+----------+
-   |  Cisco IOS  |                |      maximum-prefix     |          |
-   |      XR     |                |                         |          |
-   +-------------+----------------+-------------------------+----------+
-   |  Cisco IOS  |                |      maximum-prefix     |          |
-   |      XE     |                |                         |          |
-   +-------------+----------------+-------------------------+----------+
-   |   Juniper   |  prefix-limit  |  accepted-prefix-limit, |          |
-   |   Junos OS  |                |     or prefix-limit     |          |
-   |             |                |   combined with 'keep   |          |
-   |             |                |          none'          |          |
-   +-------------+----------------+-------------------------+----------+
-   | Nokia SR OS |  prefix-limit  |                         |          |
-   +-------------+----------------+-------------------------+----------+
-   | NIC.CZ BIRD |  'import keep  |    'import limit' or    |  export  |
-   |             |   filtered'    |     'receive limit'     |  limit   |
-   |             | combined with  |                         |          |
-   |             |    'receive    |                         |          |
-   |             |     limit'     |                         |          |
-   +-------------+----------------+-------------------------+----------+
-   |   OpenBSD   |   max-prefix   |                         |          |
-   |   OpenBGPD  |                |                         |          |
-   +-------------+----------------+-------------------------+----------+
-   |  Arista EOS | maximum-routes | maximum-accepted-routes |          |
-   +-------------+----------------+-------------------------+----------+
-   |    Huawei   |  peer route-   |                         |          |
-   |    VRPv5    |     limit      |                         |          |
-   +-------------+----------------+-------------------------+----------+
-   |    Huawei   |  peer route-   |     peer route-limit    |          |
-   |    VRPv8    |     limit      |      accept-prefix      |          |
-   +-------------+----------------+-------------------------+----------+
+   +--------------+----------------------+-----------------------------+
+   |    Vendor    |  Type A Pre-Policy   |      Type B Post-Policy     |
+   +--------------+----------------------+-----------------------------+
+   | Cisco IOS XR |                      |        maximum-prefix       |
+   +--------------+----------------------+-----------------------------+
+   | Cisco IOS XE |                      |        maximum-prefix       |
+   +--------------+----------------------+-----------------------------+
+   |   Juniper    |     prefix-limit     |  accepted-prefix-limit, or  |
+   |   Junos OS   |                      |  prefix-limit combined with |
+   |              |                      |         'keep none'         |
+   +--------------+----------------------+-----------------------------+
+   | Nokia SR OS  |     prefix-limit     |                             |
+   +--------------+----------------------+-----------------------------+
+   | NIC.CZ BIRD  |     'import keep     |  'import limit' or 'receive |
+   |              |  filtered' combined  |            limit'           |
+   |              | with 'receive limit' |                             |
+   +--------------+----------------------+-----------------------------+
+   |   OpenBSD    |      max-prefix      |                             |
+   |   OpenBGPD   |                      |                             |
+   +--------------+----------------------+-----------------------------+
+   |  Arista EOS  |    maximum-routes    |   maximum-accepted-routes   |
+   +--------------+----------------------+-----------------------------+
+   | Huawei VRPv5 |   peer route-limit   |                             |
+   +--------------+----------------------+-----------------------------+
+   | Huawei VRPv8 |   peer route-limit   |   peer route-limit accept-  |
+   |              |                      |            prefix           |
+   +--------------+----------------------+-----------------------------+
 
                   First presented by Snijders at [RIPE77]
 
@@ -272,16 +265,6 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
    which of the two parties does what 2) recommended by default
    automatically restart after between 15 and 30 minutes
 
-
-
-
-
-
-Snijders, et al.       Expires September 30, 2020               [Page 5]
-
-Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
-
-
 10.  References
 
 10.1.  Normative References
@@ -290,6 +273,14 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
+
+
+
+
+Snijders, et al.       Expires September 30, 2020               [Page 5]
+
+Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
+
 
    [RFC4271]  Rekhter, Y., Ed., Li, T., Ed., and S. Hares, Ed., "A
               Border Gateway Protocol 4 (BGP-4)", RFC 4271,
@@ -326,18 +317,6 @@ Authors' Addresses
    Email: job@ntt.net
 
 
-
-
-
-
-
-
-
-Snijders, et al.       Expires September 30, 2020               [Page 6]
-
-Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
-
-
    Melchior Aelmans
    Juniper Networks
    Boeing Avenue 240
@@ -354,39 +333,4 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Snijders, et al.       Expires September 30, 2020               [Page 7]
+Snijders, et al.       Expires September 30, 2020               [Page 6]
