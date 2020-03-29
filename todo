@@ -1,5 +1,22 @@
 Todo:
 
+feedback from Sue Hares 3 september 2019
+    - rename from grow to idr
+    - update 4271 (but not 4486, since 4486 links to 4271)
+    - recycle cease code 1 for both pre and post inbound policy
+    - new cease notififation subcode for outbound
+rfc 4271
+    - page 45 / event 8 AutomaticStop, expand
+    - page 71 / 
+
+permutations in new world:
+    - inbound pre-policy limit, keep session open, don't accept new
+    - inbound pre-policy limit, close session
+    - inbound post-policy limit, keep session open, don't accept new
+    - inbound post-policy limit, close session
+    - outbound post-policy limit, keep session open, don't send <<--- moeilijk
+    - outbound post-policy limit, close session
+
 feedback from IETF 104:
 
     - talk with John & Susan from IDR whether the document belongs there or in GROW

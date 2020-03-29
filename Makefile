@@ -1,5 +1,5 @@
 
-BASENAME=draft-sa-grow-maxprefix
+BASENAME=draft-sa-idr-maxprefix
 EXT=.xml
 VERSION=00
 SOURCENAME=${BASENAME}${EXT}

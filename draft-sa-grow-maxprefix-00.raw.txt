@@ -50,14 +50,6 @@ Copyright Notice
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
-
-
-
-Snijders & Aelmans      Expires February 28, 2020               [Page 1]
-
-Internet-Draft          BGP Maximum Prefix Limits            August 2019
-
-
    (http://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
@@ -68,22 +60,22 @@ Internet-Draft          BGP Maximum Prefix Limits            August 2019
 
 Table of Contents
 
-   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-   2.  Inbound Maximum Prefix Limits . . . . . . . . . . . . . . . .   2
-     2.1.  Type A: Pre-Policy Inbound Maximum Prefix Limits  . . . .   3
-     2.2.  Type B: Post-Policy Inbound Maximum Prefix Limits . . . .   3
-   3.  Outbound Maximum Prefix Limits  . . . . . . . . . . . . . . .   3
-   4.  Considerations for Operations with Multi-Protocol BGP . . . .   4
-   5.  Considerations for soft thresholds  . . . . . . . . . . . . .   4
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   4
-   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   4
-   8.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   5
-   9.  Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION   5
-   10. Appendix: Implementation Guidance . . . . . . . . . . . . . .   6
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .   7
-     11.2.  Informative References . . . . . . . . . . . . . . . . .   7
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   7
+   1.  Introduction
+   2.  Inbound Maximum Prefix Limits
+     2.1.  Type A: Pre-Policy Inbound Maximum Prefix Limits
+     2.2.  Type B: Post-Policy Inbound Maximum Prefix Limits
+   3.  Outbound Maximum Prefix Limits
+   4.  Considerations for Operations with Multi-Protocol BGP
+   5.  Considerations for soft thresholds
+   6.  Security Considerations
+   7.  IANA Considerations
+   8.  Acknowledgments
+   9.  Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION
+   10. Appendix: Implementation Guidance
+   11. References
+     11.1.  Normative References
+     11.2.  Informative References
+   Authors' Addresses
 
 1.  Introduction
 
@@ -106,14 +98,6 @@ Table of Contents
    Number of Prefixes Received", and MAY support other actions.
    Reporting when thresholds have been exceeded is an implementation
    specific consideration, but SHOULD include methods such as Syslog
-
-
-
-Snijders & Aelmans      Expires February 28, 2020               [Page 2]
-
-Internet-Draft          BGP Maximum Prefix Limits            August 2019
-
-
    [RFC5424].  Inbound Maximum Prefix Limits can be applied in two
    distinct places in the conceptual model: before or after the
    application of routing policy.
@@ -162,14 +146,6 @@ Internet-Draft          BGP Maximum Prefix Limits            August 2019
    reached: Maximum Number of Prefixes Send".  Implementations MAY
    support additional actions.  The Hard Cease action is defined in
    [RFC8538].  Reporting when thresholds have been exceeded is an
-
-
-
-Snijders & Aelmans      Expires February 28, 2020               [Page 3]
-
-Internet-Draft          BGP Maximum Prefix Limits            August 2019
-
-
    implementation specific consideration, but SHOULD include methods
    such as Syslog [RFC5424].  By definition, Outbound Maximum Prefix
    Limits are Post-Policy.
@@ -215,17 +191,6 @@ Internet-Draft          BGP Maximum Prefix Limits            August 2019
    message subcodes" registry under the "Border Gateway Protocol (BGP)
    Parameters" group.
 
-
-
-
-
-
-
-Snijders & Aelmans      Expires February 28, 2020               [Page 4]
-
-Internet-Draft          BGP Maximum Prefix Limits            August 2019
-
-
 8.  Acknowledgments
 
    The authors would like to thank Saku Ytti and John Heasley (NTT
@@ -255,32 +220,6 @@ Internet-Draft          BGP Maximum Prefix Limits            August 2019
    which vendors have produced implementation of inbound or outbound
    maximum prefix limits.  Each table cell shows the applicable
    configuration keywords if the vendor implemented the feature.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Snijders & Aelmans      Expires February 28, 2020               [Page 5]
-
-Internet-Draft          BGP Maximum Prefix Limits            August 2019
-
 
    +-------------+----------------+-------------------------+----------+
    |    Vendor   |  Type A Pre-   |    Type B Post-Policy   | Outbound |
@@ -327,16 +266,6 @@ Internet-Draft          BGP Maximum Prefix Limits            August 2019
    should see "ABC" in log B should see "DEF" in log to make it clear
    which of the two parties does what 2) recommended by default
    automatically restart after between 15 and 30 minutes
-
-
-
-
-
-
-Snijders & Aelmans      Expires February 28, 2020               [Page 6]
-
-Internet-Draft          BGP Maximum Prefix Limits            August 2019
-
 
 11.  References
 
@@ -387,13 +316,6 @@ Authors' Addresses
    Email: job@ntt.net
 
 
-
-
-Snijders & Aelmans      Expires February 28, 2020               [Page 7]
-
-Internet-Draft          BGP Maximum Prefix Limits            August 2019
-
-
    Melchior Aelmans
    Juniper Networks
    Boeing Avenue 240
@@ -402,47 +324,3 @@ Internet-Draft          BGP Maximum Prefix Limits            August 2019
 
    Email: maelmans@juniper.net
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Snijders & Aelmans      Expires February 28, 2020               [Page 8]
