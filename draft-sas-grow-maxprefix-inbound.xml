@@ -129,27 +129,6 @@
             </section>
         </section>
 
-        <section title="Outbound Maximum Prefix Limits">
-            <t>
-                An operator MAY configure a BGP speaker to terminate its BGP session with a neighbor when the number of address prefixes to be advertised to that neighbor exceeds a locally configured post-policy upper limit.
-                The BGP speaker then MUST send the neighbor a NOTIFICATION message with the Error Code Cease and the Error Subcode "Threshold reached: Maximum Number of Prefixes Send". Implementations MAY support additional actions.
-                The Hard Cease action is defined in <xref target="RFC8538" />.
-                
-                Reporting when thresholds have been exceeded is an implementation specific consideration, but SHOULD include methods such as Syslog <xref target="RFC5424"/>.
-                By definition, Outbound Maximum Prefix Limits are Post-Policy.
-            </t>
-            <t>
-                The Adj-RIBs-Out stores information selected by the local BGP speaker for advertisement to its neighbors.
-                The routing information stored in the Adj-RIBs-Out will be carried in the local BGP speaker's UPDATE messages and advertised to its neighbors <xref target="RFC4271">Section 3.2</xref>.
-                The Outbound Maximum Prefix Limit uses the number of NLRIs per Address Family Identifier (AFI) per Subsequent Address Family Identifier (SAFI), after application of the Export Policy, as input into its threshold comparisons.
-                For example, when an operator configures the Outbound Maximum Prefix Limit for IPv4 Unicast to be 50 on a given EBGP session, and were about to announce its 51st IPv4 Unicast NLRI to the other BGP speaker as a result of the local export policy, the session MUST be terminated.
-            </t>
-            <t>
-                Outbound Maximum Prefix Limits are useful to help dampen the negative effects of a misconfiguration in local policy.
-                In many cases, it would be more desirable to tear down a BGP session rather than causing or propagating a route leak.
-            </t>
-        </section>
-
         <section title="Considerations for Operations with Multi-Protocol BGP">
             <t>
             </t>
