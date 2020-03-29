@@ -161,7 +161,6 @@
                 <list style="hanging">
                     <t>max-prefixes-inbound-pre-policy</t>
                     <t>max-prefixes-inbound-post-policy</t>
-                    <t>max-prefixes-outbound</t>
                 </list>
                     In addition to the above, the authors suggest that the BGP Yang Model is extended in such a way that per peer per AFI/SAFI pair an operator can specify whether to tear down the session or discard sending or receiving updates.
             </t>
@@ -203,32 +202,6 @@
                             </t>
                             <t>
                                 Post-policy limits are useful to help prevent FIB exhaustion and prevent accidental BGP session teardown due to prefixes not accepted by policy anyway.
-                            </t>
-                        </list>
-                    </t>
-                    <t>
-                        9.5.3 Outbound Maximum Prefix Limits
-                    </t>
-                    <t>
-                        <list style="empty">
-                            <t>
-                                An operator MAY configure a BGP speaker to terminate its BGP session with a neighbor when the number of address prefixes to be advertised to that neighbor exceeds a locally configured post-policy upper limit.
-                                The BGP speaker then MUST send the neighbor a NOTIFICATION message with the Error Code Cease and the Error Subcode "Threshold reached: Maximum Number of Prefixes Send". Implementations MAY support additional actions.
-                                The Hard Cease action is defined in <xref target="RFC8538" />.
-                            </t>
-                            <t>
-                                Reporting when thresholds have been exceeded is an implementation specific consideration, but SHOULD include methods such as Syslog <xref target="RFC5424"/>.
-                                By definition, Outbound Maximum Prefix Limits are Post-Policy.
-                            </t>
-                            <t>
-                                The Adj-RIBs-Out stores information selected by the local BGP speaker for advertisement to its neighbors.
-                                The routing information stored in the Adj-RIBs-Out will be carried in the local BGP speaker's UPDATE messages and advertised to its neighbors <xref target="RFC4271">Section 3.2</xref>.
-                                The Outbound Maximum Prefix Limit uses the number of NLRIs per Address Family Identifier (AFI) per Subsequent Address Family Identifier (SAFI), after application of the Export Policy, as input into its threshold comparisons.
-                                For example, when an operator configures the Outbound Maximum Prefix Limit for IPv4 Unicast to be 50 on a given EBGP session, and were about to announce its 51st IPv4 Unicast NLRI to the other BGP speaker as a result of the local export policy, the session MUST be terminated.
-                           </t>
-                            <t>
-                                Outbound Maximum Prefix Limits are useful to help dampen the negative effects of a misconfiguration in local policy.
-                                In many cases, it would be more desirable to tear down a BGP session rather than causing or propagating a route leak.
                             </t>
                         </list>
                     </t>
@@ -309,11 +282,9 @@
             <?rfc include="reference.RFC.2119"?>
             <?rfc include="reference.RFC.8174"?>
             <?rfc include="reference.RFC.4271"?>
-            <?rfc include="reference.RFC.8538"?>
         </references>
         <references title="Informative References">
             <?rfc include="reference.I-D.ietf-idr-bgp-model"?>
-            <?rfc include="reference.RFC.5424"?>
             <?rfc include="reference.RFC.7908"?>
             <reference anchor="RIPE77" target="https://ripe77.ripe.net/wp-content/uploads/presentations/59-RIPE77_Snijders_Routing_Policy_Architecture.pdf">
                 <front>

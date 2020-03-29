@@ -76,15 +76,15 @@ Table of Contents
    4.  BGP Yang Model Considerations - PERHAPS REMOVE BEFORE
        PUBLICATION . . . . . . . . . . . . . . . . . . . . . . . . .   3
    5.  Changes to RFC4271 Section 9  . . . . . . . . . . . . . . . .   4
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   6
-   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   6
-   8.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   6
-   9.  Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION   6
-   10. Appendix: Implementation Guidance . . . . . . . . . . . . . .   7
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .   7
-     11.2.  Informative References . . . . . . . . . . . . . . . . .   8
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   8
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   5
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   5
+   8.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   5
+   9.  Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION   5
+   10. Appendix: Implementation Guidance . . . . . . . . . . . . . .   6
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .   6
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .   6
+     11.2.  Informative References . . . . . . . . . . . . . . . . .   7
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   7
 
 1.  Introduction
 
@@ -172,8 +172,6 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
 
       max-prefixes-inbound-post-policy
 
-      max-prefixes-outbound
-
    In addition to the above, the authors suggest that the BGP Yang Model
    is extended in such a way that per peer per AFI/SAFI pair an operator
    can specify whether to tear down the session or discard sending or
@@ -218,6 +216,8 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
          For example, when an operator configures the post-policy limit
          for IPv4 Unicast to be 50 on a given EBGP session, and the
          other BGP speaker announces a hundred IPv4 Unicast routes of
+         which none are accepted as a result of the local import policy
+
 
 
 
@@ -226,61 +226,12 @@ Snijders, et al.       Expires September 30, 2020               [Page 4]
 Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
 
 
-         which none are accepted as a result of the local import policy
          (and thus not considered for the Loc-RIB by the local BGP
          speaker), the session is not terminated.
 
          Post-policy limits are useful to help prevent FIB exhaustion
          and prevent accidental BGP session teardown due to prefixes not
          accepted by policy anyway.
-
-      9.5.3 Outbound Maximum Prefix Limits
-
-
-
-         An operator MAY configure a BGP speaker to terminate its BGP
-         session with a neighbor when the number of address prefixes to
-         be advertised to that neighbor exceeds a locally configured
-         post-policy upper limit.  The BGP speaker then MUST send the
-         neighbor a NOTIFICATION message with the Error Code Cease and
-         the Error Subcode "Threshold reached: Maximum Number of
-         Prefixes Send".  Implementations MAY support additional
-         actions.  The Hard Cease action is defined in [RFC8538].
-
-         Reporting when thresholds have been exceeded is an
-         implementation specific consideration, but SHOULD include
-         methods such as Syslog [RFC5424].  By definition, Outbound
-         Maximum Prefix Limits are Post-Policy.
-
-         The Adj-RIBs-Out stores information selected by the local BGP
-         speaker for advertisement to its neighbors.  The routing
-         information stored in the Adj-RIBs-Out will be carried in the
-         local BGP speaker's UPDATE messages and advertised to its
-         neighbors Section 3.2 [RFC4271].  The Outbound Maximum Prefix
-         Limit uses the number of NLRIs per Address Family Identifier
-         (AFI) per Subsequent Address Family Identifier (SAFI), after
-         application of the Export Policy, as input into its threshold
-         comparisons.  For example, when an operator configures the
-         Outbound Maximum Prefix Limit for IPv4 Unicast to be 50 on a
-         given EBGP session, and were about to announce its 51st IPv4
-         Unicast NLRI to the other BGP speaker as a result of the local
-         export policy, the session MUST be terminated.
-
-         Outbound Maximum Prefix Limits are useful to help dampen the
-         negative effects of a misconfiguration in local policy.  In
-         many cases, it would be more desirable to tear down a BGP
-         session rather than causing or propagating a route leak.
-
-
-
-
-
-
-
-Snijders, et al.       Expires September 30, 2020               [Page 5]
-
-Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
-
 
 6.  Security Considerations
 
@@ -326,14 +277,7 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
 
 
 
-
-
-
-
-
-
-
-Snijders, et al.       Expires September 30, 2020               [Page 6]
+Snijders, et al.       Expires September 30, 2020               [Page 5]
 
 Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
 
@@ -389,7 +333,7 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
 
 
 
-Snijders, et al.       Expires September 30, 2020               [Page 7]
+Snijders, et al.       Expires September 30, 2020               [Page 6]
 
 Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
 
@@ -403,21 +347,12 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
-   [RFC8538]  Patel, K., Fernando, R., Scudder, J., and J. Haas,
-              "Notification Message Support for BGP Graceful Restart",
-              RFC 8538, DOI 10.17487/RFC8538, March 2019,
-              <https://www.rfc-editor.org/info/rfc8538>.
-
 11.2.  Informative References
 
    [I-D.ietf-idr-bgp-model]
               Jethanandani, M., Patel, K., Hares, S., and J. Haas, "BGP
               YANG Model for Service Provider Networks", draft-ietf-idr-
               bgp-model-08 (work in progress), February 2020.
-
-   [RFC5424]  Gerhards, R., "The Syslog Protocol", RFC 5424,
-              DOI 10.17487/RFC5424, March 2009,
-              <https://www.rfc-editor.org/info/rfc5424>.
 
    [RFC7908]  Sriram, K., Montgomery, D., McPherson, D., Osterweil, E.,
               and B. Dickson, "Problem Definition and Classification of
@@ -439,17 +374,6 @@ Authors' Addresses
    Email: job@ntt.net
 
 
-
-
-
-
-
-
-Snijders, et al.       Expires September 30, 2020               [Page 8]
-
-Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
-
-
    Melchior Aelmans
    Juniper Networks
    Boeing Avenue 240
@@ -465,40 +389,4 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Snijders, et al.       Expires September 30, 2020               [Page 9]
+Snijders, et al.       Expires September 30, 2020               [Page 7]
