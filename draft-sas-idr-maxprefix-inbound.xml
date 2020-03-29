@@ -111,25 +111,30 @@
             <t>
                 <list style="empty">
                     <t>
-                        A BGP speaker MAY support the ability to impose a locally-configured, upper bound on the number of address prefixes the speaker is willing to accept from a neighbor (inbound maximum prefix limit) or send to a neighbor (outbound prefix limit).
+                        A BGP speaker MAY support the ability to impose a locally-configured, upper bound on the number of address prefixes the speaker is willing to accept from a neighbor (inbound maximum prefix limit).
                         The limit on the prefixes accepted from a neighbor can be applied before policy processing (Pre-Policy) or after policy processing (Post-Policy).
-                        Outbound prefix limits MUST be measured after policy since the Policy (even a policy of "send all") is run before determining what can be sent.
                         When the upper bound is reached, the speaker, under control of local configuration, either:
                         <list style="letters">
                             <t><!-- option a -->
-                                Discards new address prefixes to or from the neighbor (while maintaining the BGP connection with the neighbor)
+                                Discards new address prefixes from the neighbor (while maintaining the BGP connection with the neighbor).
                             </t>
                             <t> <!-- option b -->
-                                Terminates the BGP connection with the neighbor
+                                Terminates the BGP connection with the neighbor.
                             </t>
                         </list>
                     </t>
                 </list>
             </t>
+            <t>
+                <list style="empty">
+                    <t>
+                        If the BGP speaker decides to terminate its BGP connection with a neighbor because the number of address prefixes received from the neighbor exceeds the locally-configured, upper bound, then the speaker MUST send the neighbor a NOTIFICATION message with the Error Code Cease.
+                    </t>
+                </list>
+            </t>
             <texttable>
                 <ttcol>Subcode</ttcol><ttcol>Symbolic Name</ttcol>
-                <c>1</c><c>Maximum Number of Prefixes Reached</c>
-                <c>TBD</c><c>Threshold exceeded: Self-Destructing, Maximum Number of Prefixes Send</c>
+                <c>1</c><c>Threshold exceeded: Maximum Number of Prefixes Received</c>
             </texttable>
             <t>
                 <list style="empty">
@@ -147,7 +152,7 @@
             <t>
                 <list style="empty">
                     <t>
-                        Possible reasons for an AutomaticStop event are: A BGP speaker receives an UPDATE messages with a number of prefixes for a given peer such that the total prefixes received exceeds the maximum number of prefixes configured (either "Pre-Policy" or "Post-Policy"), or announces more prefixes than through local configuration allowed to.
+                        Possible reasons for an AutomaticStop event are: A BGP speaker receives an UPDATE messages with a number of prefixes for a given peer such that the total prefixes received exceeds the maximum number of prefixes configured (either "Pre-Policy" or "Post-Policy").
                         The local system automatically disconnects the peer.
                     </t>
                 </list>
@@ -162,7 +167,7 @@
                     <t>max-prefixes-inbound-pre-policy</t>
                     <t>max-prefixes-inbound-post-policy</t>
                 </list>
-                    In addition to the above, the authors suggest that the BGP Yang Model is extended in such a way that per peer per AFI/SAFI pair an operator can specify whether to tear down the session or discard sending or receiving updates.
+                    In addition to the above, the authors suggest that the BGP Yang Model is extended in such a way that per peer per AFI/SAFI pair an operator can specify whether to tear down the session or discard receiving updates.
             </t>
         </section>
 
@@ -263,15 +268,7 @@
 
             <section title="Appendix: Implementation Guidance">
             <t>
-                1)
-                make it clear who does what:
-                if A sends too many prefixes to B
-                A should see "ABC" in log
-                B should see "DEF" in log
-                to make it clear which of the two parties does what
-
-                2)
-                recommended by default automatically restart after between 15 and 30 minutes
+                    TBD
             </t>
         </section>
 

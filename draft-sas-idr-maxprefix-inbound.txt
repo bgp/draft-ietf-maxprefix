@@ -117,26 +117,26 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
       A BGP speaker MAY support the ability to impose a locally-
       configured, upper bound on the number of address prefixes the
       speaker is willing to accept from a neighbor (inbound maximum
-      prefix limit) or send to a neighbor (outbound prefix limit).  The
-      limit on the prefixes accepted from a neighbor can be applied
-      before policy processing (Pre-Policy) or after policy processing
-      (Post-Policy).  Outbound prefix limits MUST be measured after
-      policy since the Policy (even a policy of "send all") is run
-      before determining what can be sent.  When the upper bound is
-      reached, the speaker, under control of local configuration,
-      either:
+      prefix limit).  The limit on the prefixes accepted from a neighbor
+      can be applied before policy processing (Pre-Policy) or after
+      policy processing (Post-Policy).  When the upper bound is reached,
+      the speaker, under control of local configuration, either:
 
-      A.  Discards new address prefixes to or from the neighbor (while
-          maintaining the BGP connection with the neighbor)
+      A.  Discards new address prefixes from the neighbor (while
+          maintaining the BGP connection with the neighbor).
 
-      B.  Terminates the BGP connection with the neighbor
+      B.  Terminates the BGP connection with the neighbor.
+
+      If the BGP speaker decides to terminate its BGP connection with a
+      neighbor because the number of address prefixes received from the
+      neighbor exceeds the locally-configured, upper bound, then the
+      speaker MUST send the neighbor a NOTIFICATION message with the
+      Error Code Cease.
 
    +---------+---------------------------------------------------------+
    | Subcode | Symbolic Name                                           |
    +---------+---------------------------------------------------------+
-   | 1       | Maximum Number of Prefixes Reached                      |
-   | TBD     | Threshold exceeded: Self-Destructing, Maximum Number of |
-   |         | Prefixes Send                                           |
+   | 1       | Threshold exceeded: Maximum Number of Prefixes Received |
    +---------+---------------------------------------------------------+
 
       The speaker MAY also log this locally.
@@ -151,9 +151,7 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
       receives an UPDATE messages with a number of prefixes for a given
       peer such that the total prefixes received exceeds the maximum
       number of prefixes configured (either "Pre-Policy" or "Post-
-      Policy"), or announces more prefixes than through local
-      configuration allowed to.  The local system automatically
-      disconnects the peer.
+      Policy").  The local system automatically disconnects the peer.
 
 4.  BGP Yang Model Considerations - PERHAPS REMOVE BEFORE PUBLICATION
 
@@ -163,6 +161,8 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
 
       max-prefixes-inbound-pre-policy
 
+      max-prefixes-inbound-post-policy
+
 
 
 Snijders, et al.       Expires September 30, 2020               [Page 3]
@@ -170,12 +170,10 @@ Snijders, et al.       Expires September 30, 2020               [Page 3]
 Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
 
 
-      max-prefixes-inbound-post-policy
-
    In addition to the above, the authors suggest that the BGP Yang Model
    is extended in such a way that per peer per AFI/SAFI pair an operator
-   can specify whether to tear down the session or discard sending or
-   receiving updates.
+   can specify whether to tear down the session or discard receiving
+   updates.
 
 5.  Changes to RFC4271 Section 9
 
@@ -217,6 +215,8 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
          for IPv4 Unicast to be 50 on a given EBGP session, and the
          other BGP speaker announces a hundred IPv4 Unicast routes of
          which none are accepted as a result of the local import policy
+         (and thus not considered for the Loc-RIB by the local BGP
+         speaker), the session is not terminated.
 
 
 
@@ -225,9 +225,6 @@ Snijders, et al.       Expires September 30, 2020               [Page 4]
 
 Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
 
-
-         (and thus not considered for the Loc-RIB by the local BGP
-         speaker), the session is not terminated.
 
          Post-policy limits are useful to help prevent FIB exhaustion
          and prevent accidental BGP session teardown due to prefixes not
@@ -277,6 +274,9 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
 
 
 
+
+
+
 Snijders, et al.       Expires September 30, 2020               [Page 5]
 
 Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
@@ -316,10 +316,7 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
 
 10.  Appendix: Implementation Guidance
 
-   1) make it clear who does what: if A sends too many prefixes to B A
-   should see "ABC" in log B should see "DEF" in log to make it clear
-   which of the two parties does what 2) recommended by default
-   automatically restart after between 15 and 30 minutes
+   TBD
 
 11.  References
 
@@ -329,6 +326,9 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
+
+
+
 
 
 
