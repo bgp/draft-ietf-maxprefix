@@ -1,5 +1,5 @@
 
-BASENAME=draft-sas-idr-maxprefix
+BASENAME=draft-spaghetti-idr-maxprefix
 EXT=.xml
 VERSION=00
 SOURCENAME=${BASENAME}${EXT}
