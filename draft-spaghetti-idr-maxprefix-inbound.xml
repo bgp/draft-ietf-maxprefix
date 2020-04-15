@@ -216,7 +216,7 @@
 
        <section title="Security Considerations">
            <t>
-               Maximum Prefix Limits are an essential tool for routing operations and SHOULD be used to increase stability.
+               Maximum Prefix Limits are an essential tool for routing operations and SHOULD be used to increase stability for the global routing ecosystem.
             </t>
         </section>
         <section title="IANA Considerations">
