@@ -3,11 +3,12 @@
 
 
 Inter-Domain Routing                                         J. Snijders
-Internet-Draft                                        NTT Communications
+Internet-Draft                                                       NTT
 Updates: 4271 (if approved)                                   M. Aelmans
 Intended status: Standards Track                        Juniper Networks
-Expires: September 30, 2020                                   M. Stucchi
-                                                          March 29, 2020
+Expires: October 17, 2020                                     M. Stucchi
+                                                             Independent
+                                                          April 15, 2020
 
 
                    BGP Maximum Prefix Limits Inbound
@@ -42,21 +43,12 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 30, 2020.
+   This Internet-Draft will expire on October 17, 2020.
 
 Copyright Notice
 
    Copyright (c) 2020 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
-
-
-
-
-
-Snijders, et al.       Expires September 30, 2020               [Page 1]
-
-Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
-
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
@@ -70,21 +62,21 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
 
 Table of Contents
 
-   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-   2.  Changes to RFC4271 Section 6  . . . . . . . . . . . . . . . .   2
-   3.  Changes to RFC4271 Section 8  . . . . . . . . . . . . . . . .   3
+   1.  Introduction
+   2.  Changes to RFC4271 Section 6
+   3.  Changes to RFC4271 Section 8
    4.  BGP Yang Model Considerations - PERHAPS REMOVE BEFORE
-       PUBLICATION . . . . . . . . . . . . . . . . . . . . . . . . .   3
-   5.  Changes to RFC4271 Section 9  . . . . . . . . . . . . . . . .   4
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   5
-   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   5
-   8.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   5
-   9.  Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION   5
-   10. Appendix: Implementation Guidance . . . . . . . . . . . . . .   6
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .   6
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .   6
-     11.2.  Informative References . . . . . . . . . . . . . . . . .   7
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   7
+       PUBLICATION
+   5.  Changes to RFC4271 Section 9
+   6.  Security Considerations
+   7.  IANA Considerations
+   8.  Acknowledgments
+   9.  Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION
+   10. Appendix: Implementation Guidance
+   11. References
+     11.1.  Normative References
+     11.2.  Informative References
+   Authors' Addresses
 
 1.  Introduction
 
@@ -104,15 +96,6 @@ Table of Contents
    The following paragraph replaces the second paragraph of Section 6.7
    (Cease), which starts with "A BGP speaker MAY support" and ends with
    "The speaker MAY also log this locally.":
-
-
-
-
-
-Snijders, et al.       Expires September 30, 2020               [Page 2]
-
-Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
-
 
       A BGP speaker MAY support the ability to impose a locally-
       configured, upper bound on the number of address prefixes the
@@ -155,25 +138,18 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
 
 4.  BGP Yang Model Considerations - PERHAPS REMOVE BEFORE PUBLICATION
 
-   In [I-D.ietf-idr-bgp-model] in container 'prefix-limit', a leaf named
-   "max-prefixes" exists.  The authors recommend the BGP Yang Model to
-   be revised to contain the following leaves:
+   According to [I-D.ietf-idr-bgp-model], in the container 'prefix-
+   limit', a leaf named "max-prefixes" exists.  The authors recommend
+   the BGP Yang Model to be revised to contain the following leaves:
 
       max-prefixes-inbound-pre-policy
 
       max-prefixes-inbound-post-policy
 
-
-
-Snijders, et al.       Expires September 30, 2020               [Page 3]
-
-Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
-
-
    In addition to the above, the authors suggest that the BGP Yang Model
-   is extended in such a way that per peer per AFI/SAFI pair an operator
-   can specify whether to tear down the session or discard receiving
-   updates.
+   is extended in such a way that for each peer, for each AFI/SAFI pair,
+   an operator can specify whether to tear down the session or discard
+   received updates.
 
 5.  Changes to RFC4271 Section 9
 
@@ -218,14 +194,6 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
          (and thus not considered for the Loc-RIB by the local BGP
          speaker), the session is not terminated.
 
-
-
-
-Snijders, et al.       Expires September 30, 2020               [Page 4]
-
-Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
-
-
          Post-policy limits are useful to help prevent FIB exhaustion
          and prevent accidental BGP session teardown due to prefixes not
          accepted by policy anyway.
@@ -233,7 +201,8 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
 6.  Security Considerations
 
    Maximum Prefix Limits are an essential tool for routing operations
-   and SHOULD be used to increase stability.
+   and SHOULD be used to increase stability for the global routing
+   ecosystem.
 
 7.  IANA Considerations
 
@@ -250,7 +219,7 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
    (eBay), Martin Pels (Quanza), Steven Bakker (AMS-IX), Aftab Siddiqui
    (ISOC), Yu Tianpeng, Ruediger Volk (Deutsche Telekom), Robert Raszuk
    (Bloomberg) and Jakob Heitz (Cisco) for their support, insightful
-   review, and comments.
+   reviews, and comments.
 
 9.  Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION
 
@@ -268,19 +237,9 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
    exist.
 
    The below table provides an overview (as of the moment of writing) of
-   which vendors have produced implementation of inbound or outbound
-   maximum prefix limits.  Each table cell shows the applicable
-   configuration keywords if the vendor implemented the feature.
-
-
-
-
-
-
-Snijders, et al.       Expires September 30, 2020               [Page 5]
-
-Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
-
+   which vendors have produced implementation of inbound prefix limits.
+   Each table cell shows the applicable configuration keywords if the
+   vendor implemented the feature.
 
    +--------------+----------------------+-----------------------------+
    |    Vendor    |  Type A Pre-Policy   |      Type B Post-Policy     |
@@ -327,17 +286,6 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
-
-
-
-
-
-
-Snijders, et al.       Expires September 30, 2020               [Page 6]
-
-Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
-
-
    [RFC4271]  Rekhter, Y., Ed., Li, T., Ed., and S. Hares, Ed., "A
               Border Gateway Protocol 4 (BGP-4)", RFC 4271,
               DOI 10.17487/RFC4271, January 2006,
@@ -366,7 +314,7 @@ Internet-Draft      BGP Maximum Prefix Limits Inbound         March 2020
 Authors' Addresses
 
    Job Snijders
-   NTT Communications
+   NTT Ltd.
    Theodorus Majofskistraat 100
    Amsterdam  1065 SZ
    The Netherlands
@@ -384,9 +332,7 @@ Authors' Addresses
 
 
    Massimiliano Stucchi
+   Independent
 
    Email: max@stucchi.ch
 
-
-
-Snijders, et al.       Expires September 30, 2020               [Page 7]
