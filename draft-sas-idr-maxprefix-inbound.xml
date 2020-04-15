@@ -159,18 +159,6 @@
             </t>
         </section>
 
-        <section title="BGP Yang Model Considerations - PERHAPS REMOVE BEFORE PUBLICATION">
-            <t>
-                According to <xref target="I-D.ietf-idr-bgp-model" />, in the container 'prefix-limit', a leaf named "max-prefixes" exists.
-                    The authors recommend the BGP Yang Model to be revised to contain the following leaves:
-                <list style="hanging">
-                    <t>max-prefixes-inbound-pre-policy</t>
-                    <t>max-prefixes-inbound-post-policy</t>
-                </list>
-                    In addition to the above, the authors suggest that the BGP Yang Model is extended in such a way that for each peer, for each AFI/SAFI pair, an operator can specify whether to tear down the session or discard received updates.
-            </t>
-        </section>
-
         <section title="Changes to RFC4271 Section 9">
             <t>
                 This section updates <xref target="RFC4271" /> by adding a subsection after Section 9.4 (Originating BGP routes) to specify various events that can lead up to AutomaticStop (Event 8) in the BGP FSM.
