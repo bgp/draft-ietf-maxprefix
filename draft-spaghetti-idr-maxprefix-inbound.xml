@@ -161,13 +161,13 @@
 
         <section title="BGP Yang Model Considerations - PERHAPS REMOVE BEFORE PUBLICATION">
             <t>
-                In <xref target="I-D.ietf-idr-bgp-model" /> in container 'prefix-limit', a leaf named "max-prefixes" exists.
+                According to <xref target="I-D.ietf-idr-bgp-model" />, in the container 'prefix-limit', a leaf named "max-prefixes" exists.
                     The authors recommend the BGP Yang Model to be revised to contain the following leaves:
                 <list style="hanging">
                     <t>max-prefixes-inbound-pre-policy</t>
                     <t>max-prefixes-inbound-post-policy</t>
                 </list>
-                    In addition to the above, the authors suggest that the BGP Yang Model is extended in such a way that per peer per AFI/SAFI pair an operator can specify whether to tear down the session or discard receiving updates.
+                    In addition to the above, the authors suggest that the BGP Yang Model is extended in such a way that for each peer, for each AFI/SAFI pair, an operator can specify whether to tear down the session or discard received updates.
             </t>
         </section>
 
