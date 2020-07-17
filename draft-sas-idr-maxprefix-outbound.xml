@@ -91,7 +91,7 @@
         <t>
             This document updates <xref target="RFC4271" /> by adding a control mechanism which limits the negative impact of outbound <xref target="RFC7908">route leaks</xref> ini order to prevent resource exhaustion in Border Gateway Protocol (BGP) implementations.
             <xref target="RFC4271" /> described methods to tear down BGP sessions or discard UPDATES after certain inbound thresholds are exceeded. In addition to "inbound maximum prefix limits", this document introduces a specification for "outbound maximum prefix limits".
-            <xref target="draft-sas-idr-maxprefix-inbound" /> updates sections in <xref target="RFC4271" /> to clarify "inbound maximum prefix limits". This documents updates those sections again to add "outbound maximum prefix limits".
+            <xref target="I-D.sas-idr-maxprefix-inbound" /> updates sections in <xref target="RFC4271" /> to clarify "inbound maximum prefix limits". This documents updates those sections again to add "outbound maximum prefix limits".
             </t>
         </section>
         <!--
@@ -322,7 +322,8 @@
             <?rfc include="reference.RFC.2119"?>
             <?rfc include="reference.RFC.8174"?>
             <?rfc include="reference.RFC.4271"?>
-            <?rfc include="reference.RFC.8538"?>
+					<?rfc include="reference.RFC.8538"?>
+					<?rfc include="reference.I-D.sas-idr-maxprefix-inbound"?>
         </references>
         <references title="Informative References">
             <?rfc include="reference.I-D.ietf-idr-bgp-model"?>
