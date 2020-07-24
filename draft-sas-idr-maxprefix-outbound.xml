@@ -89,8 +89,8 @@
 <middle>
     <section title="Introduction">
         <t>
-            This document updates <xref target="RFC4271" /> by adding a control mechanism which limits the negative impact of outbound <xref target="RFC7908">route leaks</xref> ini order to prevent resource exhaustion in Border Gateway Protocol (BGP) implementations.
-            <xref target="RFC4271" /> described methods to tear down BGP sessions or discard UPDATES after certain inbound thresholds are exceeded. In addition to "inbound maximum prefix limits", this document introduces a specification for "outbound maximum prefix limits".
+            This document updates <xref target="RFC4271" /> by adding a control mechanism which limits the negative impact of outbound <xref target="RFC7908">route leaks</xref> in order to prevent resource exhaustion in Border Gateway Protocol (BGP) implementations.
+            <xref target="RFC4271" /> describes methods to tear down BGP sessions or discard UPDATES after certain inbound thresholds are exceeded. In addition to "inbound maximum prefix limits", this document introduces a specification for "outbound maximum prefix limits".
             <xref target="I-D.sas-idr-maxprefix-inbound" /> updates sections in <xref target="RFC4271" /> to clarify "inbound maximum prefix limits". This documents updates those sections again to add "outbound maximum prefix limits".
             </t>
         </section>
@@ -113,25 +113,25 @@
                     <t>
                         A BGP speaker MAY support the ability to impose a locally-configured, upper bound on the number of address prefixes the speaker is willing to accept from a neighbor (inbound maximum prefix limit) or send to a neighbor (outbound prefix limit).
                         The limit on the prefixes accepted from a neighbor can be applied before policy processing (Pre-Policy) or after policy processing (Post-Policy).
-                        Outbound prefix limits MUST be measured after policy since the Policy (even a policy of "send all") is run before determining what can be sent.
+                        Outbound prefix limits MUST be measured after policy since the Policy (even a policy of "send all") is run, before determining what can be sent.
                         When the upper bound is reached, the speaker, under control of local configuration, either:
                         <list style="letters">
                             <t><!-- option a -->
-                                Discards new address prefixes to or from the neighbor (while maintaining the BGP connection with the neighbor).
+                                Discards new address prefixes to or from the neighbor (while maintaining the BGP connection with the neighbor); or
                             </t>
                             <t> <!-- option b -->
-                                Terminates the BGP connection with the neighbor.
+                                Terminates the BGP session with the neighbor.
                             </t>
                         </list>
                         <!-- OLD : If the BGP speaker decides to terminate its BGP connection with a neighbor because the number of address prefixes received from the neighbor exceeds the locally-configured, upper bound, then the speaker MUST send the neighbor a NOTIFICATION message with the Error Code Cease. -->
-                            If the BGP speaker uses option (b) where the limit causes a CEASE Notification, then the CEASE error codes should use:
+                            If the BGP speaker uses option (b), where the limit causes a CEASE Notification, then the CEASE error codes should use:
                     </t>
                 </list>
             </t>
             <texttable>
                 <ttcol>Subcode</ttcol><ttcol>Symbolic Name</ttcol>
                 <c>1</c><c>Threshold exceeded: Maximum Number of Prefixes Received</c>
-                <c>TBD</c><c>Threshold exceeded: Self-Destructing, Maximum Number of Prefixes Send</c>
+                <c>TBD</c><c>Threshold exceeded: Maximum Number of Prefixes Sent</c>
             </texttable>
             <t>
                 <list style="empty">
