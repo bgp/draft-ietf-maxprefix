@@ -2,9 +2,9 @@
 
 ## Feedback from Sue Hares 3 september 2019
 
-* Update 4271 (but not 4486, since 4486 links to 4271)
-* Recycle cease code 1 for both pre and post inbound policy (Not going to do this)
-* New cease notification subcode for outbound
+* ~~Update 4271 (but not 4486, since 4486 links to 4271)~~
+* ~~Recycle cease code 1 for both pre and post inbound policy~~ (Not going to do this)
+* ~~New cease notification subcode for outbound~~
 
 ## RFC4271
 
@@ -17,15 +17,15 @@
 * ~~inbound pre-policy limit, close session~~
 * ~~inbound post-policy limit, keep session open, don't accept new~~
 * ~~inbound post-policy limit, close session~~
-* outbound post-policy limit, keep session open, don't send
-* outbound post-policy limit, close session
+* ~~outbound post-policy limit, keep session open, don't send~~
+* ~~outbound post-policy limit, close session~~
 
 ## Feedback from IETF 104
 
 * ~~Talk with John & Susan from IDR whether the document belongs there or in GROW~~
 * ~~Discuss what things can be done when outbound threshold is met (igor/john)~~
-* Make it very clear that the outbound limit is post-policy (Ruediger)
-* Jared Mauch wants to help (@stucchimax to send an email 17/7/2020)
+* ~~Make it very clear that the outbound limit is post-policy (Ruediger)~~
+* Jared Mauch wants to help (@stucchimax to send an email 24/7/2020)
 
 ## Feedback from IETF 105
 
@@ -62,7 +62,7 @@
        * Protects others against your own misconfigurations
 
 * Considerations when using Multi Protocol BGP-4:
-    * Best current practise is to do ipv4 over ipv4, ipv6 over ipv6
+    * Best current practice is to do IPv4 over IPv4, IPv6 over IPv6
     * Isolation between AFIs / fate sharing between AFIs on single session
     * Implementors should be able to specify per AFI limits
 
