@@ -120,7 +120,7 @@
                                 Discards new address prefixes to or from the neighbor (while maintaining the BGP connection with the neighbor); or
                             </t>
                             <t> <!-- option b -->
-                                Terminates the BGP session with the neighbor.
+																Terminates the BGP session with the neighbor.  This should be done using a Hard Reset according to <xref target="RFC8538" />.
                             </t>
                         </list>
                         <!-- OLD : If the BGP speaker decides to terminate its BGP connection with a neighbor because the number of address prefixes received from the neighbor exceeds the locally-configured, upper bound, then the speaker MUST send the neighbor a NOTIFICATION message with the Error Code Cease. -->
@@ -158,7 +158,7 @@
 
         <section title="Changes to RFC4271 Section 9">
             <t>
-                This section updates <xref target="RFC4271" /> by adding a subsection after Section 9.4 (Originating BGP routes) to specify various events that can lead up to AutomaticStop (Event 8) in the BGP FSM.
+                This section updates <xref target="RFC4271" /> by adding a subsection after Section 9.4 (Originating BGP routes) to specify various events that can lead up to an AutomaticStop (Event 8) in the BGP FSM.
             </t>
             <t>
                 <list style="empty">
@@ -186,7 +186,7 @@
                     <t>
                         <list style="empty">
                             <t>
-                                RFC4271 describes a Policy Information Base (PIB) that contains local policies that can be applied to the information in the Routing Information Base (RIB).
+															<xref target="RFC4271" /> describes a Policy Information Base (PIB) that contains local policies that can be applied to the information in the Routing Information Base (RIB).
                                 The post-policy limit uses the number of NLRIs per Address Family Identifier (AFI) per Subsequent Address Family Identifier (SAFI), after application of the Import Policy as input into its threshold comparisons.
                                 For example, when an operator configures the post-policy limit for IPv4 Unicast to be 50 on a given EBGP session, and the other BGP speaker announces a hundred IPv4 Unicast routes of which none are accepted as a result of the local import policy (and thus not considered for the Loc-RIB by the local BGP speaker), the session is not terminated.
                             </t>
@@ -202,7 +202,7 @@
                         <list style="empty">
                             <t>
                                 An operator MAY configure a BGP speaker to terminate its BGP session with a neighbor when the number of address prefixes to be advertised to that neighbor exceeds a locally configured post-policy upper limit.
-                                The BGP speaker then MUST send the neighbor a NOTIFICATION message with the Error Code Cease and the Error Subcode "Threshold reached: Maximum Number of Prefixes Send". Implementations MAY support additional actions.
+                                The BGP speaker then MUST send the neighbor a NOTIFICATION message with the Error Code "Cease" and the Error Subcode "Threshold reached: Maximum Number of Prefixes Sent". Implementations MAY support additional actions.
                                 The Hard Cease action is defined in <xref target="RFC8538" />.
                             </t>
                             <t>
@@ -277,7 +277,7 @@
                 to note that other implementations may exist.
             </t>
             <t>
-                The below table provides an overview (as of the moment of writing) of which vendors have produced implementation of inbound or outbound maximum prefix limits.
+                The table below provides an overview (as of the moment of writing) of which vendors have produced implementations of inbound or outbound maximum prefix limits.
                 Each table cell shows the applicable configuration keywords if the vendor implemented the feature.
             </t>
             <texttable anchor="table_ex" title="Maximum prefix limits capabilities per implementation" style="all">
@@ -294,7 +294,7 @@
                 <c>Arista EOS</c><c>maximum-routes</c><c>maximum-accepted-routes</c><c></c>
                 <c>Huawei VRPv5</c><c>peer route-limit</c><c></c><c></c>
                 <c>Huawei VRPv8</c><c>peer route-limit</c><c>peer route-limit accept-prefix</c><c></c>
-                <postamble>First presented by Snijders at <xref target="RIPE77"/></postamble>
+                <postamble>First presented by Job Snijders at <xref target="RIPE77"/></postamble>
             </texttable>
             <t>
                   *In testing stage
