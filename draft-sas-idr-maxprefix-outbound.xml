@@ -300,21 +300,6 @@
            </t>
         </section>
 
-        <section title="Appendix: Implementation Guidance">
-            <t>
-                1)
-                make it clear who does what:
-                if A sends too many prefixes to B
-                A should see "ABC" in log
-                B should see "DEF" in log
-                to make it clear which of the two parties does what
-
-                2)
-                recommended by default automatically restart after between 15 and 30 minutes
-            </t>
-        </section>
-
-
     </middle>
     <back>
         <references title="Normative References">
