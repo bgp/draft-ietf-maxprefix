@@ -53,7 +53,7 @@
             <email>max@stucchi.ch</email>
         </address>
     </author>
-		
+
 		<author fullname="Job Snijders" initials="J." surname="Snijders">
         <organization abbrev="NTT">NTT Ltd.</organization>
 
@@ -227,12 +227,11 @@
 
         <section title="Security Considerations">
             <t>
-                Maximum Prefix Limits are an essential tool for routing operations and SHOULD be used to increase stability.
-                <!-- comment from sue: This section does not provide the appropriate depth of security to indicate
-                    why maximum prefix provides a tool for limiting attacks or errors to
-                    bring down networks.
-                -->
-            </t>
+							Maximum Prefix Limits are an essential tool for routing operations and SHOULD be used to increase stability.  They provide a first-line mechanism to avoid route leaks and to avoid unintended routing suggestions to happen between neighbors.  Implementing this measures is only one of the building blocks you need to provide full security, but it is important to build a modular defense system.
+						</t>
+						<t>
+							Stability for the routing table is also an important aspect for implementing the measures included in this draft.  Ensuring that neighbors will not receive an amount of routes that would overload their routing platform contributes to the stability of interconnections and of the Internet as a whole.
+						</t>
         </section>
 
         <section title="IANA Considerations">
