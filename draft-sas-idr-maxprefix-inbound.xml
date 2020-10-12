@@ -115,7 +115,7 @@
                         When the upper bound is reached, the speaker, under control of local configuration, either:
                         <list style="letters">
                             <t><!-- option a -->
-                                Discards new address prefixes from the neighbor (while maintaining the BGP connection with the neighbor).
+                                Discards new address prefixes from the neighbor (while maintaining the BGP connection with the neighbor); or
                             </t>
                             <t> <!-- option b -->
                                 Terminates the BGP connection with the neighbor.
