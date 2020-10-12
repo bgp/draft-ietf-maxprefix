@@ -32,20 +32,6 @@
             BGP Maximum Prefix Limits Inbound
         </title>
 
-        <author fullname="Job Snijders" initials="J." surname="Snijders">
-            <organization abbrev="NTT">NTT Ltd.</organization>
-
-            <address>
-                <postal>
-                    <street>Theodorus Majofskistraat 100</street>
-                    <code>1065 SZ</code>
-                    <city>Amsterdam</city>
-                    <country>The Netherlands</country>
-                </postal>
-                <email>job@ntt.net</email>
-            </address>
-        </author>
-
         <author fullname="Melchior Aelmans" initials="M." surname="Aelmans">
             <organization>Juniper Networks</organization>
 
@@ -68,6 +54,19 @@
             </address>
         </author>
 
+				<author fullname="Job Snijders" initials="J." surname="Snijders">
+            <organization abbrev="NTT">NTT Ltd.</organization>
+
+            <address>
+                <postal>
+                    <street>Theodorus Majofskistraat 100</street>
+                    <code>1065 SZ</code>
+                    <city>Amsterdam</city>
+                    <country>The Netherlands</country>
+                </postal>
+                <email>job@ntt.net</email>
+            </address>
+        </author>
         <date />
         <area>Routing</area>
         <workgroup>Inter-Domain Routing</workgroup>
