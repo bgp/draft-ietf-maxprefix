@@ -115,9 +115,12 @@
                         When the upper bound is reached, the speaker, under control of local configuration, either:
                         <list style="letters">
                             <t><!-- option a -->
-                                Discards new address prefixes from the neighbor (while maintaining the BGP connection with the neighbor); or
-                            </t>
-                            <t> <!-- option b -->
+                                Discards new address prefixes from the neighbor, while maintaining the BGP connection.  As these prefixes are discared, their reachability information is not stored on the local router, which might lead to inconsistent routing behaviour;
+														</t>
+														<t> <!-- Option B -->
+															Receives all the new prefixes exceeding the threshold, accepts them and generates a log;
+														</t>
+                            <t> <!-- option c -->
                                 Terminates the BGP connection with the neighbor.
                             </t>
                         </list>
