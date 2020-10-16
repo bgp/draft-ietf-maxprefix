@@ -117,10 +117,13 @@
                         When the upper bound is reached, the speaker, under control of local configuration, either:
                         <list style="letters">
                             <t><!-- option a -->
-                                Discards new address prefixes to or from the neighbor (while maintaining the BGP connection with the neighbor); or
+                                Discards new address prefixes being sent to the neighbor while maintaining the BGP connection with the neighbor. As these prefixes are discared and their reachability information is not sent to the neighbor it might lead to inconsistent routing behaviour;
                             </t>
-                            <t> <!-- option b -->
-																Terminates the BGP session with the neighbor.  This should be done using a Hard Reset according to <xref target="RFC8538" />.
+			    <t> <!-- Option b -->
+				Sent all prefixes exceeding the threshold and generates a log;
+														</t>
+                            <t> <!-- option c -->
+				Terminates the BGP session with the neighbor.  This should be done using a Hard Reset according to <xref target="RFC8538" />.
                             </t>
                         </list>
                         <!-- OLD : If the BGP speaker decides to terminate its BGP connection with a neighbor because the number of address prefixes received from the neighbor exceeds the locally-configured, upper bound, then the speaker MUST send the neighbor a NOTIFICATION message with the Error Code Cease. -->
@@ -243,23 +246,10 @@
 
         <section title="Acknowledgments">
             <t>
-                The authors would like to thank
-                Saku Ytti and John Heasley (NTT),
-                Jeff Haas, Colby Barth and John Scudder (Juniper Networks),
-                Martijn Schmidt (i3D.net),
-                Teun Vink (BIT),
-                Sabri Berisha (eBay),
-                Martin Pels (Quanza),
-                Steven Bakker (AMS-IX),
-                Aftab Siddiqui (ISOC),
-                Yu Tianpeng,
-                Ruediger Volk (Deutsche Telekom),
-                Robert Raszuk (Bloomberg),
-                Jakob Heitz (Cisco),
-                and Susan Hares (Hickory Hill Consulting)
-                for their support, insightful review, and comments.
+                The authors would like to thank Saku Ytti and John Heasley (NTT Ltd.), Jeff Haas, Colby Barth and John Scudder (Juniper Networks), Martijn Schmidt (i3D.net), Teun Vink (BIT), Sabri Berisha (eBay), Martin Pels (Quanza), Steven Bakker (AMS-IX), Aftab Siddiqui (ISOC), Yu Tianpeng, Ruediger Volk (Deutsche Telekom), Robert Raszuk (Bloomberg), Jakob Heitz (Cisco), Warren Kumari (Google), Ben Maddison (Workonline), Randy Bush, Brian Dickson and Gyan Mishra (Verizon) for their support, insightful reviews, and comments.
             </t>
         </section>
+	
         <section title="Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION">
             <t>
                 This section records the status of known implementations of the
