@@ -118,7 +118,7 @@
                                 Discards new address prefixes from the neighbor, while maintaining the BGP connection.  As these prefixes are discared, their reachability information is not stored on the local router, which might lead to inconsistent routing behaviour;
 														</t>
 														<t> <!-- Option B -->
-															Receives all the new prefixes exceeding the threshold, accepts them and generates a log;
+															Receives all the new prefixes exceeding the threshold, accepts them and generates a log of the event;
 														</t>
                             <t> <!-- option c -->
                                 Terminates the BGP connection with the neighbor.
