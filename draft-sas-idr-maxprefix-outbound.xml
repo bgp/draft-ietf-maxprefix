@@ -54,19 +54,18 @@
         </address>
     </author>
 
-		<author fullname="Job Snijders" initials="J." surname="Snijders">
-        <organization abbrev="NTT">NTT Ltd.</organization>
-
-        <address>
-            <postal>
-                <street>Theodorus Majofskistraat 100</street>
-                <code>1065 SZ</code>
-                <city>Amsterdam</city>
-                <country>The Netherlands</country>
-            </postal>
-            <email>job@ntt.net</email>
-        </address>
-    </author>
+  <author fullname="Job Snijders" initials="J." surname="Snijders">
+    <organization>Fastly</organization>
+    <address>
+      <postal>
+        <street />
+        <code />
+        <city>Amsterdam</city>
+        <country>Netherlands</country>
+      </postal>
+      <email>job@fastly.com</email>
+    </address>
+  </author>
 
     <date />
     <area>Routing</area>
@@ -94,6 +93,7 @@
             <xref target="I-D.sas-idr-maxprefix-inbound" /> updates sections in <xref target="RFC4271" /> to clarify "inbound maximum prefix limits". This documents updates those sections again to add "outbound maximum prefix limits".
             </t>
         </section>
+	
         <!--
             <section title="Application of Control Theory to BGP Operations">
             <t>
@@ -139,7 +139,7 @@
             <t>
                 <list style="empty">
                     <t>
-                        The speaker MAY also log this locally.
+                        The speaker MAY also log the event locally.
                     </t>
                 </list>
             </t>
@@ -227,11 +227,39 @@
                 </list>
             </t>
         </section>
+	
+	<section title="Use cases">
+	    <t>
+		    Egress maximum prefix limits are usefull in a variety of cases. Some of those are outlined in this section.
+            </t>
+		    <section title="Internet use case">
+			    <t>
+				    In order to prevent the BGP speaker from leaking a full routing table to its neighbor operators should 
+				    implement proper routing policy and preferably RFC8212. However, even when implementing both measurements 
+				    an operator could still (accidentaly) announce more routes than intended. Setting a maximum prefix outbound
+				    value prevents this.
+			    </t>
+		    </section>
+		    <section title="CE protection">
+			    <t>
+				    Residential and many business customers connected to the internet using a 'simple' CPE and connected to a single 
+				    Service Provider only needs to accept a single default route and not the full internet table. In order to prevent
+				    overloading the CPE Control Plane, maximum outbound limits should be applied on the session on the PE router.
+			    </t>
+		    </section>
+		    <section title="PE-CE BGP session from operator side">
+			    <t>
+				    -- Change this so it explains that it's extra protection towards the PE so it won't kill the BGP session due to max prefix inbound --
+				    Internet providers PE side gateway PE-CE connections would would generally set maximum prefix  to disconnect 
+				    if maximum prefix is reached. This is a secondary protection mechanism as the primary is prefix length and AS path checks. 
+			    </t>
+		    </section>
+	</section>
 
         <section title="Security Considerations">
             <t>
-							Maximum Prefix Limits are an essential tool for routing operations and SHOULD be used to increase stability.  They provide a first-line mechanism to avoid route leaks and to avoid unintended routing suggestions to happen between neighbors.  Implementing this measures is only one of the building blocks you need to provide full security, but it is important to build a modular defense system.
-						</t>
+				  Maximum Prefix Limits are an essential tool for routing operations and SHOULD be used to increase stability.  They provide a first-line mechanism to avoid route leaks and to avoid unintended routing suggestions to happen between neighbors.  Implementing this measures is only one of the building blocks you need to provide full security, but it is important to build a modular defense system.
+	    </t>
 						<t>
 							Stability for the routing table is also an important aspect for implementing the measures included in this draft.  Ensuring that neighbors will not receive an amount of routes that would overload their routing platform contributes to the stability of interconnections and of the Internet as a whole.
 						</t>
