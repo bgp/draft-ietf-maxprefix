@@ -321,16 +321,16 @@
     </middle>
     <back>
         <references title="Normative References">
-            <?rfc include="reference.RFC.2119"?>
-            <?rfc include="reference.RFC.8174"?>
-            <?rfc include="reference.RFC.4271"?>
-					<?rfc include="reference.RFC.8538"?>
-					<?rfc include="reference.I-D.sas-idr-maxprefix-inbound"?>
+					<?rfc include="reference.RFC.2119.xml"?>
+            <?rfc include="reference.RFC.8174.xml"?>
+            <?rfc include="reference.RFC.4271.xml"?>
+					<?rfc include="reference.RFC.8538.xml"?>
+					<?rfc include="reference.I-D.sas-idr-maxprefix-inbound.xml"?>
         </references>
         <references title="Informative References">
-            <?rfc include="reference.I-D.ietf-idr-bgp-model"?>
-            <?rfc include="reference.RFC.5424"?>
-            <?rfc include="reference.RFC.7908"?>
+            <?rfc include="reference.I-D.ietf-idr-bgp-model.xml"?>
+            <?rfc include="reference.RFC.5424.xml"?>
+            <?rfc include="reference.RFC.7908.xml"?>
             <reference anchor="RIPE77" target="https://ripe77.ripe.net/wp-content/uploads/presentations/59-RIPE77_Snijders_Routing_Policy_Architecture.pdf">
                 <front>
                     <title>Robust Routing Policy Architecture</title>
