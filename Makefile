@@ -1,7 +1,7 @@
 
 BASENAME=draft-sas-idr-maxprefix
 EXT=.xml
-VERSION=01
+VERSION=02
 SOURCENAME=${BASENAME}${EXT}
 DRAFTNAME=${BASENAME}-${VERSION}
 
@@ -10,12 +10,8 @@ all:
 	echo "Dir exists, not creating it"; \
 	else mkdir ${DRAFTNAME}; \
 	fi
-	xml2rfc ${BASENAME}-outbound${EXT} -b ${DRAFTNAME} --raw --text --html
-	xml2rfc ${BASENAME}-inbound${EXT} -b ${DRAFTNAME} --raw --text --html
-
-text:
-	xml2rfc ${BASENAME}-outbound${EXT} -b ${DRAFTNAME} --raw
-	xml2rfc ${BASENAME}-inbound${EXT} -b ${DRAFTNAME} --raw
+	xml2rfc ${BASENAME}-outbound${EXT} -b ${DRAFTNAME} --text --html
+	xml2rfc ${BASENAME}-inbound${EXT} -b ${DRAFTNAME} --text --html
 
 paginated:
 	xml2rfc ${BASENAME}-outbound${EXT} -b ${DRAFTNAME} --text
