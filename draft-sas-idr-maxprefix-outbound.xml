@@ -237,7 +237,7 @@
 	
 	<section title="Use cases">
 	    <t>
-		    Egress maximum prefix limits are usefull in a variety of cases. Some of those are outlined in this section.
+		    Egress maximum prefix limits are useful in a variety of cases. Some of those are outlined in this section.
             </t>
 		    <section title="Internet use case">
 			    <t>
@@ -281,7 +281,7 @@
 
         <section title="Acknowledgments">
             <t>
-                The authors would like to thank Saku Ytti and John Heasley (NTT Ltd.), Jeff Haas, Colby Barth and John Scudder (Juniper Networks), Martijn Schmidt (i3D.net), Teun Vink (BIT), Sabri Berisha (eBay), Martin Pels (Quanza), Steven Bakker (AMS-IX), Aftab Siddiqui (ISOC), Yu Tianpeng, Ruediger Volk (Deutsche Telekom), Robert Raszuk (Bloomberg), Jakob Heitz (Cisco), Warren Kumari (Google), Ben Maddison (Workonline), Randy Bush, Brian Dickson and Gyan Mishra (Verizon) for their support, insightful reviews, and comments.
+                The authors would like to thank Saku Ytti and John Heasley (NTT Ltd.), Jeff Haas, Colby Barth and John Scudder (Juniper Networks), Martijn Schmidt (i3D.net), Teun Vink (BIT), Sabri Berisha (Arista), Martin Pels (Quanza), Steven Bakker (AMS-IX), Aftab Siddiqui (ISOC), Yu Tianpeng, Ruediger Volk (Deutsche Telekom), Robert Raszuk (Bloomberg), Jakob Heitz (Cisco), Warren Kumari (Google), Ben Maddison (Workonline), Randy Bush, Brian Dickson and Gyan Mishra (Verizon) for their support, insightful reviews, and comments.
             </t>
         </section>
 	
