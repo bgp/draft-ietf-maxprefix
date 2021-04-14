@@ -22,7 +22,7 @@
 
 <rfc category="std"
     ipr="trust200902"
-    docName="draft-sas-idr-maxprefix-inbound-01"
+    docName="draft-sas-idr-maxprefix-inbound-02"
     updates="4271"
     submissionType="IETF">
 
@@ -55,7 +55,7 @@
 				</author>
 
 				<author fullname="Job Snijders" initials="J." surname="Snijders">
-					<organization abbrev="NTT">Fastly</organization>
+					<organization abbrev="Fastly">Fastly</organization>
 
 					<address>
 						<postal>
