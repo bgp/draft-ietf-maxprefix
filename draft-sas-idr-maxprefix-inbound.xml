@@ -55,7 +55,7 @@
 				</author>
 
 				<author fullname="Job Snijders" initials="J." surname="Snijders">
-					<organization abbrev="NTT">NTT Ltd.</organization>
+					<organization abbrev="NTT">Fastly</organization>
 
 					<address>
 						<postal>
@@ -64,7 +64,7 @@
 							<city>Amsterdam</city>
 							<country>The Netherlands</country>
 						</postal>
-						<email>job@ntt.net</email>
+						<email>job@fastly.com</email>
 					</address>
 				</author>
         <date />
