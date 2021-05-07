@@ -183,6 +183,9 @@
                             <t>
                                 Pre-policy limits are particularly useful to help dampen the effects of full table route leaks and memory exhaustion when the implementation stores rejected routes.
                             </t>
+			    <t>
+				Operators SHOULD take special care when applying soft-reconfiguration inbound, as it could still expose control plane to exhaustion if no pre-policy limits are available or are not configured. Implementations SHOULD provide means to configure two thresholds for inbound limits.  One before soft-reconfiguration inbound and one after soft-reconfiguration inbound.  This is to prevent soft-reconfiguration inbound to exhaust control plane resources. The threshold before soft-reconfiguration inbound SHOULD be higher than the limit configured after soft-reconfiguration inbound.
+			    </t>
                         </list>
                     </t>
                     <t>
