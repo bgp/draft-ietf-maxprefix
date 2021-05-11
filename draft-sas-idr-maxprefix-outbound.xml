@@ -153,14 +153,17 @@
                 <list style="empty">
                     <t>
                         Possible reasons for an AutomaticStop event, either:
-                        <t>
-                        A BGP speaker receives an UPDATE message with a number of prefixes from a given peer such that the total prefixes received exceeds the maximum number of (inbound) prefixes configured (either "Pre-Policy" or "Post-Policy"); 
-			</t>	
-			<t>	
-                        The Phase 3 Routing Decision function (RFC4271 Section 9.1.3) results in the total number of prefixes in the Adj-RIB-Out for that session exceeding the maximum number of (outbound) prefixes configured.
-			</t>
-                        <t>
-                        In each case, the local system automatically disconnects the peer.
+                        <list style="empty">
+                            <t>
+                               A BGP speaker receives an UPDATE message with a number of prefixes from a given peer such that the total prefixes received exceeds the maximum number of (inbound) prefixes configured (either "Pre-Policy" or "Post-Policy");
+                           </t>
+                           <t>
+                               The Phase 3 Routing Decision function (RFC4271 Section 9.1.3) results in the total number of prefixes in the Adj-RIB-Out for that session exceeding the maximum number of (outbound) prefixes configured.
+                           </t>
+                           <t>
+                               In each case, the local system automatically disconnects the peer.
+                           </t>
+                        </list>
                     </t>
                 </list>
             </t>
