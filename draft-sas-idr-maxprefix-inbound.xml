@@ -176,7 +176,7 @@
                     <t>
                         <list style="empty">
                             <t>
-                                The Adj-RIBs-In stores routing information learned from inbound UPDATE messages that were received from another BGP speaker <xref target="RFC4271">Section 3.2</xref>.
+                                The Adj-RIB-In stores routing information learned from inbound UPDATE messages that were received from another BGP speaker <xref target="RFC4271">Section 3.2</xref>.
                                 The pre-policy limit uses the number of NLRIs per Address Family Identifier (AFI) per Subsequent Address Family Identifier (SAFI) as input into its threshold comparisons.
                                 For example, when an operator configures the pre-policy limit for IPv4 Unicast to be 50 on a given EBGP session, and the other BGP speaker announces its 51st IPv4 Unicast NLRI, the session MUST be terminated. 
                             </t>
