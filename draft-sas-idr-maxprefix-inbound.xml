@@ -274,7 +274,7 @@
             <?rfc include="reference.RFC.4271.xml"?>
         </references>
         <references title="Informative References">
-            <?rfc include="reference.I-D.ietf-idr-bgp-model.xml"?>
+					<!--<?rfc include="reference.I-D.ietf-idr-bgp-model.xml"?>-->
             <?rfc include="reference.RFC.7908.xml"?>
             <reference anchor="RIPE77" target="https://ripe77.ripe.net/wp-content/uploads/presentations/59-RIPE77_Snijders_Routing_Policy_Architecture.pdf">
                 <front>
