@@ -116,17 +116,16 @@
                         Outbound prefix limits MUST be measured after policy, since the Policy (even a policy of "send all") is run before determining what can be sent.
                         When the upper bound is reached, the speaker, under control of local configuration, either:
                         <list style="letters">
-                            <t><!-- option a -->
-                                Discards new address prefixes being sent to the neighbor while maintaining the BGP connection with the neighbor. As these prefixes are discarded and their reachability information is not sent to the neighbor it might lead to inconsistent routing behaviour;
+                            <t>
+                              Discards new address prefixes being sent to the neighbor while maintaining the BGP connection with the neighbor. As these prefixes are discarded and their reachability information is not sent to the neighbor it might lead to inconsistent routing behaviour;
                             </t>
-			    <t> <!-- Option b -->
-				Sends all prefixes exceeding the threshold and generates a log;
+			    									<t>
+															Sends all prefixes exceeding the threshold and generates a log;
 														</t>
-                            <t> <!-- option c -->
-				Terminates the BGP session with the neighbor.  This should be done using a Hard Reset according to <xref target="RFC8538" />.
+                            <t>
+															Terminates the BGP session with the neighbor.  This should be done using a Hard Reset according to <xref target="RFC8538" />.
                             </t>
                         </list>
-                        <!-- OLD : If the BGP speaker decides to terminate its BGP connection with a neighbor because the number of address prefixes received from the neighbor exceeds the locally-configured, upper bound, then the speaker MUST send the neighbor a NOTIFICATION message with the Error Code Cease. -->
                             If the BGP speaker uses option (c), where the limit causes a CEASE Notification, then the CEASE error codes should use:
                     </t>
                 </list>
