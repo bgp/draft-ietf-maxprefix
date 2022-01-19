@@ -184,7 +184,7 @@
                                 Pre-policy limits are particularly useful to help dampen the effects of full table route leaks and memory exhaustion when the implementation stores rejected routes.
                             </t>
 														<t>
-															Operators SHOULD take special care when utilizing methods such as soft-reconfiguration inbound, where the router maintains a table of all the received updates pre-policy, as this could still expose control plane to exhaustion if no pre-policy limits are available or are not configured. Implementations SHOULD provide means to configure two thresholds for inbound limits.  One before policies are applied, and one after.  This is to prevent exhaustion of control plane resources. The threshold before policy SHOULD be higher than or equal to the limit configured after policy.
+															Operators SHOULD take special care when utilizing methods where the router maintains a table of all the received updates pre-policy, as this could still expose control plane to exhaustion if no pre-policy limits are available or are not configured. Implementations SHOULD provide means to configure two thresholds for inbound limits, one before policies are applied, and one after.  This is to prevent exhaustion of control plane resources. The threshold before policy SHOULD be higher than or equal to the limit configured after policy.
 														</t>
 													</list>
                     </t>
