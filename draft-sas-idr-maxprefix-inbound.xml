@@ -56,11 +56,8 @@
 
 				<author fullname="Job Snijders" initials="J." surname="Snijders">
 					<organization abbrev="Fastly">Fastly</organization>
-
 					<address>
 						<postal>
-							<street>Theodorus Majofskistraat 100</street>
-							<code>1065 SZ</code>
 							<city>Amsterdam</city>
 							<country>Netherlands</country>
 						</postal>
@@ -220,7 +217,7 @@
         </section>
         <section title="Acknowledgments">
             <t>
-                The authors would like to thank Saku Ytti and John Heasley (NTT Ltd.), Jeff Haas, Colby Barth and John Scudder (Juniper Networks), Martijn Schmidt (i3D.net), Teun Vink (BIT), Sabri Berisha (eBay), Martin Pels (Quanza), Steven Bakker (AMS-IX), Aftab Siddiqui (ISOC), Yu Tianpeng, Ruediger Volk (Deutsche Telekom), Robert Raszuk (NTT), Jakob Heitz (Cisco), Warren Kumari (Google), Ben Maddison (Workonline), Randy Bush, Brian Dickson, Gyan Mishra (Verizon) and John John Heasley (NTTA) for their support, insightful reviews, and comments.
+                The authors would like to thank Saku Ytti, John Heasley, Jeff Haas, Colby Barth, John Scudder, Martijn Schmidt, Teun Vink, Sabri Berisha, Martin Pels, Steven Bakker, Aftab Siddiqui, Yu Tianpeng, Ruediger Volk, Robert Raszuk, Jakob Heitz, Warren Kumari, Ben Maddison, Randy Bush, Brian Dickson, and Gyan Mishra for their support, insightful reviews, and comments.
             </t>
         </section>
         <section title="Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION">
