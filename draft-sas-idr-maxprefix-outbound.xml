@@ -126,7 +126,7 @@
 															Terminates the BGP session with the neighbor.  This should be done using a Hard Reset according to <xref target="RFC8538" />.
                             </t>
                         </list>
-                            If the BGP speaker uses option (c), where the limit causes a CEASE Notification, then the CEASE error codes should use:
+                       If the BGP speaker uses option (c), where the limit causes a CEASE Notification, then the CEASE error codes should use:
                     </t>
                 </list>
             </t>
@@ -151,7 +151,7 @@
             <t>
                 <list style="empty">
                     <t>
-                        Possible reasons for an AutomaticStop event, either:
+                        Possible reasons for an AutomaticStop event, are either:
                         <list style="empty">
                             <t>
                                A BGP speaker receives an UPDATE message with a number of prefixes from a given peer such that the total prefixes received exceeds the maximum number of (inbound) prefixes configured (either "Pre-Policy" or "Post-Policy");
@@ -159,10 +159,8 @@
                            <t>
                                The Phase 3 Routing Decision function (RFC4271 Section 9.1.3) results in the total number of prefixes in the Adj-RIB-Out for that session exceeding the maximum number of (outbound) prefixes configured.
                            </t>
-                           <t>
-                               In each case, the local system automatically disconnects the peer.
-                           </t>
-                        </list>
+                       </list>
+											  In both cases, the local system automatically disconnects the peer.
                     </t>
                 </list>
             </t>
@@ -244,8 +242,8 @@
 		    <section title="Internet use case">
 			    <t>
 				    In order to prevent the BGP speaker from leaking a full routing table to its neighbor operators should 
-				    implement proper routing policy and preferably RFC8212. However, even when implementing both measures 
-				    an operator could still (accidentaly) announce more routes than intended. Setting a maximum prefix outbound
+				    implement proper routing policy and preferably RFC8212. However, even when implementing both measures, 
+				    an operator could still (accidentally) announce more routes than intended. Setting a maximum prefix outbound
 				    value prevents this.
 			    </t>
 		    </section>
