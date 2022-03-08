@@ -31,6 +31,16 @@
         <title abbrev="BGP Maximum Prefix Limits Inbound">
             BGP Maximum Prefix Limits Inbound
         </title>
+				<author fullname="Job Snijders" initials="J." surname="Snijders">
+					<organization abbrev="Fastly">Fastly</organization>
+					<address>
+						<postal>
+							<city>Amsterdam</city>
+							<country>Netherlands</country>
+						</postal>
+						<email>job@fastly.com</email>
+					</address>
+				</author>
 
 				<author fullname="Melchior Aelmans" initials="M." surname="Aelmans">
 					<organization>Juniper Networks</organization>
@@ -54,16 +64,6 @@
 					</address>
 				</author>
 
-				<author fullname="Job Snijders" initials="J." surname="Snijders">
-					<organization abbrev="Fastly">Fastly</organization>
-					<address>
-						<postal>
-							<city>Amsterdam</city>
-							<country>Netherlands</country>
-						</postal>
-						<email>job@fastly.com</email>
-					</address>
-				</author>
         <date />
         <area>Routing</area>
         <workgroup>Inter-Domain Routing</workgroup>
