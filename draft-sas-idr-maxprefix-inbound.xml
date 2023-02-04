@@ -22,8 +22,8 @@
      xmlns:xi="http://www.w3.org/2001/XInclude">
 
   <front>
-    <title abbrev="BGP Maximum Prefix Limits Inbound">
-      BGP Maximum Prefix Limits Inbound
+    <title>
+      Inbound BGP Maximum Prefix Limits
     </title>
 
     <author fullname="Job Snijders" initials="J." surname="Snijders">
@@ -66,7 +66,7 @@
 
     <abstract>
       <t>
-        This document describes mechanisms to limit the negative impact of <xref target="RFC7908">route leaks</xref> and/or resource exhaustion in BGP <xref target="RFC4271" /> implementations.
+        This document describes two threshold types to consider when receiving BGP address prefixes from adjacent systems in order to limit the negative impact of <xref target="RFC7908">route leaks</xref> and/or resource exhaustion in BGP <xref target="RFC4271" /> implementations.
       </t>
     </abstract>
 
@@ -81,210 +81,208 @@
 
   <section title="Introduction">
     <t>
-      This document updates <xref target="RFC4271" /> by revising control mechanism which limit the negative impact of <xref target="RFC7908">route leaks</xref> and/or resource exhaustion in Border Gateway Protocol (BGP) implementations.
-      While <xref target="RFC4271" /> described methods to tear down BGP sessions or discard UPDATES after certain thresholds are exceeded, some nuances in this specification were missing resulting in inconsistencies between BGP implementations.
+      This document updates <xref target="RFC4271" /> and describes a revision of the control mechanism which helps limit the negative impact of <xref target="RFC7908">route leaks</xref> and/or resource exhaustion in Border Gateway Protocol (BGP) implementations.
+      While <xref target="RFC4271" /> described the concept of automatically tearing down BGP sessions or discarding UPDATES after the configured maximum number of prefixes received threshold has been exceeded, operational experience suggests it to be beneficial to recognize two distinct subtypes of this threshold.
+      This document introduces a differentiation between Pre-Policy and Post-Policy maximum prefix limits.
     </t>
   </section>
 
-<!--
-        <section title="Application of Control Theory to BGP Operations">
-            <t>
-            </t>
-        </section>
--->
-
-    <section title="Changes to RFC4271 Section 6">
-      <t>
-        This section updates <xref target="RFC4271" /> to specify what events can result in AutomaticStop (Event 8) in the BGP FSM.
-      </t>
-      <t>
-        The following paragraph replaces the second paragraph of Section 6.7 (Cease), which starts with "A BGP speaker MAY support" and ends with "The speaker MAY also log this locally.":
-      </t>
-      <t>
-        <list style="empty">
-          <t>
-            A BGP speaker MAY support the ability to impose a locally-configured, upper bound on the number of address prefixes the speaker is willing to accept from a neighbor (inbound maximum prefix limit).
-            The limit on the prefixes accepted from a neighbor can be applied before policy processing (Pre-Policy) or after policy processing (Post-Policy).
-            When the upper bound is reached, the speaker, under control of local configuration, either:
-            <list style="letters">
-              <t><!-- option a -->
-                Discards new address prefixes from the neighbor, while maintaining the BGP connection.  As these prefixes are discared, their reachability information is not stored on the local router, which might lead to inconsistent routing behaviour;
-              </t>
-              <t> <!-- Option B -->
-                Receives all the new prefixes exceeding the threshold, accepts them and generates a log of the event;
-              </t>
-              <t> <!-- option c -->
-                Terminates the BGP connection with the neighbor.
-              </t>
-            </list>
-          </t>
-        </list>
-      </t>
-      <t>
-        <list style="empty">
-          <t>
-            If the BGP speaker decides to terminate its BGP connection with a neighbor because the number of address prefixes received from the neighbor exceeds the locally-configured, upper bound, then the speaker MUST send the neighbor a NOTIFICATION message with the Error Code Cease.
-          </t>
-        </list>
-      </t>
-
-      <texttable>
-        <ttcol>Subcode</ttcol><ttcol>Symbolic Name</ttcol>
-        <c>1</c><c>Threshold exceeded: Maximum Number of Prefixes Received</c>
-      </texttable>
-      <t>
-        <list style="empty">
-          <t>
-            The speaker MAY also log this locally.
-          </t>
-        </list>
-      </t>
-
-    </section>
-
-    <section title="Changes to RFC4271 Section 8">
-      <t>
-        This section updates <xref target="RFC4271">Section 8</xref>, the paragraph that starts with "One reason for an AutomaticStop event is" and ends with "The local system automatically disconnects the peer." is replaced with:
-      </t>
-      <t>
-        <list style="empty">
-          <t>
-            Possible reasons for an AutomaticStop event are: A BGP speaker receives an UPDATE messages with a number of prefixes for a given peer such that the total prefixes received exceeds the maximum number of prefixes configured (either "Pre-Policy" or "Post-Policy").
-            The local system automatically disconnects the peer.
-          </t>
-        </list>
-      </t>
-    </section>
-
-    <section title="Changes to RFC4271 Section 9">
-      <t>
-        This section updates <xref target="RFC4271" /> by adding a subsection after Section 9.4 (Originating BGP routes) to specify various events that can lead up to AutomaticStop (Event 8) in the BGP FSM.
-      </t>
-      <t>
-        <list style="empty">
-          <t>
-            9.5 Maximum Prefix Limits
-          </t>
-          <t>
-            9.5.1 Pre-Policy Inbound Maximum Prefix Limits
-          </t>
-          <t>
-            <list style="empty">
-              <t>
-                The Adj-RIB-In stores routing information learned from inbound UPDATE messages that were received from another BGP speaker <xref target="RFC4271">Section 3.2</xref>.
-                The pre-policy limit uses the number of NLRIs per Address Family Identifier (AFI) per Subsequent Address Family Identifier (SAFI) as input into its threshold comparisons.
-                For example, when an operator configures the pre-policy limit for IPv4 Unicast to be 50 on a given EBGP session, and the other BGP speaker announces its 51st IPv4 Unicast NLRI, the session MUST be terminated. 
-              </t>
-              <t>
-                Pre-policy limits are particularly useful to help dampen the effects of full table route leaks and memory exhaustion when the implementation stores rejected routes.
-              </t>
-              <t>
-                Operators SHOULD take special care when utilizing methods where the router maintains a table of all the received updates pre-policy, as this could still expose control plane to exhaustion if no pre-policy limits are available or are not configured.
-                Implementations SHOULD provide means to configure two thresholds for inbound limits, one before policies are applied, and one after.
-                This is to prevent exhaustion of control plane resources.
-                The threshold before policy SHOULD be higher than or equal to the limit configured after policy.
-              </t>
-            </list>
-          </t>
-          <t>
-            9.5.2 Post-Policy Inbound Maximum Prefix Limits
-          </t>
-          <t>
-            <list style="empty">
-              <t>
-                RFC4271 describes a Policy Information Base (PIB) that contains local policies that can be applied to the information in the Routing Information Base (RIB).
-                The post-policy limit uses the number of NLRIs per Address Family Identifier (AFI) per Subsequent Address Family Identifier (SAFI), after application of the Import Policy as input into its threshold comparisons.
-                For example, when an operator configures the post-policy limit for IPv4 Unicast to be 50 on a given EBGP session, and the other BGP speaker announces a hundred IPv4 Unicast routes of which none are accepted as a result of the local import policy (and thus not considered for the Loc-RIB by the local BGP speaker), the session is not terminated.
-              </t>
-              <t>
-                Post-policy limits are useful to help prevent FIB exhaustion and prevent accidental BGP session teardown due to prefixes not accepted by policy anyway.
-              </t>
-            </list>
-          </t>
-        </list>
-      </t>
-    </section>
-
-    <section title="Security Considerations">
-      <t>
-        Maximum Prefix Limits are an essential tool for routing operations and SHOULD be used to increase stability for the global routing ecosystem.
-      </t>
-    </section>
-
-    <section title="IANA Considerations">
-      <t>
-        <!-- improve the names to make it clear which side does what -->
-        This memo requests that IANA updates the name of subcode "Maximum Number of Prefixes Reached" to "Threshold exceeded: Maximum Number of Prefixes Received" in the "Cease NOTIFICATION message subcodes" registry under the "Border Gateway Protocol (BGP) Parameters" group.
-      </t>
-    </section>
-    <section title="Acknowledgments">
-      <t>
-        The authors would like to thank Saku Ytti, John Heasley, Jeff Haas, Colby Barth, John Scudder, Martijn Schmidt, Teun Vink, Sabri Berisha, Martin Pels, Steven Bakker, Aftab Siddiqui, Yu Tianpeng, Ruediger Volk, Robert Raszuk, Jakob Heitz, Warren Kumari, Ben Maddison, Randy Bush, Brian Dickson, and Gyan Mishra for their support, insightful reviews, and comments.
-      </t>
-    </section>
-    <section title="Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION">
-      <t>
-        This section records the status of known implementations of the
-        protocol defined by this specification at the time of posting of
-        this Internet-Draft, and is based on a proposal described in
-        RFC7942. The description of implementations in this
-        section is intended to assist the IETF in its decision processes in
-        progressing drafts to RFCs.  Please note that the listing of any
-        individual implementation here does not imply endorsement by the
-        IETF. Furthermore, no effort has been spent to verify the
-        information presented here that was supplied by IETF contributors.
-        This is not intended as, and must not be construed to be, a catalog
-        of available implementations or their features. Readers are advised
-        to note that other implementations may exist.
-      </t>
-      <t>
-        The below table provides an overview (as of the moment of writing) of which vendors have produced implementation of inbound prefix limits.
-        Each table cell shows the applicable configuration keywords if the vendor implemented the feature.
-      </t>
-        <texttable anchor="table_ex" title="Maximum prefix limits capabilities per implementation" style="all">
-          <ttcol align="center" width="20%">Vendor</ttcol>
-          <ttcol align="center">Type A Pre-Policy</ttcol>
-          <ttcol align="center">Type B Post-Policy</ttcol>
-          <c>Cisco IOS XR</c><c></c><c>maximum-prefix</c>
-          <c>Cisco IOS XE</c><c></c><c>maximum-prefix</c>
-          <c>Juniper Junos OS</c><c>prefix-limit</c><c>accepted-prefix-limit, or prefix-limit combined with 'keep none'</c>
-          <c>Nokia SR OS</c><c>prefix-limit</c><c></c>
-          <c>NIC.CZ BIRD</c><c>'import keep filtered' combined with 'receive limit'</c><c>'import limit' or 'receive limit'</c>
-          <c>OpenBSD OpenBGPD</c><c>max-prefix</c><c></c>
-          <c>Arista EOS</c><c>maximum-routes</c><c>maximum-accepted-routes</c>
-          <c>Huawei VRPv5</c><c>peer route-limit</c><c></c>
-          <c>Huawei VRPv8</c><c>peer route-limit</c><c>peer route-limit accept-prefix</c>
-          <postamble>First presented by Snijders at <xref target="RIPE77"/></postamble>
-        </texttable>
-      </section>
-
-      <section title="Appendix: Implementation Guidance">
+  <section title="Changes to RFC4271 Section 6">
+    <t>
+      This section updates <xref target="RFC4271" /> to specify what events can result in AutomaticStop (Event 8) in the BGP FSM.
+    </t>
+    <t>
+      The following paragraph replaces the second paragraph of Section 6.7 (Cease), which starts with "A BGP speaker MAY support..." and ends with "... The speaker MAY also log this locally.":
+    </t>
+    <t>
+      <list style="empty">
         <t>
-          TBD
+          A BGP speaker MAY support the ability to impose a locally-configured, upper bound on the number of address prefixes the speaker is willing to accept from a neighbor (inbound maximum prefix limit).
+          Limitations on the prefixes accepted from a neighbor can be applied before policy processing (Pre-Policy) and after policy processing (Post-Policy).
+          When one of the two thresholds is reached, the speaker, under control of local configuration, either:
+          <list style="letters">
+            <t><!-- option a -->
+              Discards new address prefixes from the neighbor, while maintaining the BGP connection in Established state.
+              Note that as these prefixes are discarded, their reachability information is not stored on the local router, which might lead to inconsistent routing behaviour;
+            </t>
+            <t> <!-- Option B -->
+              Continues to receives new prefixes while exceeding the threshold and generates a log of the event;
+            </t>
+            <t> <!-- option c -->
+              Terminates the BGP connection with the neighbor.
+              This is the safest option.
+            </t>
+          </list>
         </t>
-      </section>
+      </list>
+    </t>
+    <t>
+      <list style="empty">
+        <t>
+          If the BGP speaker decides to terminate its BGP connection with a neighbor because the number of address prefixes received from the neighbor exceeds the locally-configured threshold, then the speaker MUST send the neighbor a NOTIFICATION message with the Error Code Cease.
+        </t>
+      </list>
+    </t>
 
-    </middle>
+    <texttable>
+      <ttcol>Subcode</ttcol><ttcol>Symbolic Name</ttcol>
+      <c>1</c><c>Threshold exceeded: Maximum Number of Prefixes Received</c>
+    </texttable>
+    <t>
+      <list style="empty">
+        <t>
+          The speaker MAY also log this locally.
+        </t>
+      </list>
+    </t>
 
-    <back>
-      <references title="Normative References">
-        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
-        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.4271.xml"/>
-        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
-      </references>
+  </section>
 
-      <references title="Informative References">
-        <!--<?rfc include="reference.I-D.ietf-idr-bgp-model.xml"?>-->
-        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7908.xml"/>
+  <section title="Changes to RFC4271 Section 8">
+    <t>
+      This section updates <xref target="RFC4271">Section 8</xref>, the paragraph that starts with "One reason for an AutomaticStop event is ..." and ends with "... The local system automatically disconnects the peer." is replaced with:
+    </t>
+    <t>
+      <list style="empty">
+        <t>
+          Possible reasons for an AutomaticStop event are: A BGP speaker receives an UPDATE messages with a number of prefixes from a given peer such that the total prefixes received exceeds the maximum number of prefixes configured (either "Pre-Policy" or "Post-Policy").
+          The local system automatically disconnects the peer.
+        </t>
+      </list>
+    </t>
+  </section>
 
-        <reference anchor="RIPE77" target="https://ripe77.ripe.net/wp-content/uploads/presentations/59-RIPE77_Snijders_Routing_Policy_Architecture.pdf">
-          <front>
-            <title>Robust Routing Policy Architecture</title>
-            <author surname="Snijders" fullname="Job Snijders">
-              <organization>NTT Ltd.</organization>
-            </author>
-            <date month="May" year="2018"/>
-          </front>
+  <section title="Changes to RFC4271 Section 9">
+    <t>
+      This section updates <xref target="RFC4271" /> by adding a subsection after Section 9.4 (Originating BGP routes) to specify various events that can lead up to AutomaticStop (Event 8) in the BGP FSM.
+    </t>
+    <t>
+      <list style="empty">
+        <t>
+          9.5 Maximum Prefix Limits
+        </t>
+        <t>
+          9.5.1 Pre-Policy Inbound Maximum Prefix Limits
+        </t>
+        <t>
+          <list style="empty">
+            <t>
+              The Adj-RIB-In stores routing information learned from inbound UPDATE messages that were received from another BGP speaker <xref target="RFC4271">Section 3.2</xref>.
+              A Pre-Policy limit uses the number of NLRIs per Address Family Identifier (AFI) per Subsequent Address Family Identifier (SAFI) as input into its threshold calculation, without having applied any policies from the Policy Information Base.
+              For example, when an operator configures the local system to terminate a given EBGP session when more than 50 IPv4 Unicast NLRIs exist in the Adj-RIB-In, and a given adjacent system announces the 51st IPv4 Unicast NLRI, the session MUST be terminated. 
+            </t>
+            <t>
+              Pre-policy limits are particularly useful to help prevent memory exhaustion during full Internet routing table leaks on systems which store all rejected routes.
+            </t>
+          </list>
+        </t>
+        <t>
+          9.5.2 Post-Policy Inbound Maximum Prefix Limits
+        </t>
+        <t>
+          <list style="empty">
+            <t>
+              RFC4271 describes a Policy Information Base (PIB) that contains local policies that can be applied to the information in the Routing Information Base (RIB).
+              The Post-Policy limit uses the number of NLRIs per Address Family Identifier (AFI) per Subsequent Address Family Identifier (SAFI), after application of the Import Policy as input into its threshold comparisons.
+              For example, when an operator configures the Post-Policy limit for IPv4 Unicast to be 50 on a given EBGP session, and the other BGP speaker announces a hundred IPv4 Unicast routes - none of which are accepted as a result of the local import policy (and thus not considered for the Loc-RIB by the local BGP speaker), the session is not terminated.
+            </t>
+            <t>
+              Post-policy limits are useful to help prevent FIB exhaustion and prevent accidental BGP session teardown due to prefixes not accepted by policy anyway.
+            </t>
+            <t>
+              Operators SHOULD take special care when utilizing methods where the router maintains a table of all the received updates Pre-Policy, as this could still expose control plane to exhaustion if no Pre-Policy limits are available or are not configured.
+              Implementations SHOULD provide means to configure two thresholds for inbound limits: one before policies from the PIB are applied, and one after.
+              This is to prevent exhaustion of control plane resources.
+              A Pre-Policy maximum prefix limit SHOULD equal to or higher than a Post-Policy maximum prefix limit.
+            </t>
+          </list>
+        </t>
+      </list>
+    </t>
+  </section>
+
+  <section title="Security Considerations">
+    <t>
+      Maximum Prefix Limits are an essential tool for routing operations and are RECOMMENDED be used to increase stability for the global routing ecosystem.
+      See <xref target="RFC7454"/> section 8 for more guidance.
+    </t>
+  </section>
+
+  <section title="IANA Considerations">
+    <t>
+      <!-- improve the names to make it clear which side does what -->
+      This memo requests that IANA updates the name of subcode "Maximum Number of Prefixes Reached" to "Threshold exceeded: Maximum Number of Prefixes Received" in the "Cease NOTIFICATION message subcodes" registry under the "Border Gateway Protocol (BGP) Parameters" group.
+    </t>
+  </section>
+  <section title="Acknowledgments">
+    <t>
+      The authors would like to thank Saku Ytti, John Heasley, Jeff Haas, Colby Barth, John Scudder, Martijn Schmidt, Teun Vink, Sabri Berisha, Martin Pels, Steven Bakker, Aftab Siddiqui, Yu Tianpeng, Ruediger Volk, Robert Raszuk, Jakob Heitz, Warren Kumari, Ben Maddison, Randy Bush, Brian Dickson, and Gyan Mishra for their support, insightful reviews, and comments.
+    </t>
+  </section>
+  <section title="Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION">
+    <t>
+      This section records the status of known implementations of the
+      protocol defined by this specification at the time of posting of
+      this Internet-Draft, and is based on a proposal described in
+      RFC7942. The description of implementations in this
+      section is intended to assist the IETF in its decision processes in
+      progressing drafts to RFCs.  Please note that the listing of any
+      individual implementation here does not imply endorsement by the
+      IETF. Furthermore, no effort has been spent to verify the
+      information presented here that was supplied by IETF contributors.
+      This is not intended as, and must not be construed to be, a catalog
+      of available implementations or their features. Readers are advised
+      to note that other implementations may exist.
+    </t>
+    <t>
+      The below table provides an overview (as of the moment of writing) of which vendors have produced implementation of inbound prefix limits.
+      Each table cell shows the applicable configuration keywords if the vendor implemented the feature.
+    </t>
+      <texttable anchor="table_ex" title="Maximum prefix limits capabilities per implementation" style="all">
+        <ttcol align="center" width="20%">Vendor</ttcol>
+        <ttcol align="center">Type A Pre-Policy</ttcol>
+        <ttcol align="center">Type B Post-Policy</ttcol>
+        <c>Cisco IOS XR</c><c></c><c>maximum-prefix</c>
+        <c>Cisco IOS XE</c><c></c><c>maximum-prefix</c>
+        <c>Juniper Junos OS</c><c>prefix-limit</c><c>accepted-prefix-limit, or prefix-limit combined with 'keep none'</c>
+        <c>Nokia SR OS</c><c>prefix-limit</c><c></c>
+        <c>NIC.CZ BIRD</c><c>'import keep filtered' combined with 'receive limit'</c><c>'import limit' or 'receive limit'</c>
+        <c>OpenBSD OpenBGPD</c><c>max-prefix</c><c></c>
+        <c>Arista EOS</c><c>maximum-routes</c><c>maximum-accepted-routes</c>
+        <c>Huawei VRPv5</c><c>peer route-limit</c><c></c>
+        <c>Huawei VRPv8</c><c>peer route-limit</c><c>peer route-limit accept-prefix</c>
+        <postamble>First presented by Snijders at <xref target="RIPE77"/></postamble>
+      </texttable>
+    </section>
+
+    <section title="Appendix: Implementation Guidance">
+      <t>
+        TBD
+      </t>
+    </section>
+
+  </middle>
+
+  <back>
+    <references title="Normative References">
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.4271.xml"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
+    </references>
+
+    <references title="Informative References">
+      <!--<?rfc include="reference.I-D.ietf-idr-bgp-model.xml"?>-->
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7454.xml"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7908.xml"/>
+
+      <reference anchor="RIPE77" target="https://ripe77.ripe.net/wp-content/uploads/presentations/59-RIPE77_Snijders_Routing_Policy_Architecture.pdf">
+        <front>
+          <title>Robust Routing Policy Architecture</title>
+          <author surname="Snijders" fullname="Job Snijders">
+            <organization>NTT Ltd.</organization>
+          </author>
+          <date month="May" year="2018"/>
+        </front>
       </reference>
     </references>
   </back>
