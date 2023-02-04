@@ -66,7 +66,7 @@
 
     <abstract>
       <t>
-        This document describes two threshold types to consider when receiving BGP address prefixes from adjacent systems in order to limit the negative impact of <xref target="RFC7908">route leaks</xref> and/or resource exhaustion in BGP <xref target="RFC4271" /> implementations.
+        This document describes two threshold types to consider when receiving BGP address prefixes from adjacent systems in order to limit the negative impact of route leaks or resource exhaustion in BGP implementations.
       </t>
     </abstract>
 
